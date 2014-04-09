@@ -1,0 +1,1 @@
+﻿/* * This snippet rounds cents to five cents. 2.14 return 2.15. This is to make sure all prices are rounded. * Usage e.g.: Number(roundToFiveCents(price - (price/(100.0+window.posVAT)*100)))*/function roundToFiveCents(v) {  return (Math.round(v*20)/20).toFixed(2) + '';}

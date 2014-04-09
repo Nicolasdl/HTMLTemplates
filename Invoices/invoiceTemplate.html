@@ -1,0 +1,1259 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+	 <title>Receipt</title>
+	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+	<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="jquery.qrcode.min.js"></script> <!-- https://github.com/jeromeetienne/jquery-qrcode -->
+    <script type="text/javascript" src="moment.min.js"></script>
+	<style type="text/css">
+		html,body {
+			width: 932px;
+			height: 1318px;
+			padding-top:10px;
+			
+			padding-left: 30px;
+			padding-right: 40px;		
+			/*width:576px;*/
+            font-size: 1.3em;	
+			position:relative;		
+		}
+		p {
+	font-size: 18px;
+		}
+		        
+        #header {
+			padding:0px;		
+        }
+        
+        #customerCredit{        	
+        }
+		
+		#logo {
+			width: 65%;
+			float: left;
+		}
+    
+		img {
+			max-width:576px;
+		}
+        
+        h1,h2 {
+            margin: 0px;
+        }  
+		          
+		table {
+			border-collapse: collapse;
+			float:right;
+		}
+		table tr.noFiller {
+			height: 5px;
+			
+		}
+		#headline {
+			border-bottom: 1px solid black;
+		}
+		table th {
+			
+		}
+		
+		td {
+			
+		}
+
+		table tr:last-child td {
+			
+		}
+		
+		.name {
+			text-align:left;
+		}
+			
+		p2 {		
+			font-size: 0,5em;
+			margin: 0px;
+			padding: 0px;
+		}
+			
+		#description {
+			width:60%;
+			font-size:20px;		
+		}
+		#receipt {
+			font-size:20px;	
+		}
+			
+		#vatTarief {
+			width:5%;
+			font-size:20px;				
+		}
+		
+		#ep {
+			width:12%;
+			font-size:20px;	
+		}
+		
+		#qty {			
+			width:5%;
+			font-size:20px;		
+		}
+		
+		#total {			
+			width:18%;
+			font-size:20px;				
+		}
+		
+		#receiptItemsList {
+			margin-top:30px;
+			width: 100%;
+			height:600px;
+		}
+		
+		#totalAmount {				
+			width: 100%;				
+		}
+		
+		#paymentsTable {			 
+			 width: 100%;
+			 border-top: 1px solid black;
+			 border-bottom: 1px solid black;
+		}
+		
+		#totalTip {	
+			 width: 100%;
+			 border-top: 1px solid black;				 
+		}
+		
+		#totals {			
+			width: 100%;
+			border-bottom: 1px solid black;
+		}
+		
+		
+		#totalAmount {
+			width: 100%;
+			/*border-top: 1px solid black;*/		
+		}
+		
+		#totalTip {
+			width: 100%;		
+		}
+		
+		.amountPaid {
+			width: 100%;
+			text-align:right;		
+		}
+        
+		#change	{
+			width: 100%	
+		}
+
+		.amount {
+			width: 0,8em;
+		}
+
+		.vatPercent {			
+			width: 60%;			
+		}
+
+		.price {
+            text-align:center;
+			padding-left:10px;
+			/*width: 7em;*/
+		}
+		
+		.tip {	
+		}
+		
+		.tipPaid {
+			width:100%;
+			text-align:right;		
+		}
+				
+		.totalAmountPaid {
+		}
+		
+		.vat{
+			alignment: center;			
+		}
+	
+		.totalAmount {
+		}
+
+        #footer p {
+            margin: 0;
+        }
+		       
+        td.total {
+            width:100%;
+			text-align:right;
+        }
+		
+		td.amountPayed {
+			width:100;
+			text-align:right;
+			
+		}
+		
+		 #paymentType {
+            width:100%;
+			alignment: right;
+        }
+        
+        #total .right {
+            text-align:right;
+        }
+        
+        #vat {
+            
+            width:40%;
+			float:right;
+            
+        }
+		
+		#netPrice {		
+			width:100%;			
+		}
+		
+		#from {
+			float:left;
+			
+			padding-top:20px;
+			padding-left:10px;
+			height:180px;
+			margin-bottom: 20px;
+			text-align:left;
+		
+						
+		}
+		
+		.p1 {
+			
+			font-size:20px;
+		}
+		
+		.p2 {
+		
+			font-size:20px;
+		}
+		
+		#to {
+			float:right;
+			background-color:white;
+			width:55%;
+			padding-top:20px;
+			padding-left:10px;
+			height:180px;
+			margin-bottom: 20px;
+			text-align:left;
+				
+			
+		}
+        
+		.fromDiv {
+			align:left:
+		}
+        
+		.p3 {
+			font-weight:bold;
+				}
+				
+		.p4 {
+			text-align:right;
+			font-weight:bold;
+				}
+		
+		#vatTable {
+			
+			margin-top:20px;
+			
+		}
+		
+		#footerText {
+			width: 50%;
+			float:left;
+		}
+		#bottomLogo {
+			width: 80%;
+			
+		}
+		a:link {
+			color:white;
+			text-decoration:none;
+		}
+		a:hover {
+			color:white;
+			text-decoration:none;
+		}
+		a:visited {
+			color:white;
+			text-decoration:none;
+		}
+		a:active {
+			color:white;
+			text-decoration:none;
+		}
+		#adres {
+			position: absolute; 
+			bottom: 0;
+			width:20%;
+			margin-left:15px;
+		}
+		#bank {
+			position: absolute; 
+			bottom: 0;
+			width:40%;
+			margin-left:250px;
+		}
+		#zetel {
+			position: absolute; 
+			bottom: 0;
+			width:30%;
+			margin-left:700px;
+		}
+		.lijnbtw {
+			border-top:solid black;
+		}
+		.toInfo {
+			text-align:right;
+		}
+		#tableInfo {
+			margin-right:50px;
+		}
+		#factuur {
+			text-align:right;
+		}
+    </style>
+    <script id="headerTemplate" type="text/x-jquery-tmpl">
+        <div id="logo">
+        
+        </div>
+        
+       <div align="right"><img src="${template.logoUrl}" align="right" /></div>
+ 	
+    </script>    
+    <script id="fromTemplate" type="text/x-jquery-tmpl">		
+		<div id="from">
+			<div> <p class="p1">${company.displayName}</p> </div>
+			<div> <p class="p1">${company.street} ${company.streetNumber}</p> </div>
+			<div> <p class="p1">${company.zip} ${company.city}</p> </div>
+			<div> <p class="p1">${company.vat}</p> </div>
+		</div>
+		</script>
+	<script id="toTemplate" type="text/x-jquery-tmpl">
+
+	<table id="tableInfo">
+	<tr id="factuur">
+	<td><p class="p4">FACTUUR</p></td>
+ 	</tr> 
+<tr>
+    <td class="toInfo">
+      <p class="p2">id:</p>
+    </td>
+    <td>
+      <p class="p2">${receipt.oid}</p>
+    </td>
+  </tr>  
+  <tr>
+    <td class="toInfo">
+      <p class="p2">Ref:</p>
+    </td>
+    <td>
+      <p class="p2">${receipt.invoiceNumber}</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="toInfo">
+     <p class="p2"> Factuurdatum:</p>
+    </td>
+    <td>
+      <p class="p2">${dateToString(2)}</p>
+    </td>
+  </tr>
+  <tr>
+    <td class="toInfo">
+     <p class="p2"> Vervaldatum:</p>
+    </td>
+    <td>
+      <p class="p2">${dateToString(2)}</p>
+    </td>
+  </tr>
+  <tr>
+  	<td class="toInfo">
+		<p class="p2">Klantnummer:</p>
+	</td>
+	<p class="p2"></p>
+	<td>
+	</td>
+</tr>
+<tr>
+    <td class="toInfo">
+      <p class="p2">Betaling binnen:</p>
+    </td>
+    <td>
+      <p class="p2"></p>
+    </td>
+  </tr>
+<tr>
+    <td>
+      <p class="p2">admin@digi-brains.be</p>
+	  </td>
+	</tr>
+</table>
+<br />
+
+	
+		
+	
+	</script>
+<!--	<script id="customerCreditTemplate" type="text/x-jquery-tmpl">
+		<div id="waiter"><p>Naam klant : ${firstname} ${lastname}</p></div>
+		<div id="waiter"><p>Resterend Krediet : ${credits}</p></div>
+	</script> 	 -->
+	<script id="receiptItemsTemplate" type="text/x-jquery-tmpl">
+		<tr class="noFiller">		
+			<td class="name">${name}</td>		
+			<td class="vat">${vat}%</td>
+            <td class="price">€ ${((price - price*vat/(100.0+parseFloat(vat)))/amount).toFixed(2)}</td>
+        	<td class="amount">${amount}</td>		
+			<td class="price">€ ${(price - price*vat/(100.0+parseFloat(vat))).toFixed(2)}</td>
+		</tr>
+<!--     {{if additionValues.length}}
+        {{tmpl(additionValues) "#additionValueTemplate"}}
+        {{/if}} -->
+	</script>
+    <script id="additionValueTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<td class="name">* ${name}</td>
+			<td class="price">${price.toFixed(2)}</td>
+		</tr>    
+	</script>
+
+	<script id="receiptTotals" type="text/x-jquery-tmpl">
+		<tr>
+			<td class="totalAmount"><h2>TOTAAL</h2></td>
+			<td class="duePay"><h2 align="right">${total.toFixed(2)}</h2></td>
+		</tr> 
+	</script> 
+
+	<script id="vatTemplate" type="text/x-jquery-tmpl">
+	<div id="vatTable"> 
+	<table>
+    <tr>
+        <th>Totaal excl. BTW</th>
+		<th><p class="p2" align="right">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(2)}</p></th>
+    </tr>
+	<tr>
+		<th>Totaal BTW</th>
+		<th><p class="p2" align="right">${(price - (price - price*vat/(100.0+parseFloat(vat)))).toFixed(2)}</p></th>
+	</tr>
+	<tr>
+		<th class="lijnbtw"></th>
+		<th class="lijnbtw"><p class="p2" align="right">${price.toFixed(2)}</p></th>
+	</tr>
+	</table>	
+	</div>		
+	</script>
+
+	<script id="tablePaymentTypes" type="text/x-jquery-tmpl">
+		<tr>
+			<td class="paymentType"><p align="left">Betaling</p></td>
+			<td class="total"><p align="right">Bedrag</p></td>	
+		</tr>
+	</script>
+	<script id="paymentTypeTemplate" type="text/x-jquery-tmpl">
+		<tr>	
+		<td class="paymentType"><p class="p2">${type}</p></td>
+		<td class="total"><p class="p2">${amount.toFixed(2)}</p></td>	
+		</tr>
+	</script> 
+
+<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
+
+		<tr>
+		
+		{{if typeof(payments) == "undefined"}}
+		<td class="totalAmountPaid"><p class="p2">TE BETALEN</p></td>
+		{{/if}}
+		
+		{{if payments}}
+		<td class="totalAmountPaid"><p class="p2">BETAALD</p></td>
+		{{/if}}
+		
+		 {{if payments}}
+		<td class="amountPaid"><p class="p2">${getPayment(payments).toFixed(2)}</p></td>
+		{{/if}}
+		
+		{{if typeof(payments) == "undefined"}}
+		<td class="amountPaid"><p class="p2">${receipt.total.toFixed(2)}</p></td>
+		{{/if}}
+		
+		</tr>
+
+</script> 
+
+
+		<script id="totalTipTemplate" type="text/x-jquery-tmpl">
+        <table id="total">	
+			
+            <tr>
+                <td class="tip"><h2 align="left"> +Tip</h2></td>
+				<td class="tipPaid"><h2 align="right">${getTotalTip(payments).toFixed(2)}</h2></td>
+           </tr>
+		</table>
+    	</script>
+        <script id="changeTemplate" type="text/x-jquery-tmpl">
+       
+	    <table id="change">	
+			
+            <tr>
+                <td class="tip"><h2 align="left">WISSELGELD</h2></td>
+				<td class="tipPaid"><h2 align="right">${getChange(receipt.total,payments).toFixed(2)}</h2></td>
+           </tr>
+        </table>
+
+    	</script>
+    <script id="footerTemplate" type="text/x-jquery-tmpl">
+
+        <div id="footerText">
+			<p>${template.promotionText}</p>
+            <p>${company.displayName}</p>
+
+            <p>${company.street} ${company.streetNumber}, ${company.zip} ${company.city}, ${company.country}</p>
+			
+            <p>NR: ${completeReceipt.receipt.sequenceNumber}</p>
+
+           <p>${company.telephone}</p>
+		   <p>${company.vat}</p>
+
+</div>
+
+        
+
+    </script>
+    <script id="bottomLogoTemplate" type="text/x-jquery-tmpl">
+		<div id="bottomLogoScript">
+		<img src="${template.bottomLogoUrl}" align="center" />
+		</div>
+		</script>
+	
+	
+
+	
+
+	<script type="text/javascript">
+        
+        
+        function dateToString(option) {
+            //var date = new Date(time);
+            //return moment(date).format('LLL');
+			if(option == 1) {
+				var date = new Date();
+				var dd = date.getDay();
+				var mm = date.getMonth();
+				if(date.getDay() < 10)
+					dd = '0' + date.getDay();
+				if(date.getMonth() < 10)
+					mm = '0' + date.getMonth();
+            	var stringTime = dd + '/' + mm + '/' + date.getFullYear();
+				return stringTime;
+			}
+			if(option == 2) {
+				var date = new Date();
+				var dateExtraMonth = date.setDate(date.getDate() + 30);
+				var dateWithMonth = new Date(dateExtraMonth);
+				var dd = dateWithMonth.getDate();
+				var mm = dateWithMonth.getMonth();
+				
+				if(dd < 10)
+					dd = '0' + dd;
+				if(mm < 10)
+					mm = '0' + mm;
+				var stringTime = dd + '/' + mm + '/' + date.getFullYear();
+				return stringTime;
+			}
+		}
+        
+
+									
+		
+		function ReceiptItem(amount, name,price) {
+
+			this.amount = amount;
+
+			this.name = name;
+
+			this.price = price;
+
+		}
+		
+		
+		function getChange(receiptTotal,payments) {
+			return getPayment(payments) - receiptTotal;	
+		}
+				
+		
+		function getTotalTip(payments) {
+		
+			var totalTip = 0;
+		
+			if(!payments) {
+				return 0;	
+			}
+		
+			for (var pIndex in payments) {
+  				var payment = payments[pIndex];
+				
+				if(payment) 
+	  				totalTip += payment.tips;
+			}
+		
+			//var	totalTips = payments.tips;
+			
+			return totalTip;
+		}
+		
+		function getPayment(payments) {
+		
+			var totalPayment = 0;
+		
+			if(!payments) {
+				return 0;	
+			}
+		
+			for (var pIndex in payments) {
+  				var payment = payments[pIndex];
+				
+				if(payment) 
+	  				totalPayment += payment.amount;
+			}
+		
+			//var	totalTips = payments.tips;
+			
+			return totalPayment;
+			
+		}
+    /*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/	
+    /*
+     var completeReceipt = {
+   company:{
+      "displayName":"posios2",
+      "city":"Gent",
+      "account":null,
+      "zip":"9000",
+      "vat":"123456789",
+      "timezone":1,
+      "street":"gent",
+      "telephone":"0032487623644",
+      "url":"www.posios.com",
+      "streetNumber":"gent",
+      "email":"",
+      "fax":"00000000",
+      "oid":395,
+      "currency":null,
+      "info":"restaurant",
+      "gsm":"",
+      "name":"POSIOS2",
+      "country":"Belgium",
+      "imageLocation":""
+   },
+   receipt:{
+   	  "invoiceNumber":"inv00005",
+      "url":null,
+      "modificationDate":1376920516967,
+      "userId":17762,
+      "sequenceNumber":307,
+      "customerId":236,
+      "oid":"1083165",
+      "info":"",
+      "type":"restaurant",
+      "znumber":0,
+      "printDate":1376920516965,
+      "parentId":"0",
+      "vat":0,
+      "deliveryDate":0,
+      "lockDeviceIdentifier":"FD670983-38A8-4C52-9FD0-D3591A7DD3D6",
+      "numberOfCustomers":4,
+      "receiptItems":[
+         {
+            "displayName":"",
+            "totalPrice":-9,
+            "modifierUserId":17762,
+            "additionUpdateId":0,
+            "modificationDate":1376668042475,
+            "name":"Cola",
+            "pOid":229553,
+            "oid":15098687,
+            "info":"",
+            "creatorUserId":17762,
+            "receiptId":1083165,
+            "customerNr":0,
+            "vat":12,
+            "amount":-3,
+            "pId":"2",
+            "price":3,
+            "kitchenName":"collalalala",
+            "statusId":0,
+            "additionValues":[
+              {
+                "additionId":2889,
+                  "name":"Neen",
+                  "price":0,
+                  "oid":8763,
+                  "priceWithoutVAT":0,
+                  "info":""
+               
+			  }],
+            "deliveryVat":0,
+            "creationDate":1376668042475,
+            "status":"executed",
+            "takeawayVat":0
+         },
+         {
+            "displayName":"",
+            "totalPrice":26,
+            "modifierUserId":17762,
+            "additionUpdateId":0,
+            "modificationDate":1376668042475,
+            "name":"Vlees",
+            "pOid":229551,
+            "oid":15098688,
+            "info":"",
+            "creatorUserId":17762,
+            "receiptId":1083165,
+            "customerNr":0,
+            "vat":12,
+            "amount":2,
+            "pId":"1",
+            "price":13,
+            "kitchenName":"vlees",
+            "statusId":0,
+            "additionValues":[
+               {
+                  "additionId":123,
+                  "name":"bleu",
+                  "price":0,
+                  "oid":156,
+                  "priceWithoutVAT":0,
+                  "info":"bleu"
+               }
+            ],
+            "deliveryVat":0,
+            "creationDate":1376668042475,
+            "status":"executed",
+            "takeawayVat":0
+         },
+         {
+            "displayName":"",
+            "totalPrice":-26,
+            "modifierUserId":17762,
+            "additionUpdateId":0,
+            "modificationDate":1376668042475,
+            "name":"Vlees",
+            "pOid":229551,
+            "oid":15098689,
+            "info":"",
+            "creatorUserId":17762,
+            "receiptId":1083165,
+            "customerNr":0,
+            "vat":12,
+            "amount":-2,
+            "pId":"1",
+            "price":13,
+            "kitchenName":"vlees",
+            "statusId":0,
+            "additionValues":[
+               {
+                  "additionId":123,
+                  "name":"bleu",
+                  "price":0,
+                  "oid":156,
+                  "priceWithoutVAT":0,
+                  "info":"bleu"
+               }
+            ],
+            "deliveryVat":0,
+            "creationDate":1376668042475,
+            "status":"executed",
+            "takeawayVat":0
+         },
+         {
+            "displayName":"",
+            "totalPrice":12,
+            "modifierUserId":17762,
+            "additionUpdateId":0,
+            "modificationDate":1376668042475,
+            "name":"Cola",
+            "pOid":229553,
+            "oid":15098690,
+            "info":"",
+            "creatorUserId":17762,
+            "receiptId":1083165,
+            "customerNr":0,
+            "vat":12,
+            "amount":4,
+            "pId":"2",
+            "price":3,
+            "kitchenName":"collalalala",
+            "statusId":0,
+            "additionValues":[
+               {
+                  "additionId":2889,
+                  "name":"Neen",
+                  "price":0,
+                  "oid":8763,
+                  "priceWithoutVAT":0,
+                  "info":""
+               }
+            ],
+            "deliveryVat":0,
+            "creationDate":1376668042475,
+            "status":"executed",
+            "takeawayVat":0
+         }//,{"name":"Cola2"}
+      ],
+      "payed":false,
+      "deliveryDelay":0,
+      "actionReceiptItems":[
+
+      ],
+      "hasChildren":false,
+      "tableId":"305814",
+      "footer":null,
+      "foid":0,
+      "dayReceiptId":0,
+      "creationDate":1376668024824,
+      "status":"waiting for payment",
+      "stamp":"",
+      "total":3
+   },
+   template:{
+      "showCustomerInfo":0,
+      "fontName":"Arial",
+      "bigFontSize":45,
+      "printTemplateTypeId":1,
+      "nrOfDecimals":0,
+      "companyId":395,
+      "showWaiterTableTime":1,
+      "signalAccessory":0,
+      "amountWidth":3,
+      "promotionText":"PROMOTIONPROMOTIONPROMO!",
+      "type":"receipt",
+      "templateUrl":"http://ec2.posios.com:80/posimages/gaetan.buelinckx@gmail.com_472/templates/26337.html",
+      "smallFontName":"Arial",
+      "printerId":4440,
+      "fontSize":25,
+      "priceWidth":0,
+      "productDisplayNamesIndex":0,
+      "name":"Factuur",
+      "oid":26337,
+      "showCompanyInfo":1,
+      "smallFontSize":16,
+      "logoUrl":"http://ec2.posios.com:80/posimages/gaetan.buelinckx@gmail.com_472/images/companyLogo/digi-brains.jpg",
+      "bottomLogoUrl":"http://ec2.posios.com:80/posimages/gaetan.buelinckx@gmail.com_472/images/companyLogo/digi-brains.jpg",
+      "showVat":1,
+      "printNameId":0,
+      "showTotalPrice":1,
+      "bigFontName":"Arial-BoldMT",
+      "thankYouText":"",
+      "showSequenceNumber":0,
+      "title":null,
+      "nrOfDecimalsToRoundVATTo":0,
+      "nrWidth":3,
+      "template":null
+   },
+   user:{
+      "visible":true,
+      "socialSecurityNumber":"",
+      "city":"",
+      "uuid":"1134f8e7-c397-4867-8c9e-fb2c66df4b05",
+      "streetNumber":"",
+      "zip":"",
+      "companyId":395,
+      "imageLocation":"http://ec2.posios.com:80/posimages/gaetan.buelinckx@gmail.com_472/images/users/Foto%20op%2030-05-13%20om%2011.15.jpg",
+      "sex":null,
+      "oid":17274,
+      "type":"employee",
+      "password":"",
+      "email":"",
+      "customerId":0,
+      "street":"",
+      "telephone":"",
+      "lastname":"",
+      "username":"u",
+      "role":null,
+      "country":"",
+      "age":0,
+      "creationDate":0,
+      "gsm":"",
+      "firstname":"",
+      "defaultFloorId":8090
+   },
+   table:{
+      "imageLocation":"table1.png",
+      "status":"in use",
+      "numberOfClients":4,
+      "chairImageLocation":"whitechair.png",
+      "x":309,
+      "width":80,
+      "ellipse":false,
+      "type":"restaurant",
+      "y":400,
+      "oid":"305814",
+      "height":40,
+      "companyId":395,
+      "info":"",
+      "rotation":0,
+      "floorId":8090,
+      "name":"T-19",
+      "tableOrder":0,
+      "zindex":0
+   },
+   vat:{
+      "12":3
+   },
+   barItems:[
+
+   ],
+   kitchenItems:[
+
+   ],
+   payments:[
+      {
+         "type":"Use credits",
+         "paymentTypeTypeId":15,
+         "name":"Use credits",
+         "optionalInfo":null,
+         "tips":0,
+         "amount":2
+      }
+   ],
+   device:{
+      "applicationVersion":"1.21.3737",
+      "type":null,
+      "name":"Sander Decavel’s iP",
+      "deviceModel":"iPad",
+      "companyId":395,
+      "applicationId":"Restaurant Butler",
+      "optout":0,
+      "oid":40510,
+      "printTemplateId":26200,
+      "deviceVersion":"6.1.2",
+      "deviceId":"FD670983-38A8-4C52-9FD0-D3591A7DD3D6"
+   },
+   customer:{
+      "email":"gaetan@gm",
+      "language":null,
+      "deliveryStreetNumber":"xx",
+      "username":"gaetan@gm",
+      "clientId":0,
+      "deliveryCity":"xxx",
+      "birthYear":1998,
+      "lastname":"buelinckx",
+      "companyId":395,
+      "gsm":"04",
+      "uuid":null,
+      "type":"customer",
+      "visible":false,
+      "role":null,
+      "birthMonth":4,
+      "sex":null,
+      "partnerCustomerId":0,
+      "deliveryCountry":"deliveryCountry",
+      "deliveryStreet":"xxxx",
+      "deliveryZip":"xxxx",
+      "firstname":"gaetan ",
+      "creationDate":1360337523623,
+      "imageLocation":"http://ec2.posios.com:80/posimages/CUSTOMERS/236.jpg",
+      "oid":236,
+      "zip":"xxx",
+      "vatNumber":"BE000120120012",
+      "lastVisitDate":0,
+      "street":"Franklin Rooseveltlaan",
+      "city":"Gent",
+      "birthDay":7,
+      "country":null,
+      "streetNumber":"x",
+      "password":null,
+      "receiveNewsLetter":false,
+      "age":0,
+      "verified":false,
+      "telephone":"04",
+      "socialSecurityNumber":null,
+      "credits":160
+   },
+   productCategories:[
+      {
+         "displayName":null,
+         "printTemplateId":22153,
+         "deliveryVat":6,
+         "vat":12,
+         "printer":"",
+         "additionIds":[
+            2881
+         ],
+         "products":[
+            {
+               "displayName":"",
+               "visible":true,
+               "priceTypeId":0,
+               "priceWithoutVAT":0,
+               "imageLocation":"http://ec2.posios.com:80",
+               "takeawayPrice":13,
+               "stockAmount":-125,
+               "name":"Vlees",
+               "oid":229551,
+               "info":"beschrijving",
+               "vat":12,
+               "displayNames":[
+                  "Vlees",
+                  "vlees"
+               ],
+               "deliveryPrice":13,
+               "cost":0,
+               "pId":"1",
+               "price":13,
+               "kitchenName":"vlees",
+               "deliveryPriceWithoutVAT":-1,
+               "orderAmount":0,
+               "takeawayPriceWithoutVAT":-1,
+               "additionIds":[
+                  2881,
+                  123
+               ],
+               "productTypeId":4278190080,
+               "deliveryVat":6,
+               "takeawayVat":6,
+               "productCategoryId":96757
+            }
+         ],
+         "takeawayVat":6,
+         "oid":96757,
+         "printOrder":2,
+         "info":"",
+         "companyId":395,
+         "name":"Grill",
+         "printTemplateIds":[
+            22153
+         ],
+         "imageLocation":"http://ec2.posios.com:80/posimages/gaetan.buelinckx@gmail.com_472/images/productCategories/CatCocktails.png"
+      },
+      {
+         "displayName":null,
+         "printTemplateId":22153,
+         "deliveryVat":6,
+         "vat":12,
+         "printer":"",
+         "additionIds":[
+            2881
+         ],
+         "products":[
+            {
+               "displayName":"",
+               "visible":true,
+               "priceTypeId":0,
+               "priceWithoutVAT":0,
+               "imageLocation":"http://ec2.posios.com:80",
+               "takeawayPrice":3,
+               "stockAmount":-83,
+               "name":"Cola",
+               "oid":229553,
+               "info":"3",
+               "vat":12,
+               "displayNames":[
+                  "Cola",
+                  "collalalala"
+               ],
+               "deliveryPrice":3,
+               "cost":0,
+               "pId":"2",
+               "price":3,
+               "kitchenName":"collalalala",
+               "deliveryPriceWithoutVAT":-1,
+               "orderAmount":0,
+               "takeawayPriceWithoutVAT":-1,
+               "additionIds":[
+                  2881,
+                  2889
+               ],
+               "productTypeId":4278190080,
+               "deliveryVat":6,
+               "takeawayVat":6,
+               "productCategoryId":96758
+            }
+         ],
+         "takeawayVat":6,
+         "oid":96758,
+         "printOrder":2,
+         "info":"",
+         "companyId":395,
+         "name":"Koude",
+         "printTemplateIds":[
+            22153
+         ],
+         "imageLocation":"http://ec2.posios.com:80/posimages/gaetan.buelinckx@gmail.com_472/images/productCategories/CatSides.png"
+      }
+   ],
+   additionValues:[
+      {
+         "additionId":2889,
+         "name":"Neen",
+         "price":0,
+         "oid":8763,
+         "priceWithoutVAT":0,
+         "info":""
+      },
+      {
+         "additionId":123,
+         "name":"bleu",
+         "price":0,
+         "oid":156,
+         "priceWithoutVAT":0,
+         "info":"bleu"
+      },
+      {
+         "additionId":123,
+         "name":"bleu",
+         "price":0,
+         "oid":156,
+         "priceWithoutVAT":0,
+         "info":"bleu"
+      },
+      {
+         "additionId":2889,
+         "name":"Neen",
+         "price":0,
+         "oid":8763,
+         "priceWithoutVAT":0,
+         "info":""
+      }
+   ]
+}; try {jQuery(document).ready(function($) {search(completeReceipt);location.href = 'posios://print';});} catch(e) {'test' + e.message +' '+ e;} 
+*/
+	var generatedCount = 0;
+		
+		function search(completeReceipt) {
+
+            console.log('testje:' + completeReceipt.company.displayName);
+
+            //alert('test');
+
+            //alert(completeReceipt.company.displayName);
+
+			//$("#receiptItemsList").empty();
+
+            $( "#headerTemplate" ).tmpl(completeReceipt).appendTo("#header");
+
+            $( "#footerTemplate" ).tmpl(completeReceipt).appendTo("#footer");
+			//$( "#receiptItemsTemplate" ).tmpl( receiptItemsArray ).appendTo( "#receiptItemsList" );
+
+           // $( "#receiptItemsTemplate" ).tmpl( completeReceipt.receipt.receiptItems ).appendTo( "#receiptItemsList" );
+			$( "#receiptItemsTemplate" ).tmpl( completeReceipt.receipt.receiptItems ).insertBefore( "#filler" );
+			
+			
+			/*$( "#receiptTotals" ).tmpl( completeReceipt.receipt ).appendTo( "#totals" );
+            
+            //$( "#receiptTotalTemplate" ).tmpl( completeReceipt.receipt ).prependTo( "#totals" );
+            
+						//Zorgt voor dat vat gelezen wordt*/
+						 var vatArray = [];
+						
+      				  for(var key in completeReceipt.vat) {
+            			vatArray.push({vat:key,price:completeReceipt.vat[key]});
+            		//document.write( index + " : " + items[index] + "<br />");
+        			}
+					
+					completeReceipt.vat = vatArray;	
+            $( "#vatTemplate" ).tmpl( vatArray ).appendTo( "#vat" );
+			
+			//$( "#netPriceTemplate" ).tmpl( completeReceipt.receipt ).appendTo( "#netPrice" );
+			
+			/*if(completeReceipt.payments.length > 0){
+				$( "#paymentTypeTemplate" ).tmpl( completeReceipt.payments ).appendTo( "#paymentsTable" );
+				//$( "#tablePaymentTypes" ).tmpl( ).prependTo( "#paymentsTable" );
+			}
+			if (completeReceipt.payments.length == 0) {	
+				//$( "#paymentTypeTemplate" ).tmpl( completeReceipt.payments ).appendTo( "#amountDue" );
+				$( "#paymentsTable" ).remove();
+			}
+			if (completeReceipt.payments && completeReceipt.payments.length > 0)	
+			$( "#totalAmountTemplate" ).tmpl( completeReceipt ).appendTo( "#totalAmount" );
+			
+			if(getTotalTip(completeReceipt.payments) > 0) {
+				$( "#totalTipTemplate" ).tmpl( completeReceipt ).appendTo( "#totalTip" );
+			}
+			if (completeReceipt.payments && completeReceipt.payments.length > 0)		
+			$( "#changeTemplate" ).tmpl( completeReceipt ).appendTo( "#change" );
+			
+			if(completeReceipt.receipt.url && completeReceipt.receipt.url !== undefined && completeReceipt.receipt.url !== null && completeReceipt.receipt.url !== ""){
+				$('#qrcode').qrcode({width: 150,height: 150,text: completeReceipt.receipt.url});
+			}*/
+			
+			$( "#fromTemplate" ).tmpl( completeReceipt ).appendTo( "#from" );
+			$( "#toTemplate" ).tmpl( completeReceipt ).appendTo( "#to" );
+			$( "#bottomLogoTemplate" ).tmpl( completeReceipt ).appendTo( "#bottomLogo" );
+
+           /*	if (completeReceipt.customer && completeReceipt.customer !== undefined && completeReceipt.customer !== null && completeReceipt.customer !== "")		
+			$( "#customerCreditTemplate" ).tmpl( completeReceipt.customer ).appendTo( "#customerCredit" );*/
+            
+
+            /*
+
+            setTimeout(function(){
+
+                            document.location.href = "DOMIsReady";
+
+                        },100);
+
+             */
+
+            //$.fn.ready(function(){
+
+            //           document.location.href = "DOMIsReady";
+
+            //           });
+		}		
+	</script>
+</head>
+<body style="background:#fff">
+<div align="center">
+<div id="from"> </div>
+
+    <div id="header"></div>   
+    <div id="to"> </div>
+	<div id="customerCredit"></div>
+	<div id="receipt">
+		<table id="receiptItemsList">
+			<tr id="headline" class="noFiller"><th id="description" align="left" >Omschrijving</th><th id="vatTarief">BTW</th><th id="ep" align="center">EP(Netto)</th><th id="qty" align="center">QTY</th><th id="total" align="center">Totaal Excl. BTW</th></tr>
+		<tr id="filler"><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+	</div>  
+    </div>
+    
+   <table id="netPrice">  
+   </table>
+ 
+ 
+<div id="vat">
+<table>
+  </table>
+</div>
+   
+	
+  
+<div id="adres">
+<img src="http://be2.posios.com/posimages/shop1@teleplan.be_6405/templates/digibottom.jpg"/>
+<p>Jesusstraat 3 <br/> 2000 Antwerpen <br /> Belgium
+www.digi-brains.com</p></div>
+<div id="bank"><p>Bank: ABN AMRO Bank NV<br />
+Adress: Pelikaanstraat 70-76 B-2018 Antwerpen<br /> Accountnumber: BE 719-4000275-28<br />
+IBAN: BE37 7194 0002 7528 BIC: FTSBBE22</p></div>
+<div id="zetel"><p>Digi-brains is onderdeel van Teleplan Belgium bvba<br /> Kempische Steenweg 293 bus 21<br />
+B-3500 Hasselt<br />
+BTW: BE 0831.957.815</p></div>   
+</body>
+</html>

@@ -1,0 +1,977 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<title>Invoice template</title>
+<script type="text/javascript" src="http://www.posios.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.posios.com/js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="http://www.posios.com/js/jquery.qrcode.min.js"></script> <!-- https://github.com/jeromeetienne/jquery-qrcode -->
+<script type="text/javascript" src="http://www.posios.com/js/moment.min.js"></script>
+<style type="text/css">
+	/* HTML */
+	html,body {
+		margin: 0px;
+		width: 100%;
+	}
+    h1,h2 {
+        margin: 0px;
+    }        
+    table { 
+		border: none;
+		border-collapse:collapse
+    }        
+    th {
+        margin: 0px;
+    }
+	img {
+		height:200px;
+		width:200px;
+		object-fit:contain;
+		-moz-object-fit:contain;
+		-ms-object-fit:contain;
+		-o-object-fit:contain;
+		-webkit-object-fit:contain;
+	}
+	p {
+		margin: 0px;
+	}
+
+	/* Classes */
+	.alignLeft {
+		text-align: left;
+	}
+	.bold {
+		font-weight: bold;
+	}
+	
+	/* IDs */
+	#logoHeader {
+		display: block;
+		text-align: left;
+	}
+	#leftHeaderBlock {
+		width: 85%;
+		float: left;
+	}
+	#rightHeaderBlock {
+		width: 15%;
+		float: right;
+	}
+	#header {
+		height: 20%;
+	}
+</style>
+<script id="headerTemplate" type="text/x-jquery-tmpl">
+    <div id="leftHeaderBlock">
+    	<img id="logoHeader" src="${template.logoUrl}" />
+    </div>
+    <div id="rightHeaderBlock">
+    	<p class="bold">Factuur</p>
+    	<p class="bold">Ref: ${receipt.invoiceNumber}</p>
+    	<p>Factuurdatum: ${dateToString(receipt.printDate, 1)}</p>
+    	<p>Vervaldatum: ${dateToString((receipt.printDate + 2678400000), 1)}</p>
+    	<p>Klantnummer: ${customer.oid}</p>
+    </div>
+</script>
+<script id="recipientsTemplate" type="text/x-jquery-tmpl">
+</script>
+<script type="text/x-jquery-tmpl">
+	{{if window.posUserAvailable == 1 && window.posTableAvailable == 1 && window.posReceiptAvailable == 1}}
+		{{if checkIfNotZeroEmptyOrNull(user) && checkIfNotZeroEmptyOrNull(table) && checkIfNotZeroEmptyOrNull(receipt.type)}}
+			{{if template.showWaiterTableTime == 1}} 
+				<div id="waiter" i21D='defaultFontSize'>
+					<div class="floatLeft"><p>${table.name}</p></div>
+					<div class="floatRight"><p align="right">${dateToString("", 1)}</p></div>
+					<div class="floatLeft" id="marginClearLeft"><p>${receipt.numberOfCustomers} cts</p></div>
+					<div class="floatRight" id="marginClearRight"><p>${receipt.sequenceNumber}</p></div>
+					{{if isDineIn(receipt.type)}}
+						<div class="floatLeft" id="marginClearLeft"><p>Dine in</p></div>
+					{{else}}
+						<div class="floatLeft" id="marginClearLeft"><p>Take-out</p></div>
+					{{/if}}
+					<div class="floatRight" id="marginClearRight"><p>${user.username}</p></div>
+					{{if window.posCustomerAvailable == 1}}
+						{{if checkIfNotZeroEmptyOrNull(customer.firstname) && checkIfNotZeroEmptyOrNull(customer.lastname)}}
+							<div class="floatLeft" id="marginClearLeft"><p><b>${markUpName(customer.firstname)} ${markUpName(customer.lastname)}</b></p></div>
+						{{else checkIfNotZeroEmptyOrNull(customer.firstname) && !checkIfNotZeroEmptyOrNull(customer.lastname)}}
+							<div class="floatLeft" id="marginClearLeft"><p><b>${markUpName(customer.firstname)}</b></p></div>
+						{{else checkIfNotZeroEmptyOrNull(customer.lastname) && !checkIfNotZeroEmptyOrNull(customer.firstname)}}
+							<div class="floatLeft" id="marginClearLeft"><p><b>${markUpName(customer.lastname)}</b></p></div>
+						{{/if}}
+					{{/if}}
+				 </div>
+			{{/if}}
+		{{/if}}
+	{{/if}}
+</script>
+<script id="receiptItemsTemplate" type="text/x-jquery-tmpl">
+	<tr>
+		{{if price == 0}}
+			{{if window.posShowZeroValuedPricesProducts == 1 || (window.posShowZeroValuedPricesProducts == 0 && productIsOffert(name) || calculateAdditionsPrices(additionValues) > 0)}}
+				<td id="hiddenRow" style="display:none;">${line}</td>
+				<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+				<td class="name" i21D='defaultFontSize'>${name}</td>
+				{{if window.posShowPrice == 1}}
+					{{if window.posShowAdditions == 1}}
+						{{if amount < 0 || amount > 1}}
+							<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+						{{else}}
+							<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+						{{/if}}
+					{{else}}
+						{{if amount < 0 || amount > 1}}
+							<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues))).toFixed(2)}</td>
+						{{else}}
+							<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues))).toFixed(2)}</td>
+						{{/if}}
+					{{/if}}
+				{{/if}}
+			{{else productIsOffert(name) == true}}
+				{{if window.posShowAdditions == 1}}
+					{{if amount < 0 || amount > 1}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+					{{else}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+					{{/if}}
+				{{else}}
+					{{if amount < 0 || amount > 1}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues))).toFixed(2)}</td>
+					{{else}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues))).toFixed(2)}</td>
+					{{/if}}
+				{{/if}}					
+			{{else}}
+				<td></td><td></td><td></td>
+			{{/if}}
+		{{else}}
+			<td id="hiddenRow" style="display:none;">${line}</td>
+			<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+			<td class="name" i21D='defaultFontSize'>${name}</td>
+			{{if window.posShowPrice == 1}}
+				{{if window.posShowAdditions == 1}}
+					{{if amount < 0 || amount > 1}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+					{{else}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+					{{/if}}
+				{{else}}
+					{{if amount < 0 || amount > 1}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues))).toFixed(2)}</td>
+					{{else}}
+						<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues))).toFixed(2)}</td>
+					{{/if}}
+				{{/if}}
+			{{/if}}
+		{{/if}}
+	</tr>
+	
+	{{if additionValues.length && window.posShowAdditions == 1 && price != 0}}
+		{{tmpl(additionValues) "#additionValueTemplate"}}
+	{{else productIsOffert(name)}}
+		{{tmpl(additionValues) "#additionValueOffertTemplate"}}
+	{{else}} 
+		{{if additionValues.length && window.posShowAdditions == 1 && price == 0 && window.posShowZeroValuedAdditions == 1 && window.posShowZeroValuedPricesProducts == 1}}
+			{{tmpl(additionValues) "#additionValueTemplate"}}
+		{{else additionValues.length && window.posShowAdditions == 1 && price == 0 && window.posShowZeroValuedPricesProducts == 0 && calculateAdditionsPrices(additionValues) > 0}}
+			{{tmpl(additionValues) "#additionValueTemplate"}}
+		{{/if}}
+	{{/if}}
+</script>
+<script id="additionValueTemplate" type="text/x-jquery-tmpl">
+	<tr>
+		<td></td>
+		{{if price == 0}}
+			{{if window.posShowZeroValuedAdditions == 1}}
+				{{if info == ""}}	
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
+				{{else}}
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
+				{{/if}}
+					{{if window.posShowPrice == 1}}
+						<td class="price" i21S='smallFontSize' style="font-style:italic;">${(amount*price).toFixed(2)}</td>
+					{{else}}
+						<td></td>
+					{{/if}}
+			{{else}}
+				<td></td><td></td>
+			{{/if}}
+		{{else}}
+			{{if info == ""}}	
+				<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}:</td>
+			{{else}}
+				<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
+			{{/if}}					
+			{{if window.posShowPrice == 1}}
+				<td class="price" i21S='smallFontSize' style="font-style:italic;">${(amount*price).toFixed(2)}</td>
+			{{else}}
+				<td></td>
+			{{/if}}
+		{{/if}}			
+	</tr>  
+</script>
+<script id="additionValueOffertTemplate" type="text/x-jquery-tmpl">
+	{{if oid == 0}}
+		<tr>
+			<td></td>
+			{{if info == ""}}	
+				<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
+			{{else}}
+				<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
+			{{/if}}
+			<td></td>
+		</tr>
+	{{/if}} 
+</script>
+<script id="receiptTotals" type="text/x-jquery-tmpl">
+	<tr>		
+		<th class="alignLeft" i21D='defaultFontSize'>TOTAAL</th>
+		<td i21D='defaultFontSize' class="floatRight"><b>${total.toFixed(2)}</b></td>		
+	</tr>
+</script> 
+<script id="vatTemplate" type="text/x-jquery-tmpl">
+	{{if window.posVatAvailable == 1}}
+		{{if price != 0}}
+			<tr>
+				<td id="vatPercent" i21D='defaultFontSize'>BTW ${vat}%:</td>
+				<td i21D='defaultFontSize' class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}		</td>
+				<td i21D='defaultFontSize' class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
+				<td i21D='defaultFontSize' class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
+			</tr>	
+		{{/if}}
+	{{/if}}
+</script>
+<script id="tablePaymentTypes" type="text/x-jquery-tmpl">
+	{{if window.posShowPayments == 1}}
+		<tr>		
+			<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Betaling</p2></td>
+			<td class="total" i21D='defaultFontSize'><p2 align="right">Bedrag</p2></td>		
+		</tr>	
+	{{/if}}	
+</script>
+<script id="paymentTypeTemplate" type="text/x-jquery-tmpl">
+{{if window.posPaymentsAvailable == 1}}
+	{{if window.posShowPayments == 1}}
+		<tr>
+			<td class="paymentType" i21D='defaultFontSize' id="firstRow">${type}</td>
+			<td class="total" i21D='defaultFontSize' id="firstRow">${amount.toFixed(2)}</td>
+		</tr>
+	{{/if}}
+{{/if}}
+</script> 
+<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
+	{{if window.posPaymentsAvailable == 1 && window.posReceiptAvailable == 1}}
+		{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
+			<tr>
+				{{if payments}}
+					<td class="totalAmountPaid" i21D='defaultFontSize'><b>BETAALD</b</td>
+				{{/if}}
+				
+				 {{if payments}}
+					<td class="amountPaid" i21D='defaultFontSize'><b>${getPayment(payments).toFixed(2)}<b></td>
+				{{/if}}
+				
+				{{if typeof(payments) == "undefined"}}
+					<td class="amountPaid" i21D='defaultFontSize'>${receipt.total.toFixed(2)}</td>
+				{{/if}}		
+			</tr>
+		{{/if}}
+	{{/if}}
+</script> 
+<script id="totalTipTemplate" type="text/x-jquery-tmpl">
+	{{if window.posPaymentsAvailable == 1}}
+		{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
+			<tr>
+				<th class="tip" i21D='defaultFontSize'>+Tip</th>
+				<td class="tipPaid" i21D='defaultFontSize'>${getTotalTip(payments).toFixed(2)}</td>
+			</tr>
+		{{/if}}
+	{{/if}}
+</script>
+<script id="changeTemplate" type="text/x-jquery-tmpl">
+	{{if window.posPaymentsAvailable == 1}}     
+		<table id="change">
+			{{if window.posShowPayments == 1}}				
+				<tr>
+					{{if getChange(receipt.total,payments) > 0}}
+						<th i21D='defaultFontSize'>Wisselgeld</th>
+						<td class="tipPaid" i21D='defaultFontSize'><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
+					{{else getChange(receipt.total,payments) < 0}}
+						<th i21D='defaultFontSize'>Saldo</th>
+						<td class="tipPaid" i21D='defaultFontSize'><b>${ ((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
+					{{/if}}
+				</tr>
+			{{/if}}
+	{{/if}}
+</script>
+<script id="promotionTemplate" type="text/x-jquery-tmpl">
+	{{if window.posTemplateAvailable == 1}}
+		{{if checkIfNotZeroEmptyOrNull(completeReceipt.template.thankYouText)}}
+			{{if window.posEnableThankYouSubline == 1}}
+				<div i21B='bigFontSize' id="thankYouTextDiv" class="borderBottom spreadEvenly">
+					<p>${completeReceipt.template.thankYouText}</p>
+				</div>
+			{{else}}                     
+				<div i21B='bigFontSize' id="thankYouTextDiv" class="spreadEvenly">
+					<p>${completeReceipt.template.thankYouText}</p>
+				</div>		
+			{{/if}}
+		{{/if}}
+		{{if checkIfNotZeroEmptyOrNull(completeReceipt.template.promotionText)}}
+			{{if window.posEnablePromotionSubline == 1}}
+				<div i21D='defaultFontSize' id ="promotionTextDiv" class="borderBottom spreadEvenly">
+					{{if window.posThicknessOfFramePromotion == 1}}
+						<p id="promotionTextThin">${completeReceipt.template.promotionText}</p>
+					{{else window.posThicknessOfFramePromotion == 2}}
+						<p id="promotionTextMedium">${completeReceipt.template.promotionText}</p>
+					{{else window.posThicknessOfFramePromotion == 3}}
+						<p id="promotionTextThick">${completeReceipt.template.promotionText}</p>
+					{{else}}
+						<p id="promotionText">${completeReceipt.template.promotionText}</p>
+					{{/if}}
+				</div>
+			{{else}}
+				<div i21D='defaultFontSize' id ="promotionTextDiv" class="spreadEvenly">
+					{{if window.posThicknessOfFramePromotion == 1}}
+						<p id="promotionTextThin">${completeReceipt.template.promotionText}</p>
+					{{else window.posThicknessOfFramePromotion == 2}}
+						<p id="promotionTextMedium">${completeReceipt.template.promotionText}</p>
+					{{else window.posThicknessOfFramePromotion == 3}}
+						<p id="promotionTextThick">${completeReceipt.template.promotionText}</p>
+					{{else}}
+						<p id="promotionText">${completeReceipt.template.promotionText}</p>
+					{{/if}}
+				</div>		
+			{{/if}}
+		{{/if}}
+	{{/if}}
+</script>
+<script id="footerTemplate" type="text/x-jquery-tmpl">
+	{{if window.posCustomerAvailable == 1}}
+		{{if checkIfNotZeroEmptyOrNull(customer)}}
+			{{if window.posShowCustomerInfo == 1}}
+				<div id="takeAwayInfo" i21D='defaultFontSize'>
+					<div class="floatLeft">
+						{{if checkIfNotZeroEmptyOrNull(customer.firstname) && checkIfNotZeroEmptyOrNull(customer.lastname)}}
+							<p><b>${markUpName(customer.firstname)} ${markUpName(customer.lastname)}</b></p>
+						{{else checkIfNotZeroEmptyOrNull(customer.firstname) && !checkIfNotZeroEmptyOrNull(customer.lastname)}}
+							<p><b>${markUpName(customer.firstname)}</b></p>
+						{{else checkIfNotZeroEmptyOrNull(customer.lastname) && !checkIfNotZeroEmptyOrNull(customer.firstname)}}
+							<p><b>${markUpName(customer.lastname)}</b></p>
+						{{/if}}
+						{{if checkIfNotZeroEmptyOrNull(customer.street) && checkIfNotZeroEmptyOrNull(customer.streetNumber) && checkIfNotZeroEmptyOrNull(customer.zip) && checkIfNotZeroEmptyOrNull(customer.city)}}
+							<p>${customer.street} ${customer.streetNumber} ${customer.zip} ${customer.city}</p>
+						{{/if}}
+						{{if checkIfNotZeroEmptyOrNull(customer.telephone)}}
+							<p>${customer.telephone}</p>
+						{{/if}}
+						{{if checkIfNotZeroEmptyOrNull(customer.email)}}
+							<p>${customer.email}</p>
+						{{/if}}
+						{{if checkIfNotZeroEmptyOrNull(receipt.type)}}
+							<p>${receipt.type}</p>
+						{{/if}}
+						<p>${dateToString(receipt.deliveryDate, 1)}</p>
+						{{if checkIfNotZeroEmptyOrNull(customer.credits)}}
+							<p>New credit balance: ${customer.credits}</p>	
+						{{/if}}
+					</div>	
+				</div>		
+			{{/if}}
+		{{/if}}
+	{{/if}}
+	<div id="restaurantInfo" i21D='defaultFontSize'>
+		{{if window.posEnableCustomerInfoCentering == 1 && receipt.url == ""}}
+			<div id="centeredCompanyInfo" class='spreadEvenly'>
+		{{else}}
+			<div class="floatLeft">				
+		{{/if}}
+			{{if window.posCompanyAvailable == 1 && window.posUserAvailable == 1}}
+				{{if checkIfNotZeroEmptyOrNull(company)}}
+						<p><b>${company.displayName}</b></p>
+						<p>${company.street} ${company.streetNumber}</p>
+						<p>${company.zip} ${company.city}</p>
+						<p>${company.telephone}</p>
+						<p>BTW BE ${company.vat}</p>
+						<p>${company.url}</p>
+						<p>${user.email}</p>
+					</div>	
+				{{/if}}
+			{{/if}}
+	</div>
+	{{if checkIfNotZeroEmptyOrNull(template.bottomLogoUrl)}}
+		{{if window.posShowBottomLogo == 1}}
+			{{if window.posEnableBottomLogoTopline == 1}}
+				<div class="borderTop" style="text-align:center;clear:both">
+			{{else}}
+				<div style="text-align:center;clear:both;">
+			{{/if}}
+					<img src="${template.bottomLogoUrl}"/>
+				</div>
+		{{/if}}
+	{{/if}}
+</script>
+<script id="amountDueTemplate" type="text/x-jquery-tmpl">
+	<tr>
+		<th i21D='defaultFontSize' class="floatLeft">Te betalen</th>
+		<td i21D='defaultFontSize' class="floatRight"><b>${(receipt.total + (calculateTip(payments))).toFixed(2)}</b></td>
+	</tr>
+</script>
+<script type="text/javascript">      
+	function dateToString(passedDate, option) {
+		//var date = new Date(time);
+		//return moment(date).format('LLL');
+		if(option == 1) {
+			if(passedDate)
+				var date = new Date(passedDate);
+			else
+				var date = new Date();	
+			var dd = date.getDate();
+			var mm = date.getMonth() + 1;
+			var hh = date.getHours();
+			var m = date.getMinutes();
+			if(date.getDate() < 9)
+				dd = '0' + date.getDate();
+			if(date.getMonth() < 9)
+				mm = '0' + (date.getMonth() + 1);
+			if(date.getHours() < 10)
+				hh = '0' + hh;
+			if(date.getMinutes() < 10)
+				m = '0' + m;
+			var stringTime = dd + '/' + mm + '/' + date.getFullYear();
+			return stringTime;
+		}
+		if(option == 2) {
+			var date = new Date();
+			var mm = date.getMonth() + 1;
+			var dd = date.getDate();
+			
+			if(dd < 10)
+				dd = '0' + dd;
+			if(mm < 10)
+				mm = '0' + mm;
+			var stringTime = dd + '/' + mm + '/' + date.getFullYear();
+			return stringTime;
+		}
+	}
+	function ReceiptItem(amount, name,price) {
+		this.amount = amount;
+		this.name = name;
+		this.price = price;
+	}
+					
+	function getChange(receiptTotal,payments) {
+		return getPayment(payments) - receiptTotal - calculateTip(payments);	
+	}
+
+	function getTotalTip(payments) {
+		var totalTip = 0;
+			
+		if(!payments) {
+			return 0;	
+		}
+			
+		for (var pIndex in payments) {
+			if(payments.hasOwnProperty(pIndex)) {
+		  		var payment = payments[pIndex];
+						
+				if(payment) 
+			  		totalTip += payment.tips;
+			}
+		}			
+		return totalTip;
+	}
+			
+	function getPayment(payments) {		
+		var totalPayment = 0;
+			
+		if(!payments) {
+			return 0;	
+		}
+			
+		for (var pIndex in payments) {
+			if(payments.hasOwnProperty(pIndex)) {
+				var payment = payments[pIndex];
+				
+				if(payment) 
+					totalPayment += payment.amount;
+			}
+		}		
+		//var	totalTips = payments.tips;	
+		return totalPayment;	
+	}
+
+	function checkIfNotZeroEmptyOrNull(passedValue) {
+		if(typeof passedValue !== "undefined") {
+			if(!passedValue)
+				return false;
+			else
+				if(passedValue === "" || passedValue.length == 0)
+					return false;
+				else
+					return true;
+		}
+	}
+
+	function markUpName(passedName) {
+		return passedName[0].toUpperCase() + passedName.substring(1);
+	}
+
+	function isDineIn(receiptType) {
+		if(receiptType.toUpperCase() == "RESTAURANT" || receiptType.toUpperCase() == "BAR")
+			return true;
+		return false;
+	}
+
+	function removePrice() {
+	    $('#priceHide').remove();
+	}
+
+	function checkProductOfAdditionHasValueZero(passedId) {
+		for(var i = 0; i < window.completeReceipt.receipt.receiptItems.length; i++) {
+			var receiptItem = window.completeReceipt.receipt.receiptItems[i];
+			if(receiptItem.price == 0) {
+				for(var j = 0; j < receiptItem.additionValues.length; j++) {
+					var additionValue = receiptItem.additionValues[j];
+					if(additionValue.oid == passedId) {
+						window.alert("True");
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	function sortJsonArrayByProperty(objArray, prop, direction){
+	    if (arguments.length<2) throw new Error("sortJsonArrayByProp requires 2 arguments");
+	    var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
+		var intRegex = /^\d+$/;
+
+		console.log(objArray);
+	    //if (objArray && objArray.constructor===Array){
+		if(objArray) {
+			console.log("test");
+	        var propPath = (prop.constructor===Array) ? prop : prop.split(".");
+			console.log(propPath);
+	        objArray.sort(function(a,b){
+	            for (var p in propPath){
+					console.log(p);
+	                if (a[propPath[p]] && b[propPath[p]]){
+	                    a = a[propPath[p]];
+	                    b = b[propPath[p]];
+	                }
+	            }
+				
+				if(!(intRegex.test(a) && intRegex.test(b))) {
+					// convert numeric strings to integers
+					a = a.match(/^\d+$/) ? +a : a;
+					b = b.match(/^\d+$/) ? +b : b;
+				}
+				return ( (a < b) ? -1*direct : ((a > b) ? 1*direct : 0) );
+	        });
+	    }
+	}
+
+	function dynamicSort(property) {
+	    var sortOrder = 1;
+	    if(property[0] === "-") {
+	        sortOrder = -1;
+	        property = property.substr(1);
+	    }
+	    return function (a,b) {
+	        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+	        return result * sortOrder;
+	    }
+	}
+
+	var sort_by;
+
+	(function() {
+	    // utility functions
+	    var default_cmp = function(a, b) {
+	            if (a == b) return 0;
+	            return a < b ? -1 : 1;
+	        },
+	        getCmpFunc = function(primer, reverse) {
+	            var dfc = default_cmp, // closer in scope
+	                cmp = default_cmp;
+	            if (primer) {
+	                cmp = function(a, b) {
+	                    return dfc(primer(a), primer(b));
+	                };
+	            }
+	            if (reverse) {
+	                return function(a, b) {
+	                    return -1 * cmp(a, b);
+	                };
+	            }
+	            return cmp;
+	        };
+
+	    // actual implementation
+	    sort_by = function() {
+	        var fields = [],
+	            n_fields = arguments.length,
+	            field, name, reverse, cmp;
+
+	        // preprocess sorting options
+	        for (var i = 0; i < n_fields; i++) {
+	            field = arguments[i];
+	            if (typeof field === 'string') {
+	                name = field;
+	                cmp = default_cmp;
+	            }
+	            else {
+	                name = field.name;
+	                cmp = getCmpFunc(field.primer, field.reverse);
+	            }
+	            fields.push({
+	                name: name,
+	                cmp: cmp
+	            });
+	        }
+
+	        // final comparison function
+	        return function(A, B) {
+	            var a, b, name, result;
+	            for (var i = 0; i < n_fields; i++) {
+	                result = 0;
+	                field = fields[i];
+	                name = field.name;
+
+	                result = field.cmp(A[name], B[name]);
+	                if (result !== 0) break;
+	            }
+	            return result;
+	        }
+	    }
+	}());
+
+	function checkLine() {
+		if(window.posEnableSortOnCourseThenOnKitchenName == 1) {
+			var table = document.getElementById("receiptItemsList");
+			for (var i = 0, row; row = table.rows[i]; i++) {
+			   //iterate through rows
+			   //rows would be accessed using the "row" variable assigned in the for loop
+			   console.log(row.cells[0].innerHTML);
+			   if(row.cells[0].innerHTML == 1)
+			      row.className = "topLine";
+			}
+		}
+	}
+
+	function checkNotZero(value) {
+		for(var key in value){
+			if(value.hasOwnProperty(key))
+				if(value[key].tips > 0)
+					return true;
+		}
+		return false;
+	}
+
+	function calculateTip(totalPayments) {
+		var totalTip = 0;
+
+		for(var key in totalPayments) {
+			if(totalPayments.hasOwnProperty(key))
+				totalTip += totalPayments[key].tips;
+		}
+
+		return totalTip;
+	}
+
+	function deleteHeader(id) {
+		$("#" + id).remove();
+	}
+
+	function calculateAdditionsPrices(additions) {
+		var total = 0;
+
+		for(var key in additions) {
+			if(additions.hasOwnProperty(key))
+				total += additions[key].price * additions[key].amount;
+		}
+
+		return total;
+	}
+
+	function combineItems(receiptItems) {
+		var receiptItemsToArray = new Array();
+
+		// Store all receipt items in an array
+		for(var receiptItem in receiptItems)
+			if(receiptItems.hasOwnProperty(receiptItem))
+				receiptItemsToArray.push(receiptItems[receiptItem]);
+
+		var combinedArray = new Array();
+		var checkedIds = new Array();
+
+		// Go over the different receipt items
+		for(var i = 0; i < receiptItemsToArray.length; i++) {
+			console.log(receiptItemsToArray[i].name);
+			// Store first item
+			if(i == 0) {
+				combinedArray.push(receiptItemsToArray[i]);
+				checkedIds.push(receiptItemsToArray[i].pOid);
+			}
+			else {
+				// Check if pOid has already been added to combinedArray
+				var foundIndex = checkedIds.allIndexOf(receiptItemsToArray[i].pOid);
+				if(foundIndex < 0) {
+					// The pOid has not been added yet
+					combinedArray.push(receiptItemsToArray[i]);
+					checkedIds.push(receiptItemsToArray[i].pOid);				
+				}
+				else if(foundIndex.length > 1) {
+					var flag = 0;
+					// Check each index to check if the product has the same details as the one stored
+					for(var index = 0; index < foundIndex.length; index++) {
+						// Check if the product has the same details as the one stored
+						if(isSameProduct(combinedArray[foundIndex[index]], receiptItemsToArray[i])) {
+							combinedArray[foundIndex[index]].amount += receiptItemsToArray[i].amount;
+							flag++;
+						}				
+					}
+					if(flag < 1) {
+						combinedArray.push(receiptItemsToArray[i]);
+						checkedIds.push(receiptItemsToArray[i].pOid);
+					}
+					else if(flag > 1) {
+						console.log("Something went wrong here. This is not possible.");
+					}
+
+				}
+				else {
+					// Check if the product has the same details as the one stored
+					if(isSameProduct(combinedArray[foundIndex], receiptItemsToArray[i])) {
+						combinedArray[foundIndex].amount += receiptItemsToArray[i].amount;
+					}
+					else {
+						combinedArray.push(receiptItemsToArray[i]);
+						checkedIds.push(receiptItemsToArray[i].pOid);				
+					}
+				}
+			}
+		}
+
+		var correctArray = new Array();
+		
+		for(var key in combinedArray)
+			if(combinedArray.hasOwnProperty(key))
+				if(combinedArray[key].amount != 0)
+					correctArray.push(combinedArray[key]);
+		return correctArray;
+	}
+
+	function isSameProduct(storedReceiptItem, newReceiptItem) {
+		if(storedReceiptItem.name == newReceiptItem.name) {
+			// Check if unit price is the same
+			if(storedReceiptItem.price == newReceiptItem.price) {
+				// Check if the additions are the same
+				if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else {
+			return false;
+		}
+	}
+
+	function areSameAdditions(storedAdditions, newAdditions) {
+		var storedAdditionsToArray = new Array();
+		var newAdditionsToArray = new Array();
+
+		// Store all additions in an array
+		for(var addition in storedAdditions)
+			if(storedAdditions.hasOwnProperty(addition))
+				storedAdditionsToArray.push(storedAdditions[addition]);
+
+		for(var addition in newAdditions)
+			if(newAdditions.hasOwnProperty(addition))
+				newAdditionsToArray.push(newAdditions[addition]);
+
+		storedAdditionsToArray.sort(compareAdditions);
+		newAdditionsToArray.sort(compareAdditions);
+
+		if(storedAdditionsToArray.length == newAdditionsToArray.length) {
+			var flag = 0;
+			for(var i = 0; i < storedAdditionsToArray.length; i++) {
+				if(storedAdditionsToArray[i].additionId == newAdditionsToArray[i].additionId
+					&& storedAdditionsToArray[i].name == newAdditionsToArray[i].name
+					&& storedAdditionsToArray[i].price == newAdditionsToArray[i].price
+					&& storedAdditionsToArray[i].oid == newAdditionsToArray[i].oid
+					&& storedAdditionsToArray[i].priceWithoutVAT == newAdditionsToArray[i].priceWithoutVAT)
+					flag++;
+				else
+					return false;
+			}
+			if(flag > 0)
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+
+	function compareAdditions(a,b) {
+	  if (a.oid < b.oid)
+	     return -1;
+	  if (a.oid > b.oid)
+	    return 1;
+	  return 0;
+	}
+
+	function addReceiptItemsAmountToAdditions(receiptItems) {
+		for(var key in receiptItems) {
+			if(receiptItems.hasOwnProperty(key)) {
+				for(var key2 in receiptItems[key].additionValues)
+					if(receiptItems[key].additionValues.hasOwnProperty(key2))
+						receiptItems[key].additionValues[key2].amount = receiptItems[key].amount;
+			}
+		}
+	}
+
+	function productIsOffert(productName) {
+		if(productName.indexOf('*') > -1)
+			return true;
+		return false;
+	}
+
+	function sortNumber(a,b) {
+	    return a - b;
+	}
+		
+/*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/
+var completeReceipt = {company:{"digitalMenuCardUrl":"http://www.posios.be","email":"","smtpPort":null,"enforceStock":false,"notifyKitchen":true,"imageUrl":"http://www.posios.com","shouldWarnIfNonPrintedItems":false,"showDayReportTableDetails":false,"gsm":"","url":null,"smtpUserName":null,"account":null,"smtpPassword":null,"productBigFontSize":16,"type":null,"timezone":4,"info":"","invoiceNumberTemplate":"ref1234","openingstime":0,"name":"JUnit","generateClosingTimeReport":false,"imageLocation":"","oid":8421,"zip":"9070","shouldGoToTablesWhenNothingNeedsToBePrinted":false,"users":[],"showProductReportAdditionValueDetails":false,"smtpHost":null,"takeawayPopup":true,"autoLogin":false,"street":"Unitstreet","city":"Ghent","streetNumber":"1","country":"United States","showDayReportProductDetails":false,"showDayReportCategoryDetails":false,"showProductReportAdditionValues":false,"displayName":"JUNIT","fax":"","vat":"10","showDayReportDetails":false,"combineBarAndKitchen":false,"vatInclusive":true,"customerSelectionPopup":false,"productSmallFontSize":11,"telephone":"0494541334","currency":null,"closingtime":0},receipt:{"invoiceNumber":"9","url":"","modificationDate":1388760064235,"userId":18029,"sequenceNumber":254,"customerId":20726,"oid":"79559","info":"","type":"restaurant","znumber":0,"printDate":1388760064235,"parentId":"0","vat":0,"deliveryDate":0,"lockDeviceIdentifier":"C4B5CC94-C51C-4FE6-AE01-3742626814D4","numberOfCustomers":0,"receiptItems":[{"displayName":"","totalPrice":10,"modifierUserId":18036,"priceTypeId":0,"additionUpdateId":0,"modificationDate":1388744474766,"barcode":null,"name":"foodCourse2-1","pOid":78380,"oid":1227218,"info":"","creatorUserId":18029,"receiptId":79559,"riReceiptId":1,"vat":12,"customerNr":0,"barcode2":null,"amount":1,"pId":"g1","price":10,"kitchenName":"foodCourse2-1 kitchenName","additionValues":[],"statusId":0,"parentRiReceiptId":0,"deliveryVat":0,"creationDate":1388744474766,"status":"executed","takeawayVat":0},{"displayName":"","totalPrice":20,"modifierUserId":18036,"priceTypeId":0,"additionUpdateId":0,"modificationDate":1388744474766,"barcode":null,"name":"foodCourse1-1","pOid":78377,"oid":1227219,"info":"","creatorUserId":18029,"receiptId":79559,"riReceiptId":2,"vat":12,"customerNr":0,"barcode2":null,"amount":1,"pId":"f1","price":20,"kitchenName":"foodCourse1-1 kitchenName","additionValues":[],"statusId":0,"parentRiReceiptId":0,"deliveryVat":0,"creationDate":1388744474766,"status":"executed","takeawayVat":0}],"payed":false,"deliveryDelay":0,"actionReceiptItems":[{"displayName":"","totalPrice":6,"modifierUserId":18029,"priceTypeId":73,"additionUpdateId":0,"modificationDate":1388744474766,"barcode":null,"name":"ServiceChargeRestaurantAutomaticPercentage","pOid":78390,"oid":1227220,"info":"73","creatorUserId":18029,"receiptId":79559,"riReceiptId":3,"vat":0,"customerNr":0,"barcode2":null,"amount":1,"pId":"s2","price":6,"kitchenName":"ServiceChargeRestaurantAutomaticPercentage kitchenName","additionValues":[],"statusId":0,"parentRiReceiptId":0,"deliveryVat":0,"creationDate":1388744474766,"status":"in request","takeawayVat":0}],"hasChildren":false,"tableId":"121876","footer":null,"foid":0,"dayReceiptId":0,"creationDate":1388744415204,"status":"in progress","stamp":"","total":36},template:{"showCustomerInfo":0,"fontName":"Arial","bigFontSize":45,"printTemplateTypeId":6,"nrOfDecimals":0,"companyId":8421,"showWaiterTableTime":1,"signalAccessory":0,"amountWidth":3,"promotionText":"","type":"Email customer invoice","templateUrl":"http://dev.posios.com:8080/posimages/junit_17441/templates/4238.html","smallFontName":"Arial","printerId":505,"fontSize":25,"priceWidth":0,"productDisplayNamesIndex":0,"name":"Email customer invoice","oid":4238,"showCompanyInfo":0,"smallFontSize":16,"logoUrl":"http://ec2.posios.com:8080/posimages/demo_10/images/users/lobster.jpg","bottomLogoUrl":null,"showVat":1,"printNameId":0,"showTotalPrice":1,"bigFontName":"Arial-BoldMT","thankYouText":"","showSequenceNumber":0,"title":null,"nrOfDecimalsToRoundVATTo":0,"nrWidth":3,"template":null},user:{"visible":true,"socialSecurityNumber":"","city":"","uuid":"8be7607a-9639-4d7f-a1dd-203df545f8f6","streetNumber":"","zip":"","companyId":8421,"imageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/standarduser.png","sex":null,"oid":18029,"type":"employee","password":"","email":"nicolas.deletter@posios.com","serverport":0,"serverprotocol":null,"serverextension":null,"customerId":0,"street":"","telephone":"","lastname":"","username":"Nicolas","role":null,"country":"","server":null,"age":0,"lastClockInTime":0,"creationDate":0,"gsm":"","firstname":"","defaultFloorId":4572},table:{"imageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/table1.png","status":"in use","numberOfClients":4,"chairImageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/whitechair.png","x":376,"width":100,"ellipse":false,"type":"restaurant","y":133,"oid":"121876","height":40,"companyId":8421,"info":"","rotation":0,"floorId":4572,"name":"T-12","tableOrder":0,"zindex":0},vat:{"0":6,"12":30},barItems:[],kitchenItems:[],payments:[],device:{"applicationVersion":"2.0.5210","type":null,"name":"iPad","deviceModel":"iPad","companyId":8421,"applicationId":"Restaurant Butler","optout":0,"oid":8966,"printTemplateId":0,"deviceVersion":"6.1.3","deviceId":"C4B5CC94-C51C-4FE6-AE01-3742626814D4"}, customer:{"email":"nicolas.deletter@posios.com","language":"","deliveryStreetNumber":"","username":"nicolas.deletter@posios.com","clientId":0,"deliveryCity":"","birthYear":0,"lastname":"De Letter","companyId":8421,"gsm":"","uuid":null,"type":"customer","visible":true,"role":null,"birthMonth":0,"sex":"","partnerCustomerId":0,"deliveryCountry":"deliveryCountry","deliveryStreet":"","deliveryZip":"","firstname":"Nicolas","creationDate":1388744665141,"imageLocation":"http://dev.posios.com:8080/posimages/CUSTOMERS/20726.jpg","oid":20726,"zip":"","vatNumber":null,"lastVisitDate":0,"street":"","city":"","birthDay":0,"country":"","streetNumber":"","password":"","receiveNewsLetter":false,"age":0,"verified":false,"telephone":"","socialSecurityNumber":"","credits":0}, productCategories:[{"displayName":null,"printTemplateId":4172,"deliveryVat":11,"vat":12,"printer":"","additionIds":[],"products":[{"dealer":"","displayName":"","visible":true,"priceTypeId":0,"priceWithoutVAT":0,"totalPrice":0,"imageLocation":"","takeawayPrice":19,"stockAmount":-10,"name":"foodCourse1-1","manufacturer":"","oid":78377,"info":"","tempTime":0,"barcode":"","vat":12,"displayNames":["foodCourse1-1","foodCourse1-1 kitchenName"],"deliveryPrice":18,"cost":0,"pId":"f1","price":20,"kitchenName":null,"deliveryPriceWithoutVAT":-1,"orderAmount":0,"takeawayPriceWithoutVAT":-1,"additionIds":null,"productTypeId":4278190080,"deliveryVat":11,"takeawayVat":10,"subProductIds":null,"productCategoryId":32574}],"takeawayVat":10,"oid":32574,"printOrder":1,"info":"","companyId":8421,"name":"foodCategoryCourse1","printTemplateIds":[4172],"imageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/productCategories/mainmeat.png"},{"displayName":null,"printTemplateId":4172,"deliveryVat":11,"vat":12,"printer":"","additionIds":[],"products":[{"dealer":"","displayName":"","visible":true,"priceTypeId":0,"priceWithoutVAT":0,"totalPrice":0,"imageLocation":"","takeawayPrice":9,"stockAmount":-2,"name":"foodCourse2-1","manufacturer":"","oid":78380,"info":"foodCourse2-1 description","tempTime":0,"barcode":"","vat":12,"displayNames":["foodCourse2-1","foodCourse2-1 kitchenName"],"deliveryPrice":8,"cost":0,"pId":"g1","price":10,"kitchenName":null,"deliveryPriceWithoutVAT":-1,"orderAmount":0,"takeawayPriceWithoutVAT":-1,"additionIds":null,"productTypeId":4278190080,"deliveryVat":11,"takeawayVat":10,"subProductIds":null,"productCategoryId":32576}],"takeawayVat":10,"oid":32576,"printOrder":2,"info":"","companyId":8421,"name":"foodCategoryCourse2","printTemplateIds":[4172],"imageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/productCategories/mainmeat.png"},{"displayName":null,"printTemplateId":0,"deliveryVat":0,"vat":0,"printer":"","additionIds":[],"products":[{"dealer":"","displayName":"","visible":true,"priceTypeId":73,"priceWithoutVAT":0,"totalPrice":0,"imageLocation":"","takeawayPrice":0,"stockAmount":-19,"name":"ServiceChargeRestaurantAutomaticPercentage","manufacturer":"","oid":78390,"info":"ServiceChargeRestaurantAutomaticPercentage description","tempTime":0,"barcode":"","vat":0,"displayNames":["ServiceChargeRestaurantAutomaticPercentage","ServiceChargeRestaurantAutomaticPercentage kitchenName"],"deliveryPrice":20,"cost":0,"pId":"s2","price":20,"kitchenName":null,"deliveryPriceWithoutVAT":-1,"orderAmount":0,"takeawayPriceWithoutVAT":-1,"additionIds":null,"productTypeId":4278190080,"deliveryVat":0,"takeawayVat":0,"subProductIds":null,"productCategoryId":32578}],"takeawayVat":0,"oid":32578,"printOrder":1,"info":"","companyId":8421,"name":"service charge","printTemplateIds":[],"imageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/productCategories/aperitief.png"}], additionValues: [], serverInfo: {"version":"Version 2.2 Posios Server","blackBoxServerMacAddress":""}}; /*console.log(completeReceipt);*/ try {jQuery(document).ready(function($) {search(completeReceipt);location.href = 'posios://print';});} catch(e) {'print error:' + e.message +' '+ e;}
+
+if(checkIfNotZeroEmptyOrNull(completeReceipt))
+	$('#errors').append("<p style='font-size:50px;'>There is still a JSON present!</p>");	
+
+var generatedCount = 0;
+
+function search(completeReceipt) {
+	console.log('testje:' + completeReceipt.company.displayName);
+	
+	// Make sure completeReceipt is globally accessible
+	window.completeReceipt = completeReceipt;
+	// When set to 1, multiple debug lines will be pinted to see where the error occurs when princing the receipt.
+	window.posEnableDebug = 0;
+	// These are values which test if objects are present. Do not touch.
+	window.posCustomerAvailable = 0;
+	window.posCompanyAvailable = 0;
+	window.posReceiptAvailable = 0;
+	window.posTemplateAvailable = 0;
+	window.posUserAvailable = 0;
+	window.posTableAvailable = 0;
+	window.posVatAvailable = 0;
+	window.posBarItemsAvailable = 0;
+	window.posKitchenItemsAvailable = 0;
+	window.posPaymentsAvailable = 0;
+	window.posProductCategoriesAvailable = 0;
+	window.posAdditionValuesAvailable = 0;
+	window.posCount = 0;
+	
+	var data = eval(completeReceipt.receipt);
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Printing will start.</p>");
+
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.customer))
+		window.posCustomerAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.company))
+		window.posCompanyAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt))
+		window.posReceiptAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.template))
+		window.posTemplateAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.user))
+		window.posUserAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.table))
+		window.posTableAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.vat))
+		window.posVatAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.barItems))
+		window.posBarItemsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems))
+		window.posKitchenItemsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.payments))
+		window.posPaymentsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.productCategories))
+		window.posProductCategoriesAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.additionValues))
+		window.posAdditionValuesAvailable = 1;
+
+	$("#headerTemplate").tmpl(completeReceipt).appendTo("#header");
+
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Header printed.</p>");
+
+	//$("#recipientsTemplate").tmpl(completeReceipt).appendTo("#recipients");
+			
+	jQuery("[i21D='defaultFontSize']").each(function(i,e){
+	 //console.log($(e));
+	 $(e).css({"font-family":completeReceipt.template.fontName});
+	 $(e).css({"font-size":completeReceipt.template.fontSize});
+	});
+   
+	jQuery("[i21B='bigFontSize']").each(function(i,e){
+	 //console.log($(e));
+	 $(e).css({"font-family":completeReceipt.template.bigFontName});
+	 $(e).css({"font-size":completeReceipt.template.bigFontSize});
+	}); 
+	
+	jQuery("[i21S='smallFontSize']").each(function(i,e){
+	 //console.log($(e));
+	 $(e).css({"font-family":completeReceipt.template.smallFontName});
+	 $(e).css({"font-size":completeReceipt.template.smallFontSize});
+	});  
+}		
+</script>
+</head>
+
+<body style="background:#fff">
+	<div id="errors"></div>
+	<div id="header"></div>
+	<div id="recipients"></div>
+	<div id="receipt" i21D='defaultFontSize'>
+        <table id="receiptItemsList">
+            <tr>
+            	<th style="display:none;"></th>
+                <th id="amountItems" align="left">#</th>
+                <th id="productItem" align="left">Naam</th>
+                <th id="priceHide" align="right">Prijs</th>
+            </tr>
+        </table>
+	</div> 
+  	<table id="totals">
+  	</table>
+ 	<table id="amountDue" class="widthHundred">
+  	</table>   
+    <table id="netPrice">
+    </table>   
+    <table id="paymentsTable">
+		<tr i21D='defaultFontSize' id="paymentHeader"><th align="left">Betaling</th><th align="right">Bedrag</th></tr>  
+  	</table>
+  	<table id="totalAmount">
+  		<tr><th></th><th></th></tr>
+  	</table>
+  	<table id="change">  
+    </table>
+  	<table id="totalTip">
+  	</table>       
+    <table id="vat" i21D='smallFontSize'>
+        <tr>
+        	<th id="vatPercent"></th>
+            <th class="alignRight">Netto</th>
+            <th class="alignRight">BTW</th>
+            <th class="floatRight">Totaal</th>
+       </tr>
+    </table>
+    <div id="promotion">
+    </div>
+    <div id="footer">
+    </div>
+</body>
+</html>

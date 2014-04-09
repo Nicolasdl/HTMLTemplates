@@ -1,0 +1,1585 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 AndaleMono;}
+{\colortbl;\red255\green255\blue255;\red83\green83\blue83;\red255\green255\blue255;\red176\green52\blue37;
+\red38\green38\blue38;\red41\green43\blue45;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 var completeReceipt =\
+\pard\pardeftab720\sl360
+
+\f1 \cf2 \{\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 company\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "digitalMenuCardUrl"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "email"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "smtpPort"\cf5 :\cf0 "465"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "enforceStock"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "notifyKitchen"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageUrl"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "shouldWarnIfNonPrintedItems"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showDayReportTableDetails"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "gsm"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "url"\cf5 :\cf0 "http://www.posios.com"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "smtpUserName"\cf5 :\cf0 "reservatie@roxx.be"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "account"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "smtpPassword"\cf5 :\cf0 "flymm444"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productBigFontSize"\cf5 :\cf0 16\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "timezone"\cf5 :\cf0 4\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "invoiceNumberTemplate"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "openingstime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "JUnit"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "generateClosingTimeReport"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "zip"\cf5 :\cf0 "9070"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "shouldGoToTablesWhenNothingNeedsToBePrinted"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "users"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showProductReportAdditionValueDetails"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "smtpHost"\cf5 :\cf0 "mail.roxx.be"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPopup"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "autoLogin"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "street"\cf5 :\cf0 "Unitstreet"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "city"\cf5 :\cf0 "Ghent"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "streetNumber"\cf5 :\cf0 "1"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "country"\cf5 :\cf0 "United\'a0States"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showDayReportProductDetails"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showDayReportCategoryDetails"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showProductReportAdditionValues"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 "JUNIT"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "fax"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 "10"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showDayReportDetails"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "combineBarAndKitchen"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vatInclusive"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerSelectionPopup"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productSmallFontSize"\cf5 :\cf0 11\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "telephone"\cf5 :\cf0 "0494541334"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "currency"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "closingtime"\cf5 :\cf0 86400000\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 receipt\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "invoiceNumber"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "url"\cf5 :\cf0 "http://www.posios.com"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386147990382\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "userId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "sequenceNumber"\cf5 :\cf0 158\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 "78853"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 "restaurant"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "znumber"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentId"\cf5 :\cf0 "0"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "lockDeviceIdentifier"\cf5 :\cf0 "C197C433-C3AF-4283-B118-78567403E763"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "numberOfCustomers"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptItems"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 7.5999999999999996\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Tomato\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73500\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219862\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "31"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 7.6050000000000004\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "soup\'a0t"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 9.1400000000000006\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Vegetable\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73501\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219863\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "32"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 9.1349999999999998\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "Vegetable\'a0soup\'a0lange\'a0naam"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 24.010000000000002\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219864\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "cp"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 20.010000000000002\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219865\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 4\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219866\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 5\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "cp"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219867\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 6\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 12.01\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219868\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 9\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "cp"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 10.01\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219869\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 14\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Spagetthi"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73505\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219870\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 11\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "52"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 14\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "sp"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 25\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Steak"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73504\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1219871\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 78853\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "51"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 25\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "steak"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 589\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Blue"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1499\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386148075963\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0request"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "payed"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryDelay"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "actionReceiptItems"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "hasChildren"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tableId"\cf5 :\cf0 "121865"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "footer"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "foid"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dayReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1386147990382\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "in\'a0progress"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stamp"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "total"\cf5 :\cf0 143.79000000000002\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 template\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showCustomerInfo"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "fontName"\cf5 :\cf0 "Helvetica-Bold"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "bigFontSize"\cf5 :\cf0 45\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateTypeId"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "nrOfDecimals"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showWaiterTableTime"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "signalAccessory"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amountWidth"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "promotionText"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 "kitchen"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "templateUrl"\cf5 :\cf0 "http://dev.posios.com:8080/posimages/junit_17441/templates/4172.html"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "smallFontName"\cf5 :\cf0 "Arial"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printerId"\cf5 :\cf0 488\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "fontSize"\cf5 :\cf0 25\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWidth"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productDisplayNamesIndex"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "kitchen"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 4172\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showCompanyInfo"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "smallFontSize"\cf5 :\cf0 16\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "logoUrl"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "bottomLogoUrl"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printNameId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showTotalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "bigFontName"\cf5 :\cf0 "Arial-BoldMT"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "thankYouText"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "showSequenceNumber"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "title"\cf5 :\cf0 "JUnit"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "nrOfDecimalsToRoundVATTo"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "nrWidth"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "template"\cf5 :\cf0 null\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 user\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "socialSecurityNumber"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "city"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "uuid"\cf5 :\cf0 "879d065d-1041-4a14-8053-fa06483aa627"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "streetNumber"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "zip"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080/posimages/MAIN/images/standarduser.png"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "sex"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 17442\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 "employee"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "password"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "email"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "serverport"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "serverprotocol"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "serverextension"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "lastClockType"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "street"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "telephone"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "lastname"\cf5 :\cf0 "plan"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "username"\cf5 :\cf0 "Butler"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "role"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "country"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "server"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "age"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "gsm"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "firstname"\cf5 :\cf0 "tele"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "defaultFloorId"\cf5 :\cf0 4572\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 table\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080/posimages/MAIN/images/table1.png"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 "free"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "numberOfClients"\cf5 :\cf0 4\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "chairImageLocation"\cf5 :\cf0 "http://dev.posios.com:8080/posimages/MAIN/images/whitechair.png"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "x"\cf5 :\cf0 7\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "width"\cf5 :\cf0 100\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "ellipse"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 "restaurant"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "y"\cf5 :\cf0 23\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 "121865"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "height"\cf5 :\cf0 40\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "rotation"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "floorId"\cf5 :\cf0 4572\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "T-1"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tableOrder"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "zindex"\cf5 :\cf0 0\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 vat\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "12"\cf5 :\cf0 143.79000000000002\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 barItems\cf5 \cb1 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 kitchenItems\cf5 \cb1 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Tomato\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73500\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "31"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 7.6050000000000004\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Vegetable\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73501\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "32"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 9.1349999999999998\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 4\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 5\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 6\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 7\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 4\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 8\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 9\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Spagetthi"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73505\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 11\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "52"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 14\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modifierUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionUpdateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "modificationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Steak"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pOid"\cf5 :\cf0 73504\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 -1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creatorUserId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "riReceiptId"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "customerNr"\cf5 :\cf0 3\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode2"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "amount"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "51"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 25\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionValues"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 589\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Blue"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1499\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "statusId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "parentRiReceiptId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "status"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 payments\cf5 \cb1 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 device\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "applicationVersion"\cf5 :\cf0 "1.26.4980"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "iPad"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deviceModel"\cf5 :\cf0 "iPad"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "applicationId"\cf5 :\cf0 "Restaurant\'a0Butler"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "optout"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 8946\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deviceVersion"\cf5 :\cf0 "6.1.3"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deviceId"\cf5 :\cf0 "C197C433-C3AF-4283-B118-78567403E763"\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 customer\cf5 \cb1 :\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "email"\cf5 :\cf0 "nicolas.deletter@posios.com"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "language"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryStreetNumber"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "username"\cf5 :\cf0 "nicolas.deletter@posios.com"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "clientId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryCity"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "birthYear"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "lastname"\cf5 :\cf0 "De\'a0Letter"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "gsm"\cf5 :\cf0 "0494541334"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "uuid"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "type"\cf5 :\cf0 "customer"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "role"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "birthMonth"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "sex"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "partnerCustomerId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryCountry"\cf5 :\cf0 "deliveryCountry"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryStreet"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryZip"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "firstname"\cf5 :\cf0 "Butler"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "creationDate"\cf5 :\cf0 1381505190734\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080/posimages/CUSTOMER/noimage.jpg"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 17850\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "zip"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vatNumber"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "lastVisitDate"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "street"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "city"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "birthDay"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "country"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "streetNumber"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "password"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "receiveNewsLetter"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "age"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "verified"\cf5 :\cf0 false\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "telephone"\cf5 :\cf0 "0494541334"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "socialSecurityNumber"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "credits"\cf5 :\cf0 -14.08\
+\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 productCategories\cf5 \cb1 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateId"\cf5 :\cf0 4172\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "products"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dealer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPrice"\cf5 :\cf0 9.1349999999999998\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stockAmount"\cf5 :\cf0 -294\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Vegetable\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "manufacturer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 73501\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tempTime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayNames"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Vegetable\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Vegetable\'a0soup\'a0lange\'a0naam"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPrice"\cf5 :\cf0 9.1349999999999998\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "cost"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "32"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 9.1349999999999998\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "Vegetable\'a0soup\'a0lange\'a0naam"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "orderAmount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productTypeId"\cf5 :\cf0 4278190080\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "subProductIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productCategoryId"\cf5 :\cf0 32346\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dealer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPrice"\cf5 :\cf0 7.6050000000000004\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stockAmount"\cf5 :\cf0 -253\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Tomato\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "manufacturer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 73500\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tempTime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayNames"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Tomato\'a0soup"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"soup\'a0t"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPrice"\cf5 :\cf0 7.6050000000000004\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "cost"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "31"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 7.6050000000000004\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "soup\'a0t"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "orderAmount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productTypeId"\cf5 :\cf0 4278190080\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "subProductIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productCategoryId"\cf5 :\cf0 32346\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 32346\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printOrder"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Soup\'a0Edited"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a04172\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "soup.png"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateId"\cf5 :\cf0 4172\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0588\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0591\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "products"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dealer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stockAmount"\cf5 :\cf0 -92\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "manufacturer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 73503\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tempTime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayNames"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"loempia"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "cost"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "42"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 10\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "loempia"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "orderAmount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0588\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0591\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "subProductIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productCategoryId"\cf5 :\cf0 32347\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dealer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stockAmount"\cf5 :\cf0 -88\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "manufacturer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 73502\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tempTime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayNames"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Carpacio"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"cp"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "cost"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "41"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "cp"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "orderAmount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0588\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0591\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "subProductIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productCategoryId"\cf5 :\cf0 32347\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 32347\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printOrder"\cf5 :\cf0 1\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "test"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Starters"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a04172\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "mainstarter.png"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 null\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateId"\cf5 :\cf0 4172\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "products"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dealer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stockAmount"\cf5 :\cf0 -279\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Steak"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "manufacturer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 73504\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tempTime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayNames"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Steak"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"steak"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "cost"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "51"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 25\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "steak"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "orderAmount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0589\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productTypeId"\cf5 :\cf0 4278190080\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "subProductIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productCategoryId"\cf5 :\cf0 32348\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "dealer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayName"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "visible"\cf5 :\cf0 true\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceTypeId"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "totalPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "http://dev.posios.com:8080"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "stockAmount"\cf5 :\cf0 -397\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Spagetthi"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "manufacturer"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 73505\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "tempTime"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "barcode"\cf5 :\cf0 ""\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "vat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "displayNames"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"Spagetthi"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0"sp"\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPrice"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "cost"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "pId"\cf5 :\cf0 "52"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 14\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "kitchenName"\cf5 :\cf0 "sp"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "orderAmount"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayPriceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productTypeId"\cf5 :\cf0 4278190080\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "deliveryVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "subProductIds"\cf5 :\cf2 [\cf0 \
+\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "productCategoryId"\cf5 :\cf0 32348\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "takeawayVat"\cf5 :\cf0 12\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 32348\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printOrder"\cf5 :\cf0 2\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "test"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "companyId"\cf5 :\cf0 8421\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Main"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "printTemplateIds"\cf5 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a04172\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "imageLocation"\cf5 :\cf0 "mainfish.png"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\cf2 ]\cf5 ,\cf0 \
+\'a0\'a0\'a0\cf3 \cb4 additionValues\cf5 \cb1 :\cf2 [\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gepeperd"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1506\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gepeperd"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 591\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Gezout"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0.0050000000000000001\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1507\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 "Gezout"\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \{\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "additionId"\cf5 :\cf0 589\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "name"\cf5 :\cf0 "Blue"\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "price"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "oid"\cf5 :\cf0 1499\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "priceWithoutVAT"\cf5 :\cf0 0\cf5 ,\cf0 \
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\cf6 "info"\cf5 :\cf0 ""\
+\'a0\'a0\'a0\'a0\'a0\'a0\cf2 \}\cf0 \
+\'a0\'a0\'a0\cf2 ]\cf0 \
+\cf2 \}\cf3 \cb4 ;\'a0/*console.log(completeReceipt);*/\'a0try\{\cf0 \cb1 \
+\'a0\'a0\'a0\cf3 \cb4 jQuery(document).ready(function($)\cf0 \cb1 \'a0\'a0\'a0\cf3 \cb4 \{\cf0 \cb1 \
+\'a0\'a0\'a0\'a0\'a0\'a0\cf3 \cb4 search(completeReceipt);location.href\'a0=\'a0'posios\cf5 \cb1 :\cf3 \cb4 //print';\cf0 \cb1 \
+\'a0\'a0\'a0\cf2 \}\cf0 \'a0\'a0\'a0\cf3 \cb4 );\cf0 \cb1 \
+\cf2 \}\cf3 \cb4 catch(e)\{\cf0 \cb1 \
+\'a0\'a0\'a0\cf3 \cb4 'print\'a0error:'\cf0 \cb1 \'a0\'a0\'a0\cf3 \cb4 +\'a0e.message\'a0+'\'a0'+\'a0e;\cf0 \cb1 \
+\cf2 \}}
