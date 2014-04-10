@@ -86,7 +86,22 @@
 	<script type="text/javascript" src="http://www.posios.com/js/jquery.tmpl.min.js"></script>
 	<script type="text/javascript" src="http://www.posios.com/js/jquery.qrcode.min.js"></script>
 	<script type="text/javascript" src="http://www.posios.com/js/moment.min.js"></script>
-	<script type="text/javascript">      
+	<script type="text/javascript">  
+		var NL = ["Subtotaal", "Korting", "Service Charge", "Tip", "Totaal", "Betaald", "Kaartinformatie", "Kaart type", "Kaart nummer", "Handtekening", "BTW", "Wisselgeld", "Saldo", "Naam",
+					"Prijs", "Betaling", "Bedrag", "Netto", "BTW", "Totaal"];
+		var EN = ["Subtotal", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "VAT", "Change", "Outstanding amount", "Item",
+					"Price", "Payment", "Amount", "Net", "VAT", "Gross"];
+		var FR = ["Sous-total", "Réduction", "Service Charge", "Pourboire", "Total", "Payé", "Informations de carte", "Type de carte", "Numéro de carte", "Signature", "TVA", "À remettre", "Solde", "Produit",
+					"Prix", "Paiement", "Montant", "Net", "TVA", "Total"];
+		var DE = ["Zwischensumme", "Rabatt", "Service Charge", "Spitze", "Summe", "Bezahlt", "Karteninformationen", "Karten-Typ", "Kreditkartennummer", "Unterschrift", "MWSt", "Wechselgeld", "Saldo", "Name",
+					"Betrag", "Bezahlung", "Betrag", "Netto", "Mwst", "Summe"];
+		var AU = ["Subtotal", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "GST", "Change", "Outstanding amount", "Item",
+					"Price", "Payment", "Amount", "Net", "GST", "Gross"];
+
+		/**********************************************
+		* Set language here:*/ window.language = EN; /*
+		**********************************************/
+
 		(function(){
 			Array.prototype.allIndexOf = function(searchElement) {
 				if (this === null) { return [-1]; }
@@ -875,33 +890,33 @@
 	</script>
 	<script id="subtotalsTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<th class="alignLeft">Subtotaal</th>
+			<th class="alignLeft">${window.language[0]}</th>
 			<td class="floatRight"><b>${calculateSubtotal(total).toFixed(2)}</b></td>
 		</tr>
 	</script>
 	<script id="discountsTemplate" type="text/x-jquery-tmpl">
 		<tr>		
-			<th class="alignLeft fontWeightNormal">Korting</th>
+			<th class="alignLeft fontWeightNormal">${window.language[1]}</th>
 			<td class="floatRight">${calculateDiscount(completeReceipt.receipt).toFixed(2)}</td>
 		</tr>
 	</script>
 	<script id="gratuityTemplate" type="text/x-jquery-tmpl">
 		{{if (priceTypeId > 59 && priceTypeId < 68 && price != 0) || (priceTypeId > 69 && priceTypeId < 78 && price != 0)}}
 			<tr>
-				<th class="alignLeft fontWeightNormal">Service Charge</th>
+				<th class="alignLeft fontWeightNormal">${window.language[2]}</th>
 				<td class="floatRight">${price.toFixed(2)}</td>
 			</tr>			
 		{{/if}}
 	</script>
 	<script id="totalTipTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<th class="alignLeft fontWeightNormal">Tip</th>
+			<th class="alignLeft fontWeightNormal">${window.language[3]}</th>
 			<td class="floatRight">${calculateTip(payments).toFixed(2)}</td>
 		</tr>
 	</script>
 	<script id="receiptTotals" type="text/x-jquery-tmpl">
 		<tr>		
-			<th class="alignLeft">Totaal</th>
+			<th class="alignLeft">${window.language[4]}</th>
 			<td class="floatRight"><b>${((receipt.total + calculateTip(payments)).toFixed(2))}</b></td>		
 		</tr>
 	</script> 
@@ -913,20 +928,20 @@
 	</script>
 	<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<th class="alignLeft"><b>Betaald</b</th>
+			<th class="alignLeft"><b>${window.language[5]}</b</th>
 			<td class="floatRight"><b>${getPayment(payments).toFixed(2)}<b></td>	
 		</tr>
 	</script> 
 	<script id="signatureTemplate" type="text/x-jquery-tmpl">
-		<p><b>Kaart informatie</b></p>
-		<p class="floatLeft widthFifty">Kaart type:</p><p class="floatRight widthFifty alignRight">${cardHolder}</p>
-		<p class="floatLeft widthFifty">Kaartnummer:</p><p class="floatRight widthFifty alignRight">${cardNumber}</p>
+		<p><b>${window.language[6]}</b></p>
+		<p class="floatLeft widthFifty">${window.language[7]}:</p><p class="floatRight widthFifty alignRight">${cardHolder}</p>
+		<p class="floatLeft widthFifty">${window.language[8]}:</p><p class="floatRight widthFifty alignRight">${cardNumber}</p>
 		<br/></br></br></br>
-		<p id="signatureLine">Handtekening:</p>
+		<p id="signatureLine">${window.language[9]}:</p>
 	</script>
 	<script id="vatTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<td>BTW ${vat}%:</td>
+			<td>${window.language[10]} ${vat}%:</td>
 			<td class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
 			<td class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
 			<td class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
@@ -935,10 +950,10 @@
 	<script id="changeTemplate" type="text/x-jquery-tmpl">			
 		<tr>
 			{{if getChange(receipt.total,payments) > 0}}
-				<th class="alignLeft">Wisselgeld</th>
+				<th class="alignLeft">${window.language[11]}</th>
 				<td class="floatRight"><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
 			{{else getChange(receipt.total,payments) < 0}}
-				<th class="alignLeft">Saldo</th>
+				<th class="alignLeft">${window.language[12]}</th>
 				<td class="floatRight"><b>${((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
 			{{/if}}
 		</tr>
@@ -1082,7 +1097,6 @@ var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLo
 		window.posShowBranches = 0;
 		// When set to 1, only the menu name will be displayed without the branches and products.
 		window.posShowMenuOnly = 0;
-
 
 		if(window.posEnableInfoTopline == 1)
 			$("#header").attr("class", "borderBottom");
@@ -1386,6 +1400,14 @@ var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLo
 			$(e).css({"font-family":completeReceipt.template.smallFontName});
 			$(e).css({"font-size":completeReceipt.template.smallFontSize});
 		});
+
+		$("#receiptItemsList tr:nth-child(1) th:nth-child(3)").html(window.language[13]);
+		$("#receiptItemsList tr:nth-child(1) th:nth-child(4)").html(window.language[14]);
+		$("#paymentsTable tr:nth-child(1) th:nth-child(1)").html(window.language[15]);
+		$("#paymentsTable tr:nth-child(1) th:nth-child(2)").html(window.language[16]);
+		$("#vat tr:nth-child(1) th:nth-child(2)").html(window.language[17]);
+		$("#vat tr:nth-child(1) th:nth-child(3)").html(window.language[18]);
+		$("#vat tr:nth-child(1) th:nth-child(4)").html(window.language[19]);
 
 		if(window.posEnableSortOnCourseThenOnKitchenName == 1 && window.posEnableCourseLines == 1)
 			checkLine();
