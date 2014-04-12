@@ -228,15 +228,15 @@
 		}
 
 		function sortJsonArrayByProperty(objArray, prop, direction){
-			if (arguments.length<2) throw new Error("sortJsonArrayByProp requires 2 arguments");
-			var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
+			if (arguments.length < 2) throw new Error("sortJsonArrayByProp requires 2 arguments");
+			var direct = arguments.length > 2 ? arguments[2] : 1; //Default to ascending
 			var intRegex = /^\d+$/;
 
 			if(objArray) {
-				var propPath = (prop.constructor===Array) ? prop : prop.split(".");
-				objArray.sort(function(a,b){
-					for (var p in propPath){
-						if (a[propPath[p]] && b[propPath[p]]){
+				var propPath = (prop.constructor === Array) ? prop : prop.split(".");
+				objArray.sort(function(a, b) {
+					for (var p in propPath) {
+						if (a[propPath[p]] && b[propPath[p]]) {
 							a = a[propPath[p]];
 							b = b[propPath[p]];
 						}
@@ -247,7 +247,7 @@
 						a = a.match(/^\d+$/) ? +a : a;
 						b = b.match(/^\d+$/) ? +b : b;
 					}
-					return ( (a < b) ? -1*direct : ((a > b) ? 1*direct : 0) );
+					return ((a < b) ? -1 * direct : ((a > b) ? 1 * direct : 0));
 				});
 			}
 		}
@@ -313,16 +313,6 @@
 			}
 		}());
 
-		function checkLine() {
-			if(window.posEnableSortOnCourseThenOnKitchenName == 1) {
-				var table = document.getElementById("receiptItemsList");
-				for (var i = 0, row; row = table.rows[i]; i++) {
-				   if(row.cells[0].innerHTML == 1)
-				      row.className = "borderTop";
-				}
-			}
-		}
-
 		function calculateTip(payments) {
 			var totalTip = 0;
 				
@@ -341,20 +331,16 @@
 		}
 
 		function flattenReceiptItemsHierarchy(items) {
-			if(!checkIfNotZeroEmptyOrNull(items))
-				return null;
-			else {
-				var res = new Array();
-				addReceiptItemsWithParentTo(items, 0, res);
-				// add orphaned items (shouldn't happen!)
-				if(items.length != res.length) {
-					for(var item in items)
-						if(items.hasOwnProperty(item))
-							if(!res.indexOf(items[item]) > 1)
-								res[res.length] = items[item];
-				}
-				return res;
+			var res = new Array();
+			addReceiptItemsWithParentTo(items, 0, res);
+			// add orphaned items (shouldn't happen!)
+			if(items.length != res.length) {
+				for(var item in items)
+					if(items.hasOwnProperty(item))
+						if(!res.indexOf(items[item]) > 1)
+							res[res.length] = items[item];
 			}
+			return res;
 		}
 
 		function addReceiptItemsWithParentTo(items, parentRiReceiptId, res) {
@@ -393,22 +379,12 @@
 		// Need to be globally accessible for sorting
 		var itemArray, combinedMenuArray;
 
-		function combineMenusAndItems(receiptItems) {
-			var receiptItemsToArray = new Array(), combinedArray = new Array();
-
-			if(!checkIfNotZeroEmptyOrNull(receiptItems))
-				return receiptItemsToArray;
-
-			// Store all receipt items in an array
-			for(var receiptItem in receiptItems)
-				if(receiptItems.hasOwnProperty(receiptItem))
-					receiptItemsToArray.push(receiptItems[receiptItem]);
-
-			var menuItemArray = new Array(), itemArray = new Array();
+		function combineMenusAndItems(receiptItemsToArray) {
+			var combinedArray = new Array(), menuItemArray = new Array(), itemArray = new Array();
 
 			// Go over the different receipt items and divide menus from regular items
 			for(var i = 0; i < receiptItemsToArray.length; i++) {
-				if(checkIfMenu(receiptItemsToArray[i]) || checkMenuItem(receiptItemsToArray[i]))
+				if(checkIfMenu(receiptItemsToArray[i]))
 					menuItemArray.push(receiptItemsToArray[i]);
 				else
 					itemArray.push(receiptItemsToArray[i]);
@@ -496,13 +472,7 @@
 		}
 
 		function checkIfMenu(item) {
-			if(item.priceTypeId == 11 || item.priceTypeId == 12)
-				return true;
-			return false;
-		}
-
-		function checkMenuItem(item) {
-			if(item.priceTypeId != 11 && item.priceTypeId != 12 && item.parentRiReceiptId != 0)
+			if((item.priceTypeId == 11 || item.priceTypeId == 12) || item.parentRiReceiptId != 0)
 				return true;
 			return false;
 		}
@@ -551,66 +521,43 @@
 		}
 
 		function combineItems(receiptItems) {
-			var receiptItemsToArray = new Array();
-
-			// Store all receipt items in an array
-			for(var receiptItem in receiptItems)
-				if(receiptItems.hasOwnProperty(receiptItem))
-					receiptItemsToArray.push(receiptItems[receiptItem]);
-
-			var combinedArray = new Array(), checkedIds = new Array();
+			var combinedArray = new Array(), checkedIds = new Array(), correctArray = new Array();
 
 			// Go over the different receipt items
-			for(var i = 0; i < receiptItemsToArray.length; i++) {
+			for(var i = 0; i < receiptItems.length; i++) {
 				// Store first item
 				if(i == 0) {
-					combinedArray.push(receiptItemsToArray[i]);
-					checkedIds.push(receiptItemsToArray[i].pOid);
-				}
-				else if(receiptItemsToArray[i].priceTypeId == 11 || receiptItemsToArray[i].priceTypeId == 12 || receiptItemsToArray[i].parentRiReceiptId != 0) {
-					combinedArray.push(receiptItemsToArray[i]);			
+					combinedArray.push(receiptItems[i]);
+					checkedIds.push(receiptItems[i].pOid);
 				}
 				else {
 					// Check if pOid has already been added to combinedArray
-					var foundIndex = checkedIds.allIndexOf(receiptItemsToArray[i].pOid);
-					if(foundIndex < 0) {
+					var foundIndex = checkedIds.allIndexOf(receiptItems[i].pOid);
+					if(foundIndex == -1) {
 						// The pOid has not been added yet
-						combinedArray.push(receiptItemsToArray[i]);
-						checkedIds.push(receiptItemsToArray[i].pOid);				
+						combinedArray.push(receiptItems[i]);
+						checkedIds.push(receiptItems[i].pOid);				
 					}
-					else if(foundIndex.length > 1) {
+					else {
 						var flag = 0;
 						// Check each index to check if the product has the same details as the one stored
 						for(var index = 0; index < foundIndex.length; index++) {
 							// Check if the product has the same details as the one stored
-							if(isSameProduct(combinedArray[foundIndex[index]], receiptItemsToArray[i])) {
-								combinedArray[foundIndex[index]].amount += receiptItemsToArray[i].amount;
+							if(isSameProduct(combinedArray[foundIndex[index]], receiptItems[i])) {
+								combinedArray[foundIndex[index]].amount += receiptItems[i].amount;
 								flag++;
 							}				
 						}
 						if(flag < 1) {
-							combinedArray.push(receiptItemsToArray[i]);
-							checkedIds.push(receiptItemsToArray[i].pOid);
+							combinedArray.push(receiptItems[i]);
+							checkedIds.push(receiptItems[i].pOid);
 						}
 						else if(flag > 1) {
 							console.log("Something went wrong here. This is not possible.");
 						}
-
-					}
-					else {
-						// Check if the product has the same details as the one stored
-						if(isSameProduct(combinedArray[foundIndex], receiptItemsToArray[i])) {
-							combinedArray[foundIndex].amount += receiptItemsToArray[i].amount;
-						}
-						else {
-							combinedArray.push(receiptItemsToArray[i]);
-							checkedIds.push(receiptItemsToArray[i].pOid);				
-						}
 					}
 				}
 			}
-
-			var correctArray = new Array();
 			
 			for(var key in combinedArray)
 				if(combinedArray.hasOwnProperty(key))
@@ -620,60 +567,29 @@
 		}
 
 		function isSameProduct(storedReceiptItem, newReceiptItem) {
-			if(storedReceiptItem.name === newReceiptItem.name) {
-				// Check if unit price is the same
-				if(storedReceiptItem.price == newReceiptItem.price) {
-					// Check if the additions are the same
-					if(storedReceiptItem.additionValues.length != 0 && newReceiptItem.additionValues.length != 0)
-						if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
-							return true;
-						else
-							return false;
-					else
+			if(storedReceiptItem.name === newReceiptItem.name && storedReceiptItem.price == newReceiptItem.price && storedReceiptItem.additionValues.length == newReceiptItem.additionValues.length) {
+				if(storedReceiptItem.additionValues.length != 0)
+					if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
 						return true;
-				}
 				else
-					return false;
+					return true;
 			}
-			else {
-				return false;
-			}
+			return false;
 		}
 
 		function areSameAdditions(storedAdditions, newAdditions) {
-			var storedAdditionsToArray = new Array(), newAdditionsToArray = new Array();
+			storedAdditions.sort(compareAdditions);
+			newAdditions.sort(compareAdditions);
 
-			// Store all additions in an array
-			for(var addition in storedAdditions)
-				if(storedAdditions.hasOwnProperty(addition))
-					storedAdditionsToArray.push(storedAdditions[addition]);
-
-			for(var addition in newAdditions)
-				if(newAdditions.hasOwnProperty(addition))
-					newAdditionsToArray.push(newAdditions[addition]);
-
-			storedAdditionsToArray.sort(compareAdditions);
-			newAdditionsToArray.sort(compareAdditions);
-
-			if(storedAdditionsToArray.length == newAdditionsToArray.length) {
-				var flag = 0;
-				for(var i = 0; i < storedAdditionsToArray.length; i++) {
-					if(storedAdditionsToArray[i].additionId == newAdditionsToArray[i].additionId
-						&& storedAdditionsToArray[i].name == newAdditionsToArray[i].name
-						&& storedAdditionsToArray[i].price == newAdditionsToArray[i].price
-						&& storedAdditionsToArray[i].oid == newAdditionsToArray[i].oid
-						&& storedAdditionsToArray[i].priceWithoutVAT == newAdditionsToArray[i].priceWithoutVAT)
-						flag++;
-					else
-						return false;
-				}
-				if(flag > 0)
-					return true;
-				else
+			for(var i = 0; i < storedAdditions.length; i++) {
+				if(!(storedAdditions[i].additionId == newAdditions[i].additionId
+					&& storedAdditions[i].name == newAdditions[i].name
+					&& storedAdditions[i].price == newAdditions[i].price
+					&& storedAdditions[i].oid == newAdditions[i].oid
+					&& storedAdditions[i].priceWithoutVAT == newAdditions[i].priceWithoutVAT))
 					return false;
 			}
-			else
-				return false;
+			return true;
 		}
 
 		function compareAdditions(a,b) {
@@ -685,13 +601,11 @@
 		}
 
 		function addReceiptItemsAmountToAdditions(receiptItems) {
-			for(var key in receiptItems) {
-				if(receiptItems.hasOwnProperty(key)) {
+			for(var key in receiptItems)
+				if(receiptItems.hasOwnProperty(key))
 					for(var key2 in receiptItems[key].additionValues)
 						if(receiptItems[key].additionValues.hasOwnProperty(key2))
 							receiptItems[key].additionValues[key2].amount = receiptItems[key].amount;
-				}
-			}
 		}
 
 		function checkPaymentOptionalInfoPresent(payments) {
@@ -810,7 +724,7 @@
 								<td></td>
 							{{/if}}
 						{{else}}
-							<td id="priceHide">t</td>
+							<td id="priceHide"></td>
 						{{/if}}		
 					{{else}}
 						<td class="hideItem"></td><td></td><td></td><td></td>
@@ -838,7 +752,7 @@
 							<td></td>
 						{{/if}}
 					{{else}}
-						<td id="priceHide">t</td>
+						<td id="priceHide"></td>
 					{{/if}}
 				{{/if}}
 			</tr>
@@ -1012,7 +926,6 @@
 		{{/if}}
 	</script>
 	<script type="text/javascript">
-var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLocation":"","blackBoxSerialPortName":"","blackBoxServerMacAddress":"","timezone":0,"streetNumber":"","customerSelectionPopup":false,"url":"","smtpUserName":"","useUserClockTimes":false,"showProductReportAdditionValues":true,"currency":null,"type":"","email":"","combineBarAndKitchen":true,"showDayReportTableDetails":false,"shouldGoToTablesWhenNothingNeedsToBePrinted":false,"digitalMenuCardUrl":" http://www.bbiesemans.be/posios/bruno/dmc.html","showProductReportAdditionValueDetails":false,"productSmallFontSize":11,"displayName":"Bruno","productBigFontSize":16,"enforceStock":false,"vatInclusive":true,"openingstime":0,"account":null,"name":"Bruno","showDayReportCategoryDetails":true,"showDayReportDetails":true,"notifyKitchen":true,"gsm":"","closingtime":86400000,"info":"","autoLogin":false,"showDayReportTips":true,"street":"","generateClosingTimeReport":false,"imageUrl":"http://www.bbiesemans.be/posios/bruno/mybar.png","users":[],"shouldWarnIfNonPrintedItems":false,"zip":"1654","vat":"","serviceChargeWithoutDiscount":false,"smtpHost":"","showDayReportProductDetails":false,"blackBoxPinCode":"","smtpPort":"","telephone":"02","fax":"","smtpPassword":"","oid":114,"invoiceNumberTemplate":"","country":"US"},receipt:{"invoiceNumber":null,"url":"","modificationDate":1396881995280,"userId":18052,"sequenceNumber":169,"customerId":0,"oid":"90129","info":"","type":"restaurant","znumber":0,"printDate":1396881995280,"parentId":"0","vat":0,"deliveryDate":0,"lockDeviceIdentifier":"C4B5CC94-C51C-4FE6-AE01-3742626814D4","numberOfCustomers":0,"receiptItems":[{"displayName":"","totalPrice":4,"modifierUserId":18052,"priceTypeId":0,"additionUpdateId":0,"modificationDate":1396881832514,"barcode":null,"name":"Ice cream","pOid":3123,"oid":1330142,"info":"","creatorUserId":18052,"receiptId":90129,"riReceiptId":1,"vat":12,"customerNr":1,"barcode2":null,"amount":1,"pId":"72","price":4,"kitchenName":"ice","additionValues":[],"statusId":0,"parentRiReceiptId":0,"deliveryVat":0,"creationDate":1396881832514,"status":"executed","takeawayVat":0},{"displayName":"","totalPrice":5,"modifierUserId":18052,"priceTypeId":0,"additionUpdateId":0,"modificationDate":1396881832514,"barcode":null,"name":"Cakes","pOid":3122,"oid":1330143,"info":"","creatorUserId":18052,"receiptId":90129,"riReceiptId":2,"vat":12,"customerNr":1,"barcode2":null,"amount":1,"pId":"71","price":5,"kitchenName":"","additionValues":[],"statusId":0,"parentRiReceiptId":0,"deliveryVat":0,"creationDate":1396881832514,"status":"executed","takeawayVat":0},{"displayName":"","totalPrice":10,"modifierUserId":18052,"priceTypeId":0,"additionUpdateId":0,"modificationDate":1396881832514,"barcode":null,"name":"Rijstpap","pOid":80257,"oid":1330144,"info":"","creatorUserId":18052,"receiptId":90129,"riReceiptId":3,"vat":12,"customerNr":1,"barcode2":null,"amount":1,"pId":"D20","price":10,"kitchenName":"","additionValues":[],"statusId":0,"parentRiReceiptId":0,"deliveryVat":0,"creationDate":1396881832514,"status":"executed","takeawayVat":0}],"payed":false,"deliveryDelay":0,"actionReceiptItems":[],"hasChildren":false,"tableId":"122829","footer":null,"foid":0,"dayReceiptId":0,"creationDate":1396881827014,"status":"waiting for payment","stamp":"","total":19},template:{"showCustomerInfo":true,"fontName":"Arial","bigFontSize":45,"printTemplateTypeId":1,"nrOfDecimals":0,"companyId":114,"showWaiterTableTime":true,"signalAccessory":false,"amountWidth":3,"promotionText":"","type":"Receipt Html","templateUrl":"http://dev.posios.com:8080/posimages/bruno_122/templates/4340.html","smallFontName":"Arial","printerId":530,"fontSize":25,"priceWidth":6,"productDisplayNamesIndex":0,"name":"Receipt Html","oid":4340,"showCompanyInfo":true,"smallFontSize":16,"logoUrl":null,"bottomLogoUrl":null,"showVat":true,"printAmount":1,"printNameId":0,"showTotalPrice":true,"bigFontName":"Arial-BoldMT","thankYouText":"Thank you !","showSequenceNumber":false,"title":"Resto","nrOfDecimalsToRoundVATTo":2,"nrWidth":3,"template":null},user:{"visible":true,"socialSecurityNumber":"1234512345","city":"","uuid":"ad611cc5-4787-487c-9f45-dfb95e9b532b","streetNumber":"","zip":"","companyId":114,"imageLocation":"http://dev.posios.com:8080/posimages/bruno_122/images/users/frog.jpg","sex":null,"oid":18052,"type":"employee","password":"","email":"","serverport":0,"serverprotocol":null,"serverextension":null,"customerId":0,"street":"","telephone":"","lastname":"","username":"bing","role":null,"country":"","server":null,"age":0,"lastClockInTime":0,"creationDate":0,"gsm":"","firstname":"","defaultFloorId":4529},table:{"imageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/table1.png","status":"waiting for payment","numberOfClients":4,"chairImageLocation":"http://dev.posios.com:8080/posimages/MAIN/images/whitechair.png","x":84,"width":80,"ellipse":false,"type":"restaurant","y":98,"oid":"122829","height":40,"companyId":114,"info":"","rotation":90,"floorId":4529,"name":"T-7","tableOrder":0,"zindex":0},vat:{"12":19},barItems:[],kitchenItems:[],payments:[{"type":"swiper","paymentTypeTypeId":6,"name":"swiper","optionalInfo":"M/C;543975XXXXXX0248","tips":0,"amount":19}],device:{"applicationVersion":"2.09.6536","type":null,"name":"iPad POSiOS Nicolas","deviceModel":"iPad","companyId":114,"applicationId":"Restaurant Butler","optout":0,"oid":9053,"printTemplateId":0,"deviceVersion":"6.1.3","deviceId":"C4B5CC94-C51C-4FE6-AE01-3742626814D4"}, customer:{"email":null,"language":null,"deliveryStreetNumber":null,"username":null,"clientId":0,"deliveryCity":null,"birthYear":0,"lastname":null,"companyId":0,"gsm":null,"refererId":0,"uuid":null,"type":null,"visible":false,"role":null,"birthMonth":0,"sex":null,"partnerCustomerId":0,"deliveryCountry":null,"deliveryStreet":null,"deliveryZip":null,"firstname":null,"creationDate":0,"imageLocation":null,"oid":0,"zip":null,"usedCards":[],"vatNumber":null,"lastVisitDate":0,"street":null,"city":null,"birthDay":0,"country":null,"streetNumber":null,"password":null,"receiveNewsLetter":false,"age":0,"verified":false,"telephone":null,"socialSecurityNumber":null,"credits":0}, productCategories:[{"displayName":null,"printTemplateId":4344,"deliveryVat":0,"vat":12,"printer":"","additionIds":[],"products":[{"dealer":"","displayName":"","visible":true,"priceTypeId":0,"priceWithoutVAT":0,"totalPrice":0,"imageLocation":"http://dev.posios.com:8080/posimages/bruno_122/images/products/ice-cream-wallpaper-6.jpg","takeawayPrice":4,"stockAmount":-127,"name":"Ice cream","manufacturer":"","oid":3123,"info":"","tempTime":0,"barcode":"","vat":12,"displayNames":["Ice cream","ice"],"deliveryPrice":4,"cost":0,"pId":"72","price":4,"kitchenName":"ice","deliveryPriceWithoutVAT":0,"orderAmount":0,"takeawayPriceWithoutVAT":0,"additionIds":[],"productTypeId":4278190080,"deliveryVat":12,"takeawayVat":12,"subProductIds":[],"productCategoryId":1156},{"dealer":"","displayName":"","visible":true,"priceTypeId":0,"priceWithoutVAT":0,"totalPrice":0,"imageLocation":"http://dev.posios.com:8080/posimages/bruno_122/images/products/Love%20Cakes%201.jpg","takeawayPrice":5,"stockAmount":-97,"name":"Cakes","manufacturer":"","oid":3122,"info":"","tempTime":0,"barcode":"5901234123457","vat":12,"displayNames":["Cakes",""],"deliveryPrice":5,"cost":0,"pId":"71","price":5,"kitchenName":"","deliveryPriceWithoutVAT":0,"orderAmount":0,"takeawayPriceWithoutVAT":0,"additionIds":[],"productTypeId":4278190080,"deliveryVat":12,"takeawayVat":12,"subProductIds":[],"productCategoryId":1156},{"dealer":"","displayName":"","visible":true,"priceTypeId":0,"priceWithoutVAT":0,"totalPrice":0,"imageLocation":"http://dev.posios.com:8080/posimages/bruno_122/images/products/rijstpap.jpg","takeawayPrice":10,"stockAmount":-20,"name":"Rijstpap","manufacturer":"","oid":80257,"info":"","tempTime":0,"barcode":"","vat":12,"displayNames":["Rijstpap",""],"deliveryPrice":10,"cost":0,"pId":"D20","price":10,"kitchenName":"","deliveryPriceWithoutVAT":-1,"orderAmount":0,"takeawayPriceWithoutVAT":-1,"additionIds":[],"productTypeId":4278190080,"deliveryVat":0,"takeawayVat":0,"subProductIds":[],"productCategoryId":1156}],"takeawayVat":0,"oid":1156,"printOrder":3,"info":"Deserten","companyId":114,"name":"Deserten","printTemplateIds":[4344,4342],"imageLocation":"dessert.png"}], additionValues: [], serverInfo: {"blackBoxServerMacAddress":null,"version":"Version 3.01.6508 Posios Server","posiosBlackBoxCertificationCode":null}, parentItems: []}; /*console.log(completeReceipt);*/ try {jQuery(document).ready(function($) {search(completeReceipt);location.href = 'posios://print';});} catch(e) {'print error:' + e.message +' '+ e;}	
 	function search(completeReceipt) {		
 		// Make sure completeReceipt is globally accessible
 		window.completeReceipt = completeReceipt;
@@ -1024,14 +937,24 @@ var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLo
 		window.posEnableInfoSubline = 0;
 		// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
 		window.posShowReceiptItemsHeaders = 1;
+		// When set to 1, the titles of the menus/choices will be printed.
+		window.posShowBranches = 0;
+		// When set to 1, only the menu name will be displayed without the branches and products.
+		window.posShowMenuOnly = 0;
+		// Set this value to order by. Supported values are 'receiptItems.name', 'receiptItems.pId' (PLU), 'receiptItems.modificationDate'. When set to "", no ordering will happen.
+		window.posOrderBy = "receiptItems.name";
+		// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
+		window.posOrderDirection = 1;
+		// When set to 1, the receipt items will be combined. The app does not recognise the same items when the additions have been entered in a different order. This function will combine them.
+		window.posEnableCombineItems = 1;
 		// When set to a value, the value will be added as margin to the head of the receipt items list. Start at 100;
 		window.posAddReceiptItemsTopMargin = 100;
 		// When set to a value, the value will be added as margin to the bottom of the receipt items list. Start at 10;
 		window.posAddReceiptItemsBottomMargin = 10;
 		// When set to 1, the prices will be shown.
-		window.posShowPrice = 0;
+		window.posShowPrice = 1;
 		// When set to 1, additions will be printed.
-		window.posShowAdditions = 1;
+		window.posShowAdditions = 0;
 		// When set to 1, additions of value zero will be printed.
 		window.posShowZeroValuedAdditions = 0;
 		// When set to 1, the prices of the products with a value of zero will be printed.
@@ -1082,21 +1005,6 @@ var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLo
 		window.posShowBottomLogo = 1;
 		// When set to 1, multiple debug lines will be pinted to see where the error occurs when princing the receipt.
 		window.posEnableDebug = 0;
-
-		// Set this value to order by. Supported values are 'receiptItems.name', 'receiptItems.pId' (PLU), 'receiptItems.modificationDate'. When set to "", no ordering will happen. 
-		window.posOrderBy = "";
-		// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
-		window.posOrderDirection = -1;
-		// When set to 1, a custom sort function is called. This cannot be used in conjuction with window.posOrderBy.
-		window.posEnableSortOnCourseThenOnKitchenName = 0;
-		// When set to 1, a line will be drawn between the courses.
-		 window.posEnableCourseLines = 0;
-		// When set to 1, the receipt items will be combined. The app does not recognise the same items when the additions have been entered in a different order. This function will combine them.
-		window.posEnableCombineItems = 0;
-		// When set to 1, the titles of the menus/choices will be printed.
-		window.posShowBranches = 0;
-		// When set to 1, only the menu name will be displayed without the branches and products.
-		window.posShowMenuOnly = 0;
 
 		if(window.posEnableInfoTopline == 1)
 			$("#header").attr("class", "borderBottom");
@@ -1168,91 +1076,36 @@ var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLo
 			$('#errors').append("<p>Header printed.</p>");
 
 		/* Receipt items */
-		addReceiptItemsAmountToAdditions(completeReceipt.receipt.receiptItems);
+		if(window.posOrderBy != "")
+			sortJsonArrayByProperty(completeReceipt.receipt.receiptItems, window.posOrderBy, window.posOrderDirection);
+
 		if(window.posEnableCombineItems == 1) {
-			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems)) {
-				var items = new Array();
-				for(var key in completeReceipt.receipt.receiptItems) {
-					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
-						items.push(completeReceipt.receipt.receiptItems[key]);
-				}
+			var items = new Array();
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems))
 				for(var key in completeReceipt.receipt.actionReceiptItems) {
 					if(completeReceipt.receipt.actionReceiptItems.hasOwnProperty(key))
 						items.push(completeReceipt.receipt.actionReceiptItems[key]);
 				}
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.receiptItems))
+				for(var key in completeReceipt.receipt.receiptItems) {
+					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
+						items.push(completeReceipt.receipt.receiptItems[key]);
+				}
+			if(checkIfNotZeroEmptyOrNull(items))
 				completeReceipt.receipt.receiptItems = combineMenusAndItems(flattenReceiptItemsHierarchy(items));
-			}
-			else {
-				completeReceipt.receipt.receiptItems = combineMenusAndItems(flattenReceiptItemsHierarchy(completeReceipt.receipt.receiptItems));
-			}
+
 			if(window.posShowMenuOnly == 1) {
 				var indexToDelete = new Array();
 				for(var key in completeReceipt.receipt.receiptItems)
-					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key)) {
+					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
 						if(completeReceipt.receipt.receiptItems[key].parentRiReceiptId != 0)
 							indexToDelete.push(key);
-					}
 				for(var i = indexToDelete.length - 1; i >= 0; i--)
 					completeReceipt.receipt.receiptItems.splice(indexToDelete[i], 1);
 			}
 		}
-
-		if (window.posEnableSortOnCourseThenOnKitchenName == 1) {
-			var count = itemArray.length;
-
-			for(var i = 0; i < itemArray.length; i++) {
-				for (var key in completeReceipt.productCategories) {
-					if(completeReceipt.productCategories.hasOwnProperty(key))
-						for(var key2 in completeReceipt.productCategories[key].products)
-							if(completeReceipt.productCategories[key].products.hasOwnProperty(key2))
-								for(var j = 0; j < completeReceipt.productCategories[key].products[key2].displayNames.length; j++) {
-									if(completeReceipt.productCategories[key].products[key2].displayNames[j] == itemArray[i].name)
-											itemArray[i].order = completeReceipt.productCategories[key].printOrder;
-								}
-				}
-			}
-
-			cmp = function(x, y) {
-		    	return x > y ? 1 : x < y ? -1 : 0; 
-			};
-
-			//var sortedArray = productArray.sort(dynamicSort("order"));
-			var sorted2 = itemArray.sort(function(a, b){
-		    //note the minus before -cmp, for descending order
-		    	return cmp ( 
-		        	[cmp(a.order, b.order), cmp(a.name, b.name)], 
-		        	[cmp(b.order, a.order), cmp(b.name, a.name)]
-		    	);
-			});
-
-			for(var key in sorted2) {
-				if(sorted2.hasOwnProperty(key)) {
-					if(key != 0) {
-						if(sorted2[key].order > sorted2[key-1].order)
-							sorted2[key].line = 1;
-					}
-				}
-			}
-
-			for(var j = 0; j < combinedMenuArray.length; j++)
-				for(h = 0; h < combinedMenuArray[j][0].length; h++)
-					sorted2.push(combinedMenuArray[j][0][h]);
-		}
-		else if(window.posOrderBy != "") {
-			sortJsonArrayByProperty(itemArray, window.posOrderBy, window.posOrderDirection);
-			var itemsArray = new Array();
-			for(var j = 0; j < itemArray.length; j++)
-				itemsArray.push(itemArray[j]);
-			for(var j = 0; j < combinedMenuArray.length; j++)
-				for(h = 0; h < combinedMenuArray[j][0].length; h++)
-					itemsArray.push(combinedMenuArray[j][0][h]);
-		}
-
-		if(window.posEnableSortOnCourseThenOnKitchenName == 1)
-			completeReceipt.receipt.receiptItems = sorted2;
-		if(window.posEnableSortOnCourseThenOnKitchenName == 0 && window.posOrderBy != "")
-			window.completeReceipt.receipt.receiptItems = completeReceipt.receipt.receiptItems;
-		$( "#receiptItemsTemplate" ).tmpl( completeReceipt.receipt.receiptItems ).appendTo( "#receiptItemsList" );
+		addReceiptItemsAmountToAdditions(completeReceipt.receipt.receiptItems);
+		$("#receiptItemsTemplate").tmpl(completeReceipt.receipt.receiptItems).appendTo("#receiptItemsList");
 
 		if(window.posShowPrice == 0)
 			$("#receiptItemsList #priceHide").remove()
@@ -1408,9 +1261,6 @@ var completeReceipt = {company:{"city":"Huizingen","takeawayPopup":true,"imageLo
 		$("#vat tr:nth-child(1) th:nth-child(2)").html(window.language[17]);
 		$("#vat tr:nth-child(1) th:nth-child(3)").html(window.language[18]);
 		$("#vat tr:nth-child(1) th:nth-child(4)").html(window.language[19]);
-
-		if(window.posEnableSortOnCourseThenOnKitchenName == 1 && window.posEnableCourseLines == 1)
-			checkLine();
 }		
 </script>
 </head>
