@@ -82,24 +82,24 @@
 			border-bottom: 1px dotted;
 		}
 	</style>
-	<script type="text/javascript" src="http://www.posios.com/js/jquery.min.js"></script>
-	<script type="text/javascript" src="http://www.posios.com/js/jquery.tmpl.min.js"></script>
-	<script type="text/javascript" src="http://www.posios.com/js/jquery.qrcode.min.js"></script>
-	<script type="text/javascript" src="http://www.posios.com/js/moment.min.js"></script>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="moment.min.js"></script>
 	<script type="text/javascript">  
-		var NL = ["Subtotaal", "Korting", "Service Charge", "Tip", "Totaal", "Betaald", "Kaartinformatie", "Kaart type", "Kaart nummer", "Handtekening", "BTW", "Wisselgeld", "Saldo", "Naam",
+		var NL = ["Subtotaal", "Taks", "Korting", "Service Charge", "Tip", "Totaal", "Betaald", "Kaartinformatie", "Kaart type", "Kaart nummer", "Handtekening", "BTW", "Wisselgeld", "Saldo", "Naam",
 					"Prijs", "Betaling", "Bedrag", "Netto", "BTW", "Totaal"];
-		var EN = ["Subtotal", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "VAT", "Change", "Outstanding amount", "Item",
+		var EN = ["Subtotal", "Tax", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "VAT", "Change", "Outstanding amount", "Item",
 					"Price", "Payment", "Amount", "Net", "VAT", "Gross"];
-		var FR = ["Sous-total", "Réduction", "Service Charge", "Pourboire", "Total", "Payé", "Informations de carte", "Type de carte", "Numéro de carte", "Signature", "TVA", "À remettre", "Solde", "Produit",
-					"Prix", "Paiement", "Montant", "Net", "TVA", "Total"];
-		var DE = ["Zwischensumme", "Rabatt", "Service Charge", "Spitze", "Summe", "Bezahlt", "Karteninformationen", "Karten-Typ", "Kreditkartennummer", "Unterschrift", "MWSt", "Wechselgeld", "Saldo", "Name",
-					"Betrag", "Bezahlung", "Betrag", "Netto", "Mwst", "Summe"];
-		var AU = ["Subtotal", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "GST", "Change", "Outstanding amount", "Item",
+		var FR = ["Sous-total", "Impôt", "Réduction", "Service Charge", "Pourboire", "Total", "Payé", "Informations de carte", "Type de carte", "Numéro de carte", "Signature", "TVA", "À remettre", "Solde", 
+					"Produit", "Prix", "Paiement", "Montant", "Net", "TVA", "Total"];
+		var DE = ["Zwischensumme", "Steuer", "Rabatt", "Service Charge", "Spitze", "Summe", "Bezahlt", "Karteninformationen", "Karten-Typ", "Kreditkartennummer", "Unterschrift", "MWSt", "Wechselgeld", 
+					"Saldo", "Name", "Betrag", "Bezahlung", "Betrag", "Netto", "Mwst", "Summe"];
+		var AU = ["Subtotal", "Tax", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "GST", "Change", "Outstanding amount", "Item",
 					"Price", "Payment", "Amount", "Net", "GST", "Gross"];
 
 		/**********************************************
-		* Set language here:*/ window.language = EN; /*
+		* Set language here:*/ window.language = DE; /*
 		**********************************************/
 
 		(function(){
@@ -149,10 +149,18 @@
 			for(var key in additions) {
 				if(additions.hasOwnProperty(key)) {
 					// Option added for menus.
-					if(option == 2)
-						total += additions[key].price;
-					else
-						total += additions[key].price * additions[key].amount;
+					if(option == 2) {
+						if(completeReceipt.company.vatInclusive == true)
+							total += additions[key].price;
+						else
+							total += additions[key].priceWithoutVAT;
+					}
+					else {
+						if(completeReceipt.company.vatInclusive == true)
+							total += additions[key].price * additions[key].amount;
+						else
+							total += additions[key].priceWithoutVAT * additions[key].amount;
+					}
 				}
 			}
 
@@ -353,12 +361,37 @@
 								var foundRoot = 0, branchParent = -1;
 								while(res.length - counter >= 0 && foundRoot == 0) {
 									if(parentRiReceiptId == res[res.length - counter].riReceiptId) {
-										res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+										if(completeReceipt.company.vatInclusive == true) {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+											else {
+																								console.log(items[item].name);
+
+												res[res.length - counter].price += items[item].price;
+											}
+										}
+										else {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100) + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100);
+										}
 										branchParent = res[res.length - counter].parentRiReceiptId;
 										counter++;
 									}
 									while(branchParent != 0 && res[res.length - counter].riReceiptId == branchParent) {
-										res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+										if(completeReceipt.company.vatInclusive == true) {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += items[item].price;
+										}
+										else {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100) + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100);
+										}
 										branchParent = res[res.length - counter].parentRiReceiptId;
 										counter++;
 									}
@@ -661,8 +694,34 @@
 			return serviceCharge;
 		}
 
-		function calculateSubtotal(total) {
-			return total - calculateDiscount(completeReceipt.receipt) - calculateServiceCharge(completeReceipt.receipt);
+		function calculatePrice(total, tax) {
+			if(completeReceipt.company.vatInclusive == false)
+				return (total / (100 + tax) * 100);
+			return total;
+		}
+
+		function calculateSubtotalAndTax(receiptItems) {
+			window.posSubtotal = 0.0;
+			window.posTax = 0.0;
+			var excludeIds = [11, 12, 51, 52, 53, 54, 55, 56, 60, 61, 70, 71, 72, 73, 74, 75, 76, 77];
+
+			for(var RI in receiptItems)
+				if(receiptItems.hasOwnProperty(RI))
+					if(excludeIds.indexOf(receiptItems[RI].priceTypeId) == -1) {
+						if(completeReceipt.company.vatInclusive == 1)
+							window.posSubtotal += receiptItems[RI].totalPrice;
+						else
+							window.posSubtotal += receiptItems[RI].totalPrice / (100 + receiptItems[RI].vat) * 100;
+						window.posTax += receiptItems[RI].totalPrice - (receiptItems[RI].totalPrice / (100 + receiptItems[RI].vat) * 100);
+					}
+		}
+		function htmlForTextWithEmbeddedNewlines(text) {
+			var htmls = [];
+			var lines = text.split(/\n/);
+			var tmpDiv = jQuery(document.createElement('div'));
+			for (var i = 0 ; i < lines.length ; i++)
+				htmls.push(tmpDiv.text(lines[i]).html());
+			return htmls.join("<br/>");
 		}
 	</script>
 	<script id="headerTemplate" type="text/x-jquery-tmpl">
@@ -715,10 +774,18 @@
 						{{/if}}
 						{{if window.posShowPrice == 1}}
 							{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
-								{{if window.posShowAdditions == 1}}
-									<td class="alignRight">${(amount*price).toFixed(2)}</td>
+								{{if completeReceipt.company.vatInclusive == 1}}
+									{{if window.posShowAdditions == 1}}
+										<td class="alignRight">${(amount*price).toFixed(2)}</td>
+									{{else}}
+										<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									{{/if}}
 								{{else}}
-									<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									{{if window.posShowAdditions == 1}}
+										<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(2)}</td>
+									{{else}}
+										<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									{{/if}}
 								{{/if}}
 							{{else}}
 								<td></td>
@@ -743,10 +810,18 @@
 					{{/if}}
 					{{if window.posShowPrice == 1}}
 						{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
-							{{if window.posShowAdditions == 1}}
-								<td class="alignRight">${(amount*price).toFixed(2)}</td>
+							{{if completeReceipt.company.vatInclusive == 1}}
+								{{if window.posShowAdditions == 1}}
+									<td class="alignRight">${(amount*price).toFixed(2)}</td>
+								{{else}}
+									<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+								{{/if}}
 							{{else}}
-								<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+								{{if window.posShowAdditions == 1}}
+									<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(2)}</td>
+								{{else}}
+									<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+								{{/if}}
 							{{/if}}
 						{{else}}
 							<td></td>
@@ -781,7 +856,11 @@
 						<td class="alignLeft widthTen" i21S='smallFontSize'><i>* ${info} ${name}</i></td>
 					{{/if}}
 					{{if window.posShowPrice == 1}}
-						<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(2)}</i></td>
+						{{if completeReceipt.company.vatInclusive == 1}}
+							<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(2)}</i></td>
+						{{else}}
+							<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(2)}</i></td>
+						{{/if}}
 					{{else}}
 						<td id="priceHide"></td>
 					{{/if}}
@@ -795,8 +874,11 @@
 					<td class="alignLeft widthTen" i21S='smallFontSize'><i>* ${info} ${name}</i></td>
 				{{/if}}					
 				{{if window.posShowPrice == 1}}
-					<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(2)}</i></td>
-				{{else}}
+					{{if completeReceipt.company.vatInclusive == 1}}
+						<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(2)}</i></td>
+					{{else}}
+						<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(2)}</i></td>
+					{{/if}}				{{else}}
 					<td id="priceHide"></td>
 				{{/if}}
 			{{/if}}			
@@ -805,32 +887,38 @@
 	<script id="subtotalsTemplate" type="text/x-jquery-tmpl">
 		<tr>
 			<th class="alignLeft">${window.language[0]}</th>
-			<td class="floatRight"><b>${calculateSubtotal(total).toFixed(2)}</b></td>
+			<td class="floatRight"><b>${(window.posSubtotal).toFixed(2)}</b></td>
+		</tr>
+	</script>
+	<script id="taxTemplate" type="text/x-jquery-tmpl">
+		<tr>		
+			<th class="alignLeft fontWeightNormal">${window.language[1]}</th>
+			<td class="floatRight">${(window.posTax).toFixed(2)}</td>
 		</tr>
 	</script>
 	<script id="discountsTemplate" type="text/x-jquery-tmpl">
 		<tr>		
-			<th class="alignLeft fontWeightNormal">${window.language[1]}</th>
+			<th class="alignLeft fontWeightNormal">${window.language[2]}</th>
 			<td class="floatRight">${calculateDiscount(completeReceipt.receipt).toFixed(2)}</td>
 		</tr>
 	</script>
 	<script id="gratuityTemplate" type="text/x-jquery-tmpl">
 		{{if (priceTypeId > 59 && priceTypeId < 68 && price != 0) || (priceTypeId > 69 && priceTypeId < 78 && price != 0)}}
 			<tr>
-				<th class="alignLeft fontWeightNormal">${window.language[2]}</th>
+				<th class="alignLeft fontWeightNormal">${window.language[3]}</th>
 				<td class="floatRight">${price.toFixed(2)}</td>
 			</tr>			
 		{{/if}}
 	</script>
 	<script id="totalTipTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<th class="alignLeft fontWeightNormal">${window.language[3]}</th>
+			<th class="alignLeft fontWeightNormal">${window.language[4]}</th>
 			<td class="floatRight">${calculateTip(payments).toFixed(2)}</td>
 		</tr>
 	</script>
 	<script id="receiptTotals" type="text/x-jquery-tmpl">
 		<tr>		
-			<th class="alignLeft">${window.language[4]}</th>
+			<th class="alignLeft">${window.language[5]}</th>
 			<td class="floatRight"><b>${((receipt.total + calculateTip(payments)).toFixed(2))}</b></td>		
 		</tr>
 	</script> 
@@ -842,20 +930,20 @@
 	</script>
 	<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<th class="alignLeft"><b>${window.language[5]}</b</th>
+			<th class="alignLeft"><b>${window.language[6]}</b</th>
 			<td class="floatRight"><b>${getPayment(payments).toFixed(2)}<b></td>	
 		</tr>
 	</script> 
 	<script id="signatureTemplate" type="text/x-jquery-tmpl">
-		<p><b>${window.language[6]}</b></p>
-		<p class="floatLeft widthFifty">${window.language[7]}:</p><p class="floatRight widthFifty alignRight">${cardHolder}</p>
-		<p class="floatLeft widthFifty">${window.language[8]}:</p><p class="floatRight widthFifty alignRight">${cardNumber}</p>
+		<p><b>${window.language[7]}</b></p>
+		<p class="floatLeft widthFifty">${window.language[8]}:</p><p class="floatRight widthFifty alignRight">${cardHolder}</p>
+		<p class="floatLeft widthFifty">${window.language[9]}:</p><p class="floatRight widthFifty alignRight">${cardNumber}</p>
 		<br/></br></br></br>
-		<p id="signatureLine">${window.language[9]}:</p>
+		<p id="signatureLine">${window.language[10]}:</p>
 	</script>
 	<script id="vatTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<td>${window.language[10]} ${vat}%:</td>
+			<td>${window.language[11]} ${vat}%:</td>
 			<td class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
 			<td class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
 			<td class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
@@ -864,10 +952,10 @@
 	<script id="changeTemplate" type="text/x-jquery-tmpl">			
 		<tr>
 			{{if getChange(receipt.total,payments) > 0}}
-				<th class="alignLeft">${window.language[11]}</th>
+				<th class="alignLeft">${window.language[12]}</th>
 				<td class="floatRight"><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
 			{{else getChange(receipt.total,payments) < 0}}
-				<th class="alignLeft">${window.language[12]}</th>
+				<th class="alignLeft">${window.language[13]}</th>
 				<td class="floatRight"><b>${((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
 			{{/if}}
 		</tr>
@@ -932,9 +1020,9 @@
 		// When set to 1, an underline will be added to the title.
 		window.posTitleWithUnderline = 0;
 		// When set to 1, a topline will be drawn above the info section.
-		window.posEnableInfoTopline = 0;
+		window.posEnableInfoTopline = 1;
 		// When set to 1, a line will be drawn underneath the receipt info.
-		window.posEnableInfoSubline = 0;
+		window.posEnableInfoSubline = 1;
 		// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
 		window.posShowReceiptItemsHeaders = 1;
 		// When set to 1, the titles of the menus/choices will be printed.
@@ -948,35 +1036,35 @@
 		// When set to 1, the receipt items will be combined. The app does not recognise the same items when the additions have been entered in a different order. This function will combine them.
 		window.posEnableCombineItems = 1;
 		// When set to a value, the value will be added as margin to the head of the receipt items list. Start at 100;
-		window.posAddReceiptItemsTopMargin = 100;
+		window.posAddReceiptItemsTopMargin = 50;
 		// When set to a value, the value will be added as margin to the bottom of the receipt items list. Start at 10;
 		window.posAddReceiptItemsBottomMargin = 10;
 		// When set to 1, the prices will be shown.
 		window.posShowPrice = 1;
 		// When set to 1, additions will be printed.
-		window.posShowAdditions = 0;
+		window.posShowAdditions = 1;
 		// When set to 1, additions of value zero will be printed.
 		window.posShowZeroValuedAdditions = 0;
 		// When set to 1, the prices of the products with a value of zero will be printed.
 		window.posShowZeroValuedPricesProducts = 0;
 		// When set to 1, offerts will be shown even though products with price zero are not shown.
-		window.posShowOfferts = 0;
+		window.posShowOfferts = 1;
 		// When set to 1, a line will be drawn underneath the body of the receipt.
-		window.posEnableBodySubline = 0;
+		window.posEnableBodySubline = 1;
 		// When set to 1, a line will be drawn underneath the total price.
-		window.posEnableTotalSubline = 0;
+		window.posEnableTotalSubline = 1;
 		// When set to a value, the value will be added as margin to the bottom of the total price. Start at 10;
-		window.posAddTotalBottomMargin = 30;
+		window.posAddTotalBottomMargin = 0;
 		// When set to 1, the payments will be shown.
 		window.posShowPayments = 1;
 		// When set to 1, the payment header "Payment" and "Amount" will be shown.
 		window.posShowHeadersPaymentTypes = 1;
 		// When set to 1, a line will be drawn underneath the change. If there is no change, the line will be drawn under total paid.
-		window.posEnableChangeSubline = 0;
+		window.posEnableChangeSubline = 1;
 		// When set to a value, the value will be added as margin to the bottom of the payments list. Start at 10;
-		window.posAddPaymentsBottomMargin = 30;
+		window.posAddPaymentsBottomMargin = 0;
 		// When set to 1, a line will be drawn underneath the VAT.
-		window.posEnableVATSubline = 0;
+		window.posEnableVATSubline = 1;
 		// When set to a value, the value will be added as margin to the bottom of the VAT list. Start at 10;
 		window.posAddVATBottomMargin = 10;
 		// When set to 1, a line will be drawn underneath the thank you text.
@@ -986,7 +1074,7 @@
 		// When set to a value, the value will be added as margin to the bottom of the thank you text. Start at 10;
 		window.posAddThankYouBottomMargin = 10;
 		// When set to 1, a line will be drawn underneath the promotion text.
-		window.posEnablePromotionSubline = 0;
+		window.posEnablePromotionSubline = 1;
 		// when set to 1, the promotion text will be underlined.
 		window.posEnablePromotionYouUnderline = 0;		
 		// When set to 1, a thin line will be drawn around the promotion text. 2 will draw a medium one, 3 a thick one. Default: no frame.
@@ -994,7 +1082,7 @@
 		// When set to a value, the frame will be adjusted to the value in percentage. 80 Means 80% of the screen in width.
 		window.posFrameWidth = 50;
 		// When set to a value, the value will be added as margin to the bottom of the promotion text. Start at 10;
-		window.posAddPromotionBottomMargin = 10;
+		window.posAddPromotionBottomMargin = 20;
 		// When set to 1, the customer info will be shown at the bottom of the receipt.
 		window.posShowCustomerInfo = 1;
 		// When set to 1, a line will be drawn underneath the customer info.
@@ -1022,7 +1110,7 @@
 			$("#receiptItemsList").css('margin-bottom', window.posAddReceiptItemsBottomMargin + 'px');
 
 		if(window.posEnableBodySubline == 1)
-			$("#receiptItemsList").attr("class", "borderBottom");
+			$("#receiptItemsList").addClass("borderBottom");
 
 		if(window.posEnableTotalSubline == 1)
 			$("#totals").attr("class", "borderBottom");
@@ -1061,9 +1149,9 @@
 			$("#promotion").attr("class", "borderBottom");
 
 		if(checkIfNotZeroEmptyOrNull(window.posAddPromotionBottomMargin))
-			$("#promotion").css('margin-bottom', window.posAddPromotionBottomMargin + 'px');
+			$("#promotion").css('padding-bottom', window.posAddPromotionBottomMargin + 'px');
 
-		if(window.posShowCustomerInfo == 1 && window.posEnableCustomerSubline == 1)
+		if(window.posShowCustomerInfo == 1 && window.posEnableCustomerSubline == 1 && completeReceipt.customer.oid != 0)
 			$("#customerInfo").attr("class", "borderBottom");
 
 		if(checkIfNotZeroEmptyOrNull(window.posAddCustomerBottomMargin))
@@ -1078,6 +1166,8 @@
 		/* Receipt items */
 		if(window.posOrderBy != "")
 			sortJsonArrayByProperty(completeReceipt.receipt.receiptItems, window.posOrderBy, window.posOrderDirection);
+
+		addReceiptItemsAmountToAdditions(completeReceipt.receipt.receiptItems);
 
 		if(window.posEnableCombineItems == 1) {
 			var items = new Array();
@@ -1104,7 +1194,8 @@
 					completeReceipt.receipt.receiptItems.splice(indexToDelete[i], 1);
 			}
 		}
-		addReceiptItemsAmountToAdditions(completeReceipt.receipt.receiptItems);
+
+		calculateSubtotalAndTax(completeReceipt.receipt.receiptItems);
 		$("#receiptItemsTemplate").tmpl(completeReceipt.receipt.receiptItems).appendTo("#receiptItemsList");
 
 		if(window.posShowPrice == 0)
@@ -1136,8 +1227,10 @@
 			$('#errors').append("<p>Tip has been printed.</p>");
 
 		if(completeReceipt.template.showTotalPrice == 1) {
-			if(discount != 0 || service != 0)
-				$("#subtotalsTemplate").tmpl(completeReceipt.receipt).appendTo("#subtotals");		
+			if(discount != 0 || service != 0 || completeReceipt.company.vatInclusive == 0)
+				$("#subtotalsTemplate").tmpl(completeReceipt.receipt).appendTo("#subtotals");
+			if(completeReceipt.company.vatInclusive == 0)
+				$("#taxTemplate").tmpl().appendTo("#tax");					
 			$("#receiptTotals").tmpl(completeReceipt).appendTo("#totals");
 		}
 
@@ -1197,6 +1290,7 @@
 
 		/* Promotion */
 		$("#promotionTemplate").tmpl(completeReceipt.template).appendTo("#promotion");
+		$("#promotionText").html(htmlForTextWithEmbeddedNewlines($("#promotionText").html()));
 
 		if(window.posThicknessOfFramePromotion > 0 && checkIfNotZeroEmptyOrNull(completeReceipt.template.promotionText)) {
 			switch(window.posThicknessOfFramePromotion) {
@@ -1254,13 +1348,13 @@
 			$(e).css({"font-size":completeReceipt.template.smallFontSize});
 		});
 
-		$("#receiptItemsList tr:nth-child(1) th:nth-child(3)").html(window.language[13]);
-		$("#receiptItemsList tr:nth-child(1) th:nth-child(4)").html(window.language[14]);
-		$("#paymentsTable tr:nth-child(1) th:nth-child(1)").html(window.language[15]);
-		$("#paymentsTable tr:nth-child(1) th:nth-child(2)").html(window.language[16]);
-		$("#vat tr:nth-child(1) th:nth-child(2)").html(window.language[17]);
-		$("#vat tr:nth-child(1) th:nth-child(3)").html(window.language[18]);
-		$("#vat tr:nth-child(1) th:nth-child(4)").html(window.language[19]);
+		$("#receiptItemsList tr:nth-child(1) th:nth-child(3)").html(window.language[14]);
+		$("#receiptItemsList tr:nth-child(1) th:nth-child(4)").html(window.language[15]);
+		$("#paymentsTable tr:nth-child(1) th:nth-child(1)").html(window.language[16]);
+		$("#paymentsTable tr:nth-child(1) th:nth-child(2)").html(window.language[17]);
+		$("#vat tr:nth-child(1) th:nth-child(2)").html(window.language[18]);
+		$("#vat tr:nth-child(1) th:nth-child(3)").html(window.language[19]);
+		$("#vat tr:nth-child(1) th:nth-child(4)").html(window.language[20]);
 }		
 </script>
 </head>
@@ -1276,6 +1370,8 @@
 		</tr>
 	</table>
 	<table id="subtotals" i21D='defaultFontSize'>
+	</table>
+	<table id="tax" i21D='defaultFontSize'>
 	</table>
 	<table id="discounts" i21D='defaultFontSize'>
 	</table>
