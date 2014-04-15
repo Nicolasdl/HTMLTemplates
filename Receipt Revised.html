@@ -67,9 +67,6 @@
 		.clearBoth {
 			clear: both;
 		}
-		.hideItem {
-			display: none;
-		}
 		.autoMargin {
 			margin: auto;
 		}
@@ -364,11 +361,8 @@
 										if(completeReceipt.company.vatInclusive == true) {
 											if(window.posShowAdditions == 0)
 												res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
-											else {
-																								console.log(items[item].name);
-
+											else
 												res[res.length - counter].price += items[item].price;
-											}
 										}
 										else {
 											if(window.posShowAdditions == 0)
@@ -742,7 +736,11 @@
 
 		{{if template.showWaiterTableTime == 1}} 
 			<p class="floatLeft">${table.name}</p>
-			<p class="floatRight alignRight">${dateToString("", 1)}</p>
+			{{if completeReceipt.receipt.vatInclusive == true}}
+				<p class="floatRight alignRight">${dateToString("", 1)}</p>
+			{{else}}
+				<p class="floatRight alignRight">${dateToString("", 3)}</p>
+			{{/if}}
 			<p class="floatLeft marginClearLeft">${receipt.numberOfCustomers} cts</p>
 			<p class="floatRight marginClearRight">${receipt.sequenceNumber}</p>
 			<p class="floatLeft marginClearLeft">${receipt.type.toUpperCase() == "RESTAURANT" || receipt.type.toUpperCase() == "BAR" ? "Dine in" : "Take-out"}</p>
@@ -761,7 +759,6 @@
 			<tr>
 				{{if price == 0}}
 					{{if window.posShowZeroValuedPricesProducts == 1 || (window.posShowZeroValuedPricesProducts == 0 && productIsOffert(name) && window.posShowOfferts == 1) || calculateAdditionsPrices(additionValues, 1) > 0}}
-						<td class="hideItem">${line}</td>
 						{{if parentRiReceiptId != 0}}
 							<td class="widthTen"></td>
 						{{else}}
@@ -776,15 +773,15 @@
 							{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
 								{{if completeReceipt.company.vatInclusive == 1}}
 									{{if window.posShowAdditions == 1}}
-										<td class="alignRight">${(amount*price).toFixed(2)}</td>
+										<td class="alignRight">${(amount*price).toFixed(window.posRoundToDecimals)}</td>
 									{{else}}
-										<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+										<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 									{{/if}}
 								{{else}}
 									{{if window.posShowAdditions == 1}}
-										<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(2)}</td>
+										<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(window.posRoundToDecimals)}</td>
 									{{else}}
-										<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+										<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 									{{/if}}
 								{{/if}}
 							{{else}}
@@ -794,10 +791,9 @@
 							<td id="priceHide"></td>
 						{{/if}}		
 					{{else}}
-						<td class="hideItem"></td><td></td><td></td><td></td>
+						<td></td><td></td><td></td>
 					{{/if}}
 				{{else}}
-					<td class="hideItem">${line}</td>
 					{{if parentRiReceiptId != 0}}
 						<td class="amount widthTen"></td>
 					{{else}}
@@ -812,15 +808,15 @@
 						{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
 							{{if completeReceipt.company.vatInclusive == 1}}
 								{{if window.posShowAdditions == 1}}
-									<td class="alignRight">${(amount*price).toFixed(2)}</td>
+									<td class="alignRight">${(amount*price).toFixed(window.posRoundToDecimals)}</td>
 								{{else}}
-									<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 								{{/if}}
 							{{else}}
 								{{if window.posShowAdditions == 1}}
-									<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(2)}</td>
+									<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(window.posRoundToDecimals)}</td>
 								{{else}}
-									<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 								{{/if}}
 							{{/if}}
 						{{else}}
@@ -847,7 +843,7 @@
 	</script>
     <script id="additionValueTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<td class="hideItem"></td><td></td>
+			<td></td>
 			{{if price == 0}}
 				{{if window.posShowZeroValuedAdditions == 1}}
 					{{if info == ""}}	
@@ -857,9 +853,9 @@
 					{{/if}}
 					{{if window.posShowPrice == 1}}
 						{{if completeReceipt.company.vatInclusive == 1}}
-							<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(2)}</i></td>
+							<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(window.posRoundToDecimals)}</i></td>
 						{{else}}
-							<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(2)}</i></td>
+							<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(window.posRoundToDecimals)}</i></td>
 						{{/if}}
 					{{else}}
 						<td id="priceHide"></td>
@@ -875,9 +871,9 @@
 				{{/if}}					
 				{{if window.posShowPrice == 1}}
 					{{if completeReceipt.company.vatInclusive == 1}}
-						<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(2)}</i></td>
+						<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(window.posRoundToDecimals)}</i></td>
 					{{else}}
-						<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(2)}</i></td>
+						<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(window.posRoundToDecimals)}</i></td>
 					{{/if}}				{{else}}
 					<td id="priceHide"></td>
 				{{/if}}
@@ -887,51 +883,51 @@
 	<script id="subtotalsTemplate" type="text/x-jquery-tmpl">
 		<tr>
 			<th class="alignLeft">${window.language[0]}</th>
-			<td class="floatRight"><b>${(window.posSubtotal).toFixed(2)}</b></td>
+			<td class="floatRight"><b>${(window.posSubtotal).toFixed(window.posRoundToDecimals)}</b></td>
 		</tr>
 	</script>
 	<script id="taxTemplate" type="text/x-jquery-tmpl">
 		<tr>		
 			<th class="alignLeft fontWeightNormal">${window.language[1]}</th>
-			<td class="floatRight">${(window.posTax).toFixed(2)}</td>
+			<td class="floatRight">${(window.posTax).toFixed(window.posRoundToDecimals)}</td>
 		</tr>
 	</script>
 	<script id="discountsTemplate" type="text/x-jquery-tmpl">
 		<tr>		
 			<th class="alignLeft fontWeightNormal">${window.language[2]}</th>
-			<td class="floatRight">${calculateDiscount(completeReceipt.receipt).toFixed(2)}</td>
+			<td class="floatRight">${calculateDiscount(completeReceipt.receipt).toFixed(window.posRoundToDecimals)}</td>
 		</tr>
 	</script>
 	<script id="gratuityTemplate" type="text/x-jquery-tmpl">
 		{{if (priceTypeId > 59 && priceTypeId < 68 && price != 0) || (priceTypeId > 69 && priceTypeId < 78 && price != 0)}}
 			<tr>
 				<th class="alignLeft fontWeightNormal">${window.language[3]}</th>
-				<td class="floatRight">${price.toFixed(2)}</td>
+				<td class="floatRight">${price.toFixed(window.posRoundToDecimals)}</td>
 			</tr>			
 		{{/if}}
 	</script>
 	<script id="totalTipTemplate" type="text/x-jquery-tmpl">
 		<tr>
 			<th class="alignLeft fontWeightNormal">${window.language[4]}</th>
-			<td class="floatRight">${calculateTip(payments).toFixed(2)}</td>
+			<td class="floatRight">${calculateTip(payments).toFixed(window.posRoundToDecimals)}</td>
 		</tr>
 	</script>
 	<script id="receiptTotals" type="text/x-jquery-tmpl">
 		<tr>		
 			<th class="alignLeft">${window.language[5]}</th>
-			<td class="floatRight"><b>${((receipt.total + calculateTip(payments)).toFixed(2))}</b></td>		
+			<td class="floatRight"><b>${((receipt.total + calculateTip(payments)).toFixed(window.posRoundToDecimals))}</b></td>		
 		</tr>
 	</script> 
 	<script id="paymentTypeTemplate" type="text/x-jquery-tmpl">
 		<tr>
 			<th class="alignLeft fontWeightNormal">${type}</th>
-			<td class="floatRight">${amount.toFixed(2)}</td>
+			<td class="floatRight">${amount.toFixed(window.posRoundToDecimals)}</td>
 		</tr>
 	</script>
 	<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
 		<tr>
 			<th class="alignLeft"><b>${window.language[6]}</b</th>
-			<td class="floatRight"><b>${getPayment(payments).toFixed(2)}<b></td>	
+			<td class="floatRight"><b>${getPayment(payments).toFixed(window.posRoundToDecimals)}<b></td>	
 		</tr>
 	</script> 
 	<script id="signatureTemplate" type="text/x-jquery-tmpl">
@@ -943,20 +939,20 @@
 	</script>
 	<script id="vatTemplate" type="text/x-jquery-tmpl">
 		<tr>
-			<td>${window.language[11]} ${vat}%:</td>
-			<td class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
-			<td class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
-			<td class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
+			<td>${window.language[11]} ${Number(vat).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}%:</td>
+			<td class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.posRoundToDecimals)}</td>
+			<td class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.posRoundToDecimals)}</td>			
+			<td class="floatRight">${price.toFixed(window.posRoundToDecimals)}</td>
 		</tr>	
 	</script>
 	<script id="changeTemplate" type="text/x-jquery-tmpl">			
 		<tr>
 			{{if getChange(receipt.total,payments) > 0}}
 				<th class="alignLeft">${window.language[12]}</th>
-				<td class="floatRight"><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
+				<td class="floatRight"><b>${getChange(receipt.total,payments).toFixed(window.posRoundToDecimals)}</b></td>
 			{{else getChange(receipt.total,payments) < 0}}
 				<th class="alignLeft">${window.language[13]}</th>
-				<td class="floatRight"><b>${((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
+				<td class="floatRight"><b>${((getChange(receipt.total,payments)) * -1).toFixed(window.posRoundToDecimals)}</b></td>
 			{{/if}}
 		</tr>
 	</script>
@@ -1009,7 +1005,7 @@
 	<script id="footerTemplate" type="text/x-jquery-tmpl">
 		{{if window.posShowBottomLogo == 1}}
 			<div class="alignCenter clearBoth">
-				<img src="${template.bottomLogoUrl}"/>
+				<img src="${bottomLogoUrl}"/>
 			</div>
 		{{/if}}
 	</script>
@@ -1041,6 +1037,8 @@
 		window.posAddReceiptItemsBottomMargin = 10;
 		// When set to 1, the prices will be shown.
 		window.posShowPrice = 1;
+		// When set to 2, 2 decimals will be shown.
+		window.posRoundToDecimals = 2;
 		// When set to 1, additions will be printed.
 		window.posShowAdditions = 1;
 		// When set to 1, additions of value zero will be printed.
@@ -1054,7 +1052,7 @@
 		// When set to 1, a line will be drawn underneath the total price.
 		window.posEnableTotalSubline = 1;
 		// When set to a value, the value will be added as margin to the bottom of the total price. Start at 10;
-		window.posAddTotalBottomMargin = 0;
+		window.posAddTotalBottomMargin = 10;
 		// When set to 1, the payments will be shown.
 		window.posShowPayments = 1;
 		// When set to 1, the payment header "Payment" and "Amount" will be shown.
@@ -1332,6 +1330,12 @@
 
 		if(window.posEnableDebug == 1)
 			$('#errors').append("<p>Company information has been printed.</p>");
+
+		/* Bottom logo */
+		$("#footerTemplate").tmpl(completeReceipt.template).appendTo("#footer");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Bottom logo has been printed.</p>");
 			
 		jQuery("[i21D='defaultFontSize']").each(function(i,e){
 			$(e).css({"font-family":completeReceipt.template.fontName});
@@ -1363,7 +1367,6 @@
 	<div id="header" i21D='defaultFontSize'></div>
 	<table id="receiptItemsList" i21D='defaultFontSize'>
 		<tr>
-			<th style="display:none;"></th>
 			<th id="amountItems" align="left">#</th>
 			<th id="productItem" align="left">Naam</th>
 			<th id="priceHide" align="right">Prijs</th>
