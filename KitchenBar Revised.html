@@ -71,10 +71,10 @@
 			margin: auto;
 		}
 	</style>
-	<script type="text/javascript" src="http://www.posios.com/js/jquery.min.js"></script>
-	<script type="text/javascript" src="http://www.posios.com/js/jquery.tmpl.min.js"></script>
-	<script type="text/javascript" src="http://www.posios.com/js/jquery.qrcode.min.js"></script>
-	<script type="text/javascript" src="http://www.posios.com/js/moment.min.js"></script>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="moment.min.js"></script>
 	<script type="text/javascript">  
 		var NL = ["Subtotaal", "Taks", "Korting", "Service Charge", "Tip", "Totaal", "Naam", "Prijs"];
 		var EN = ["Subtotal", "Tax", "Discount", "Gratuity", "Tip", "Total", "Item", "Price"];
@@ -577,6 +577,7 @@
 	</script>
     <script id="additionValueTemplate" type="text/x-jquery-tmpl">
 		<tr>
+			<td></td>
 			{{if price == 0}}
 				{{if window.posShowZeroValuedAdditions == 1}}
 					{{if info == ""}}	
