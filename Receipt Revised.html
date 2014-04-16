@@ -211,6 +211,7 @@
 		}
 
 		function getPayment(payments) {
+			window.posCreditPayments = 0.0;
 			var totalPayment = 0;
 				
 			if(!payments) {
@@ -223,6 +224,8 @@
 					
 					if(payment) 
 						totalPayment += payment.amount;
+					if(payment.paymentTypeTypeId = 15)
+						window.posCreditPayments += payment.amount;
 				}
 			}		
 			return totalPayment;	
@@ -975,7 +978,7 @@
 		<p>${checkIfNotZeroEmptyOrNull(telephone) ? telephone : ""}</p>
 		<p>${checkIfNotZeroEmptyOrNull(email) ? email : ""}</p>
 		{{if checkIfNotZeroEmptyOrNull(firstname) || checkIfNotZeroEmptyOrNull(lastname)}}
-			<p>New credit balance: ${credits}</p>
+			<p>New credit balance: ${credits - window.posCreditPayments}</p>
 		{{/if}}
 		{{if checkIfNotZeroEmptyOrNull(street) || checkIfNotZeroEmptyOrNull(streetNumber)}}
 			<p><b>Address</b></p>
