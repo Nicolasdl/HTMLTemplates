@@ -311,8 +311,8 @@ d+"px").css("background-color",a.isDark(e,i)?h.foreground:h.background).appendTo
 					<div id="waiter" i21D='defaultFontSize'>
 						<div class="floatLeft"><p>${table.name}</p></div>
 						<div class="floatRight"><p align="right">${dateToString("", 1)}</p></div>
-						<div class="floatLeft" id="marginClearLeft"><p>${receipt.numberOfCustomers%300} cts</p></div>
-						<div class="floatRight" id="marginClearRight"><p>${receipt.sequenceNumber}</p></div>
+						<div class="floatLeft" id="marginClearLeft"><p>${receipt.numberOfCustomers} cts</p></div>
+						<div class="floatRight" id="marginClearRight"><p>${receipt.sequenceNumber%300}</p></div>
 						{{if isDineIn(receipt.type)}}
 							<div class="floatLeft" id="marginClearLeft"><p>Dine in</p></div>
 						{{else}}
