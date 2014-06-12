@@ -264,7 +264,7 @@
 					<div id="waiter" i21D='defaultFontSize'>
 						<div class="floatLeft"><p>${table.name}</p></div>
 						<div class="floatRight"><p align="right">${dateToString("", 1)}</p></div>
-						<div class="floatLeft" id="marginClearLeft"><p>${receipt.numberOfCustomers} people</p></div>
+						<div class="floatLeft" id="marginClearLeft"><p>${receipt.numberOfCustomers} cts</p></div>
 						<div class="floatRight" id="marginClearRight"><p>${receipt.sequenceNumber}</p></div>
 						{{if isDineIn(receipt.type)}}
 							<div class="floatLeft" id="marginClearLeft"><p>Dine in</p></div>
@@ -397,7 +397,7 @@
 	</script>
 	<script id="receiptTotals" type="text/x-jquery-tmpl">
 		<tr>		
-			<th class="alignLeft" i21D='defaultFontSize'>Total</th>
+			<th class="alignLeft" i21D='defaultFontSize'>TOTAAL</th>
 			<td i21D='defaultFontSize' class="floatRight"><b>${total.toFixed(2)}</b></td>		
 		</tr> 
 	</script> 
@@ -405,7 +405,7 @@
 		{{if window.posVatAvailable == 1}}
 			{{if price != 0}}
 				<tr>
-					<td id="vatPercent" i21D='defaultFontSize'><p2>GST ${vat}%:</p2></td>
+					<td id="vatPercent" i21D='defaultFontSize'><p2>BTW ${vat}%:</p2></td>
 					<td i21D='defaultFontSize' class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}		</td>
 					<td i21D='defaultFontSize' class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
 					<td i21D='defaultFontSize' class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
@@ -416,8 +416,8 @@
 	<script id="tablePaymentTypes" type="text/x-jquery-tmpl">
 		{{if window.posShowPayments == 1}}
 			<tr>		
-				<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Payment</p2></td>
-				<td class="total" i21D='defaultFontSize'><p2 align="right">Amount</p2></td>		
+				<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Betaling</p2></td>
+				<td class="total" i21D='defaultFontSize'><p2 align="right">Bedrag</p2></td>		
 			</tr>	
 		{{/if}}	
 	</script>
@@ -436,7 +436,7 @@
 			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
 				<tr>
 					{{if payments}}
-						<td class="totalAmountPaid" i21D='defaultFontSize'><b>Paid</b</td>
+						<td class="totalAmountPaid" i21D='defaultFontSize'><b>BETAALD</b</td>
 					{{/if}}
 					
 					 {{if payments}}
@@ -465,10 +465,10 @@
 			{{if window.posShowPayments == 1}}				
 				<tr>
 					{{if getChange(receipt.total,payments) > 0}}
-						<th i21D='defaultFontSize'>Change</th>
+						<th i21D='defaultFontSize'>Wisselgeld</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
 					{{else getChange(receipt.total,payments) < 0}}
-						<th i21D='defaultFontSize'>Balance</th>
+						<th i21D='defaultFontSize'>Saldo</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${ ((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
 					{{/if}}
 				</tr>
@@ -584,7 +584,7 @@
 	</script>
     <script id="amountDueTemplate" type="text/x-jquery-tmpl">
     	<tr>
-    		<th i21D='defaultFontSize' class="floatLeft">Remaining total</th>
+    		<th i21D='defaultFontSize' class="floatLeft">Te betalen</th>
     		<td i21D='defaultFontSize' class="floatRight"><b>${(receipt.total + (calculateTip(payments))).toFixed(2)}</b></td>
     	</tr>
     </script>
@@ -1054,6 +1054,8 @@ function search(completeReceipt) {
 	window.posOrderBy = "kitchenItems.name";
 	// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
 	window.posOrderDirection = 1;
+	// When set to 1, the order by function will be used.
+	window.posOrderByIdentifier = 0;
 	// When set to 1, the payments will be shown.
 	window.posShowPayments = 0;
 	// When set to 1, a custom sort function is called.
@@ -1189,7 +1191,7 @@ function search(completeReceipt) {
 					courseArray[lineCount] = new Array();
 					// Keep these for future reference
 					lineArray.push(completeReceipt.kitchenItems[key]);
-					lineCount++;	
+					lineCount++;
 				}
 				else {
 					courseArray[lineCount-1].push(completeReceipt.kitchenItems[key]);
@@ -1326,7 +1328,7 @@ function search(completeReceipt) {
 		$(".name").css("width", "100%");
 	}
 	if(window.posShowReceiptItemsHeaders == 0)
-		$('#receiptItemsList tr:nth-child(1)').remove();   
+		$('#receiptItemsList tr:nth-child(1)').remove();
 }		
 </script>
 </head>
@@ -1338,8 +1340,8 @@ function search(completeReceipt) {
             <tr>
             	<th style="display:none;"></th>
                 <th id="amountItems" align="left">#</th>
-                <th id="productItem" align="left">Item</th>
-                <th id="priceHide" align="right">Price</th>
+                <th id="productItem" align="left">Naam</th>
+                <th id="priceHide" align="right">Prijs</th>
             </tr>
         </table>
 	</div> 
@@ -1350,7 +1352,7 @@ function search(completeReceipt) {
     <table id="netPrice">
     </table>   
     <table id="paymentsTable">
-		<tr i21D='defaultFontSize' id="paymentHeader"><th align="left">Payment</th><th align="right">Amount</th></tr>  
+		<tr i21D='defaultFontSize' id="paymentHeader"><th align="left">Betaling</th><th align="right">Bedrag</th></tr>  
   	</table>
   	<table id="totalAmount">
   		<tr><th></th><th></th></tr>
@@ -1362,9 +1364,9 @@ function search(completeReceipt) {
     <table id="vat" i21D='smallFontSize'>
         <tr>
         	<th id="vatPercent"></th>
-            <th class="alignRight">Net</th>
-            <th class="alignRight">GST</th>
-            <th class="floatRight">Gross</th>
+            <th class="alignRight">Netto</th>
+            <th class="alignRight">BTW</th>
+            <th class="floatRight">Totaal</th>
        </tr>
     </table>
     <div id="footer">

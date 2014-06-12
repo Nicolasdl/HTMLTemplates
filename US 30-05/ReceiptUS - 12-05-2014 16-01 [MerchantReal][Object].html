@@ -498,14 +498,6 @@
 			{{/if}}
 		{{/if}}
 	</script>
-	<script id="tablePaymentTypes" type="text/x-jquery-tmpl">
-		{{if window.posShowPayments == 1}}
-			<tr>		
-				<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Payment</p2></td>
-				<td class="total" i21D='defaultFontSize'><p2 align="right">Amount</p2></td>		
-			</tr>	
-		{{/if}}	
-	</script>
 	<script id="paymentTypeTemplate" type="text/x-jquery-tmpl">
 	{{if window.posPaymentsAvailable == 1}}
 		{{if window.posShowPayments == 1 && amount != 0}}
@@ -640,7 +632,7 @@
 							{{/if}}
 							<p>${dateToString(receipt.deliveryDate, 1)}</p>
 							{{if checkIfNotZeroEmptyOrNull(customer.credits)}}
-								<p>New credit balance: ${customer.credits}</p>	
+								<p>New credit balance: ${customer.credits - window.posCredits}</p>	
 							{{/if}}
 						</div>	
 					</div>		
@@ -766,7 +758,8 @@ function getTotalTip(payments) {
 	return totalTip;
 }
 		
-function getPayment(payments) {		
+function getPayment(payments) {	
+	window.posCredits = 0.0;
 	var totalPayment = 0;
 		
 	if(!payments) {
@@ -779,6 +772,8 @@ function getPayment(payments) {
 			
 			if(payment) 
 				totalPayment += payment.amount;
+			if(payment.paymentTypeTypeId == 15)
+				window.posCredits += payment.amount;
 		}
 	}		
 	//var	totalTips = payments.tips;	
@@ -1037,23 +1032,6 @@ function addReceiptItemsWithParentTo(items, parentRiReceiptId, res) {
 								foundRoot = 1;
 							counter++;
 						}
-/*						while(res.length - counter >= 0 && encountered == 0) {
-							if(res[res.length - counter].riReceiptId == parentRiReceiptId && encountered == 0 && res[res.length - counter].parentRiReceiptId != 0)
-								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
-							if((res[res.length - counter].priceTypeId == 11 || res[res.length - counter].priceTypeId == 12) && res[res.length - counter].parentRiReceiptId == 0) {
-								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
-								encountered++;
-							}
-							counter++;
-						}*/
-/*						if(res[res.length - counter].priceTypeId != 11 && res[res.length - counter].priceTypeId != 12)
-							counter++;
-						else {
-							res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
-							encountered = 1;
-							while(res.length - ( counter + secCounter) >= 0)
-								if(res[res.length - (counter + secCounter)].priceTypeId )
-						}*/
 					}
 				}
 				res[res.length] = items[item];
@@ -1308,13 +1286,16 @@ function isSameProduct(storedReceiptItem, newReceiptItem) {
 		// Check if unit price is the same
 		if(storedReceiptItem.price == newReceiptItem.price) {
 			// Check if the additions are the same
-			if(storedReceiptItem.additionValues.length != 0 && newReceiptItem.additionValues.length != 0)
-				if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
-					return true;
+			if(storedReceiptItem.additionValues.length == newReceiptItem.additionValues.length)
+				if(storedReceiptItem.additionValues.length != 0)
+					if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
+						return true;
+					else
+						return false;
 				else
-					return false;
+					return true;
 			else
-				return true;
+				return false;
 		}
 		else
 			return false;
@@ -1540,19 +1521,11 @@ function search(completeReceipt) {
 	*/
 
 	if (window.posOneVAT == 1) {
-		var i = 0;
-		if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.receiptItems)) {
-			while(completeReceipt.receipt.receiptItems[i].vat == 0)
-				i++;
-			window.posVAT = completeReceipt.receipt.receiptItems[i].vat;
-		}
-		else if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems)) {
-			while(completeReceipt.receipt.actionReceiptItems[i].vat == 0)
-				i++;
-			window.posVAT = completeReceipt.receipt.actionReceiptItems[i].vat;
-		}
-		else
-			window.posVAT = 0.0;
+		window.posVAT = 0.0;
+		for(var key in completeReceipt.receipt.receiptItems)
+			if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
+				if(completeReceipt.receipt.receiptItems[key].vat != 0)
+					window.posVAT = completeReceipt.receipt.receiptItems[key].vat;
 	}
 	
 	if(window.posEnableBodySubline == 1) {
@@ -1753,9 +1726,17 @@ function search(completeReceipt) {
 				completeReceipt.swipe = payments[i].amount;
 				var paymentInformation = new Object();
 				var paymentJson = JSON.parse(payments[i].optionalInfo);
-				paymentInformation.cardHolder = paymentJson.cardHolderName;
-				paymentInformation.cardNumber = 'XXX...' + paymentJson.panLastFour;
-				$("#signatureTemplate").tmpl(paymentInformation).appendTo("#signature");
+				if(paymentJson) {
+					paymentInformation.cardHolder = paymentJson.cardHolderName;
+					paymentInformation.cardNumber = 'XXX...' + paymentJson.panLastFour;
+					$("#signatureTemplate").tmpl(paymentInformation).appendTo("#signature");
+				}
+				else {
+					var cardInformation = payments[i].optionalInfo.split(";");
+					paymentInformation.cardHolder = cardInformation[0];
+					paymentInformation.cardNumber = cardInformation[1].substring(0, cardInformation[1].length - 4).replace(/\d/g,'X') + cardInformation[1].substring(cardInformation[1].length - 4);
+					$("#signatureTemplate").tmpl(paymentInformation).appendTo("#signature");					
+				}
 			}
 	}
 
@@ -1814,7 +1795,6 @@ function search(completeReceipt) {
 				$( "#paymentTypeTemplate" ).tmpl( completeReceipt.payments ).appendTo( "#paymentsTable" );
 				if(window.posShowHeadersPaymentTypes == 0)
 					deleteHeader("paymentHeader");
-				//$( "#tablePaymentTypes" ).tmpl( ).prependTo( "#paymentsTable" );
 			}
 		
 		if (completeReceipt.payments.length == 0) {	
