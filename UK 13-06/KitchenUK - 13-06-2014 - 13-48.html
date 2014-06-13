@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-    <title>Revised by Nico - 04-04-2014 14:00</title>
+    <title>Revised by Nico 13-06-2014 13:48</title>
 	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 	<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
 	<script type="text/javascript" src="jquery.min.js"></script>
@@ -304,11 +304,23 @@
 			{{if price == 0}}
 				{{if window.posShowZeroValuedPricesProducts == 1}}
 					<td id="hiddenRow" style="display:none;">${line}</td>
-					<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
-					{{if checkIfNotZeroEmptyOrNull(kitchenName)}}
-						<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+					{{if amount < 0}}
+						<td class="amount" i21D='defaultFontSize' id="firstRow"><b><i>${amount}</i></b></td>
 					{{else}}
-						<td class="name" i21D='defaultFontSize'>${name}</td>
+						<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+					{{/if}}
+					{{if !(isNameChanged(name, pOid)) && checkIfNotZeroEmptyOrNull(kitchenName)}}
+						{{if amount < 0 }}
+							<td class="name" i21D='defaultFontSize'><b><i>${kitchenName}</i></b></td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+						{{/if}}
+					{{else}}
+						{{if amount < 0 }}
+							<td class="name" i21D='defaultFontSize'><b><i>${name}</i></b></td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${name}</td>
+						{{/if}}
 					{{/if}}
 					{{if window.posShowPrice == 1}}
 						{{if window.posShowAdditions == 1}}
@@ -330,12 +342,24 @@
 				{{/if}}
 			{{else}}
 				<td id="hiddenRow" style="display:none;">${line}</td>
-				<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
-				{{if checkIfNotZeroEmptyOrNull(kitchenName)}}
-					<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+				{{if amount < 0}}
+					<td class="amount" i21D='defaultFontSize' id="firstRow"><b><i>${amount}</i></b></td>
 				{{else}}
-					<td class="name" i21D='defaultFontSize'>${name}</td>
-				{{/if}}		
+					<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+				{{/if}}
+				{{if !(isNameChanged(name, pOid)) && checkIfNotZeroEmptyOrNull(kitchenName)}}
+					{{if amount < 0 }}
+						<td class="name" i21D='defaultFontSize'><b><i>${kitchenName}</i></b></td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+					{{/if}}
+				{{else}}
+					{{if amount < 0 }}
+						<td class="name" i21D='defaultFontSize'><b><i>${name}</i></b></td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${name}</td>
+					{{/if}}
+				{{/if}}	
 				{{if window.posShowPrice == 1}}
 					{{if window.posShowAdditions == 1}}
 						{{if amount < 0 || amount > 1}}
@@ -405,7 +429,7 @@
 		{{if window.posVatAvailable == 1}}
 			{{if price != 0}}
 				<tr>
-					<td id="vatPercent" i21D='defaultFontSize'><p2>GST ${vat}%:</p2></td>
+					<td id="vatPercent" i21D='defaultFontSize'><p2>VAT ${vat}%:</p2></td>
 					<td i21D='defaultFontSize' class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}		</td>
 					<td i21D='defaultFontSize' class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
 					<td i21D='defaultFontSize' class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
@@ -465,10 +489,10 @@
 			{{if window.posShowPayments == 1}}				
 				<tr>
 					{{if getChange(receipt.total,payments) > 0}}
-						<th i21D='defaultFontSize'>Change</th>
+						<th i21D='defaultFontSize'>Wisselgeld</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
 					{{else getChange(receipt.total,payments) < 0}}
-						<th i21D='defaultFontSize'>Balance</th>
+						<th i21D='defaultFontSize'>Saldo</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${ ((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
 					{{/if}}
 				</tr>
@@ -584,7 +608,7 @@
 	</script>
     <script id="amountDueTemplate" type="text/x-jquery-tmpl">
     	<tr>
-    		<th i21D='defaultFontSize' class="floatLeft">Remaining total</th>
+    		<th i21D='defaultFontSize' class="floatLeft">Amount due</th>
     		<td i21D='defaultFontSize' class="floatRight"><b>${(receipt.total + (calculateTip(payments))).toFixed(2)}</b></td>
     	</tr>
     </script>
@@ -1004,6 +1028,18 @@ function compareAdditions(a,b) {
 function sortNumber(a,b) {
     return a - b;
 }
+
+function isNameChanged(name, productId) {
+	var productCategories = completeReceipt.productCategories;
+	for(var i = 0; i < productCategories.length; i++) {
+		for(var j = 0; j < productCategories[i].products.length; j++) {
+			if(productCategories[i].products[j].oid == productId)
+				if(productCategories[i].products[j].displayNames[0] === name)
+					return false;
+		}
+	}
+	return true;
+}
 	
 /*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/
 var generatedCount = 0;
@@ -1328,7 +1364,7 @@ function search(completeReceipt) {
 		$(".name").css("width", "100%");
 	}
 	if(window.posShowReceiptItemsHeaders == 0)
-		$('#receiptItemsList tr:nth-child(1)').remove();   
+		$('#receiptItemsList tr:nth-child(1)').remove();
 }		
 </script>
 </head>
@@ -1365,7 +1401,7 @@ function search(completeReceipt) {
         <tr>
         	<th id="vatPercent"></th>
             <th class="alignRight">Net</th>
-            <th class="alignRight">GST</th>
+            <th class="alignRight">VAT</th>
             <th class="floatRight">Gross</th>
        </tr>
     </table>

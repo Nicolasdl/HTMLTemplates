@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-    <title>Revised by Nico - 04-04-2014 14:00</title>
+    <title>Revised by Nico 13-06-2014 13:52</title>
 	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 	<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
 	<script type="text/javascript" src="jquery.min.js"></script>
@@ -61,7 +61,6 @@
         }        
         table { 
 			border: none;
-			border-collapse:collapse
         }        
         th {
             margin: 0px;
@@ -127,7 +126,7 @@
 			text-align: center;
 		}
 		.topLine {
-			 border-top: 1px solid black;
+			border-top: 1px solid black;
 		}
 		.widthHundred {
 			width: 100%;
@@ -305,11 +304,23 @@
 			{{if price == 0}}
 				{{if window.posShowZeroValuedPricesProducts == 1}}
 					<td id="hiddenRow" style="display:none;">${line}</td>
-					<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
-					{{if checkIfNotZeroEmptyOrNull(kitchenName)}}
-						<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+					{{if amount < 0}}
+						<td class="amount" i21D='defaultFontSize' id="firstRow"><b><i>${amount}</i></b></td>
 					{{else}}
-						<td class="name" i21D='defaultFontSize'>${name}</td>
+						<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+					{{/if}}
+					{{if !(isNameChanged(name, pOid)) && checkIfNotZeroEmptyOrNull(kitchenName)}}
+						{{if amount < 0 }}
+							<td class="name" i21D='defaultFontSize'><b><i>${kitchenName}</i></b></td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+						{{/if}}
+					{{else}}
+						{{if amount < 0 }}
+							<td class="name" i21D='defaultFontSize'><b><i>${name}</i></b></td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${name}</td>
+						{{/if}}
 					{{/if}}
 					{{if window.posShowPrice == 1}}
 						{{if window.posShowAdditions == 1}}
@@ -331,11 +342,23 @@
 				{{/if}}
 			{{else}}
 				<td id="hiddenRow" style="display:none;">${line}</td>
-				<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
-				{{if checkIfNotZeroEmptyOrNull(kitchenName)}}
-					<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+				{{if amount < 0}}
+					<td class="amount" i21D='defaultFontSize' id="firstRow"><b><i>${amount}</i></b></td>
 				{{else}}
-					<td class="name" i21D='defaultFontSize'>${name}</td>
+					<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+				{{/if}}
+				{{if !(isNameChanged(name, pOid)) && checkIfNotZeroEmptyOrNull(kitchenName)}}
+					{{if amount < 0 }}
+						<td class="name" i21D='defaultFontSize'><b><i>${kitchenName}</i></b></td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+					{{/if}}
+				{{else}}
+					{{if amount < 0 }}
+						<td class="name" i21D='defaultFontSize'><b><i>${name}</i></b></td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${name}</td>
+					{{/if}}
 				{{/if}}		
 				{{if window.posShowPrice == 1}}
 					{{if window.posShowAdditions == 1}}
@@ -398,7 +421,7 @@
 	</script>
 	<script id="receiptTotals" type="text/x-jquery-tmpl">
 		<tr>		
-			<th class="alignLeft" i21D='defaultFontSize'>TOTAAL</th>
+			<th class="alignLeft" i21D='defaultFontSize'>Total</th>
 			<td i21D='defaultFontSize' class="floatRight"><b>${total.toFixed(2)}</b></td>		
 		</tr> 
 	</script> 
@@ -406,7 +429,7 @@
 		{{if window.posVatAvailable == 1}}
 			{{if price != 0}}
 				<tr>
-					<td id="vatPercent" i21D='defaultFontSize'><p2>BTW ${vat}%:</p2></td>
+					<td id="vatPercent" i21D='defaultFontSize'><p>TVA ${vat}%:</p></td>
 					<td i21D='defaultFontSize' class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}		</td>
 					<td i21D='defaultFontSize' class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
 					<td i21D='defaultFontSize' class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
@@ -417,8 +440,8 @@
 	<script id="tablePaymentTypes" type="text/x-jquery-tmpl">
 		{{if window.posShowPayments == 1}}
 			<tr>		
-				<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Betaling</p2></td>
-				<td class="total" i21D='defaultFontSize'><p2 align="right">Bedrag</p2></td>		
+				<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Paiement</p2></td>
+				<td class="total" i21D='defaultFontSize'><p2 align="right">Montant</p2></td>		
 			</tr>	
 		{{/if}}	
 	</script>
@@ -437,7 +460,7 @@
 			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
 				<tr>
 					{{if payments}}
-						<td class="totalAmountPaid" i21D='defaultFontSize'><b>BETAALD</b</td>
+						<td class="totalAmountPaid" i21D='defaultFontSize'><b>Payé</b</td>
 					{{/if}}
 					
 					 {{if payments}}
@@ -455,7 +478,7 @@
 		{{if window.posPaymentsAvailable == 1}}
 			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
 				<tr>
-					<th class="tip" i21D='defaultFontSize'>+Tip</th>
+					<th class="tip" i21D='defaultFontSize'>+Pourboire</th>
 					<td class="tipPaid" i21D='defaultFontSize'>${getTotalTip(payments).toFixed(2)}</td>
 				</tr>
 			{{/if}}
@@ -466,10 +489,10 @@
 			{{if window.posShowPayments == 1}}				
 				<tr>
 					{{if getChange(receipt.total,payments) > 0}}
-						<th i21D='defaultFontSize'>Wisselgeld</th>
+						<th i21D='defaultFontSize'>À remettre</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
 					{{else getChange(receipt.total,payments) < 0}}
-						<th i21D='defaultFontSize'>Saldo</th>
+						<th i21D='defaultFontSize'>Solde</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${ ((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
 					{{/if}}
 				</tr>
@@ -585,7 +608,7 @@
 	</script>
     <script id="amountDueTemplate" type="text/x-jquery-tmpl">
     	<tr>
-    		<th i21D='defaultFontSize' class="floatLeft">Te betalen</th>
+    		<th i21D='defaultFontSize' class="floatLeft">À payer</th>
     		<td i21D='defaultFontSize' class="floatRight"><b>${(receipt.total + (calculateTip(payments))).toFixed(2)}</b></td>
     	</tr>
     </script>
@@ -615,8 +638,8 @@ function dateToString(passedDate, option) {
 	}
 	if(option == 2) {
 		var date = new Date();
-		var dd = date.getDate();
 		var mm = date.getMonth() + 1;
+		var dd = dateWithMonth.getDate();
 		
 		if(dd < 10)
 			dd = '0' + dd;
@@ -702,6 +725,7 @@ function checkProductOfAdditionHasValueZero(passedId) {
 			for(var j = 0; j < receiptItem.additionValues.length; j++) {
 				var additionValue = receiptItem.additionValues[j];
 				if(additionValue.oid == passedId) {
+					window.alert("True");
 					return true;
 				}
 			}
@@ -715,21 +739,17 @@ function sortJsonArrayByProperty(objArray, prop, direction){
     var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
 	var intRegex = /^\d+$/;
 
-	console.log(objArray);
     //if (objArray && objArray.constructor===Array){
 	if(objArray) {
-		console.log("test");
         var propPath = (prop.constructor===Array) ? prop : prop.split(".");
-		console.log(propPath);
         objArray.sort(function(a,b){
             for (var p in propPath){
-				console.log(p);
                 if (a[propPath[p]] && b[propPath[p]]){
                     a = a[propPath[p]];
                     b = b[propPath[p]];
                 }
             }
-			
+
 			if(!(intRegex.test(a) && intRegex.test(b))) {
 				// convert numeric strings to integers
 				a = a.match(/^\d+$/) ? +a : a;
@@ -818,13 +838,14 @@ var sort_by;
 function checkLine() {
 	if(window.posEnableSortOnCourseThenOnKitchenName == 1) {
 		var table = document.getElementById("receiptItemsList");
-		console.log("test");
 		for (var i = 0, row; row = table.rows[i]; i++) {
 		   //iterate through rows
 		   //rows would be accessed using the "row" variable assigned in the for loop
-		   console.log(row.cells[0].innerHTML);
-		   if(row.cells[0].innerHTML == 1)
+		   if(row.cells[0].innerHTML == 1) {
 		      row.className = "topLine";
+		      if(window.posEnableCourseMargin == 1)
+		      	$("#receiptItemsList tbody tr:eq('" + i + "') td").attr("class", "lineMargin");
+		   }
 		}
 	}
 }
@@ -886,13 +907,30 @@ function combineItems(receiptItems) {
 		else {
 			// Check if pOid has already been added to combinedArray
 			var foundIndex = checkedIds.allIndexOf(receiptItemsToArray[i].pOid);
+			if(window.posCombineMenuAndRegularItems == 1) {
+				var flag = -1;
+				for(var j = 0; j < combinedArray.length; j++) {
+					if(isSameProduct(combinedArray[j], receiptItemsToArray[i])) {
+						combinedArray[j].amount += receiptItemsToArray[i].amount;
+						flag++;
+					}			
+				}
+				if(flag < 0) {
+					combinedArray.push(receiptItemsToArray[i]);
+					checkedIds.push(receiptItemsToArray[i].pOid);
+				}	
+				else if(flag > 0) {
+					console.log("Something went wrong here. This is not possible.");
+				}	
+				continue;
+			}
 			if(foundIndex < 0) {
 				// The pOid has not been added yet
 				combinedArray.push(receiptItemsToArray[i]);
 				checkedIds.push(receiptItemsToArray[i].pOid);				
 			}
 			else if(foundIndex.length > 1) {
-				var flag = 0;
+				var flag = -1;
 				// Check each index to check if the product has the same details as the one stored
 				for(var index = 0; index < foundIndex.length; index++) {
 					// Check if the product has the same details as the one stored
@@ -901,11 +939,11 @@ function combineItems(receiptItems) {
 						flag++;
 					}				
 				}
-				if(flag < 1) {
+				if(flag < 0) {
 					combinedArray.push(receiptItemsToArray[i]);
 					checkedIds.push(receiptItemsToArray[i].pOid);
 				}
-				else if(flag > 1) {
+				else if(flag > 0) {
 					console.log("Something went wrong here. This is not possible.");
 				}
 
@@ -928,7 +966,7 @@ function combineItems(receiptItems) {
 
 function isSameProduct(storedReceiptItem, newReceiptItem) {
 	if(storedReceiptItem.name == newReceiptItem.name) {
-		// Check if the additions are the same
+		// Check if unit price is the same
 		if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
 			return true;
 		else
@@ -990,6 +1028,18 @@ function compareAdditions(a,b) {
 function sortNumber(a,b) {
     return a - b;
 }
+
+function isNameChanged(name, productId) {
+	var productCategories = completeReceipt.productCategories;
+	for(var i = 0; i < productCategories.length; i++) {
+		for(var j = 0; j < productCategories[i].products.length; j++) {
+			if(productCategories[i].products[j].oid == productId)
+				if(productCategories[i].products[j].displayNames[0] === name)
+					return false;
+		}
+	}
+	return true;
+}
 	
 /*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/
 var generatedCount = 0;
@@ -1036,12 +1086,12 @@ function search(completeReceipt) {
 	// When set to 1, the customer information will be centered. *** When enabling this option, reset the width of the div with ID centeredCompanyInfo so that the div
 	// will actually be in the center ***.
 	window.posEnableCustomerInfoCentering = 0;
-	// Set this value to order by. Supported values are 'barItems.name', 'barItems.kitchenName', 'barItems.pId' (PLU), 'barItems.modificationDate'. When set empty "", no sorting will be used.
-	window.posOrderBy = "barItems.name";
-	// When set to 1, the above identifier will be used to sort by.
-	window.posOrderByIdentifier = 0;
+	// Set this value to order by. Supported values are 'receiptItems.name', 'kitchenItems.pId' (PLU), 'kitchenItems.modificationDate'. When set empty "", no sorting will be used.
+	window.posOrderBy = "kitchenItems.name";
 	// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
 	window.posOrderDirection = 1;
+	// When set to 1, the order by function will be used.
+	window.posOrderByIdentifier = 0;
 	// When set to 1, the payments will be shown.
 	window.posShowPayments = 0;
 	// When set to 1, a custom sort function is called.
@@ -1055,7 +1105,9 @@ function search(completeReceipt) {
 	// When set to 1, a big whitespace will be left between courses. This comes in hadny when lines aren't drawn between courses.
 	window.posEnableCourseMargin = 0;
 	// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
-	window.posShowReceiptItemsHeaders = 1;
+	window.posShowReceiptItemsHeaders = 0;
+	// Combine menu items with regular items
+	window.posCombineMenuAndRegularItems = 0;
 	// When set to 1, multiple debug lines will be printed to see where the error occurs when princing the receipt.
 	window.posEnableDebug = 0;
 	// These are values which test if objects are present. Do not touch.
@@ -1066,8 +1118,8 @@ function search(completeReceipt) {
 	window.posUserAvailable = 0;
 	window.posTableAvailable = 0;
 	window.posVatAvailable = 0;
+	window.poskitchenItemsAvailable = 0;
 	window.posBarItemsAvailable = 0;
-	window.posKitchenItemsAvailable = 0;
 	window.posPaymentsAvailable = 0;
 	window.posProductCategoriesAvailable = 0;
 	window.posAdditionValuesAvailable = 0;
@@ -1080,7 +1132,7 @@ function search(completeReceipt) {
 	*/
 	
 	var data = eval(completeReceipt);
-
+	
 	if(window.posEnableBodySubline == 1) {
 		var table = document.getElementById("receipt");
 		table.className = "borderBottom";
@@ -1135,8 +1187,8 @@ function search(completeReceipt) {
 		window.posTableAvailable = 1;
 	if(checkIfNotZeroEmptyOrNull(completeReceipt.vat))
 		window.posVatAvailable = 1;
-	if(checkIfNotZeroEmptyOrNull(completeReceipt.barItems))
-		window.posBarItemsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems))
+		window.poskitchenItemsAvailable = 1;
 	if(checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems))
 		window.posKitchenItemsAvailable = 1;
 	if(checkIfNotZeroEmptyOrNull(completeReceipt.payments))
@@ -1157,14 +1209,51 @@ function search(completeReceipt) {
 	
 	if(window.posEnableDebug == 1)
 		$('#errors').append("<p>Company info has been printed.</p>");
-
-	completeReceipt.barItems = combineItems(completeReceipt.barItems);
-
-	if(window.posOrderByIdentifier == 1 && window.posOrderBy != "")
-		sortJsonArrayByProperty(completeReceipt.barItems, window.posOrderBy, window.posOrderDirection);
+	
+	if (window.posEnableCombineItems == 1 && checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems)) {
+		var courseArray = new Array();
+		var lineArray = new Array();
+		var mergedArray = new Array();
+		var lineCount = 0;
+		for(var key in completeReceipt.kitchenItems) {
+			if(completeReceipt.kitchenItems.hasOwnProperty(key)) {
+				if(key == 0 && completeReceipt.kitchenItems[0].oid != -2) {
+					courseArray[lineCount] = new Array();	
+					lineCount++;				
+					courseArray[lineCount-1].push(completeReceipt.kitchenItems[key]);
+				}
+				else if(completeReceipt.kitchenItems[key].oid == -2) {
+					// Create array for each course
+					courseArray[lineCount] = new Array();
+					// Keep these for future reference
+					lineArray.push(completeReceipt.kitchenItems[key]);
+					lineCount++;	
+				}
+				else {
+					courseArray[lineCount-1].push(completeReceipt.kitchenItems[key]);
+				}
+			}
+		}
+		for(var i = 0; i < courseArray.length; i++) {
+			if(window.posEnableCombineItems == 1)
+				courseArray[i] = combineItems(courseArray[i]);
+			if(window.posOrderBy != "" && window.posOrderByIdentifier == 1)
+				sortJsonArrayByProperty(courseArray[i], window.posOrderBy, window.posOrderDirection);
+			for(var key in courseArray[i]) {
+				if(courseArray[i].hasOwnProperty(key)) {
+					mergedArray.push(courseArray[i][key]);
+				}
+			}
+			if(lineArray.length > 0)
+				mergedArray.push(lineArray[0]);
+		}
+		if(mergedArray[mergedArray.length-1].oid == -2)
+			mergedArray.pop();
+		completeReceipt.kitchenItems = mergedArray;
+	}
 	
 	//$( "#receiptItemsTemplate" ).tmpl( receiptItemsArray ).appendTo( "#receiptItemsList" );
-	$( "#receiptItemsTemplate" ).tmpl( completeReceipt.barItems ).appendTo( "#receiptItemsList" );
+	$( "#receiptItemsTemplate" ).tmpl( completeReceipt.kitchenItems ).appendTo( "#receiptItemsList" );
 	
 	if(window.posEnableDebug == 1)
 		$('#errors').append("<p>Receipt items have been printed.</p>");	
@@ -1223,7 +1312,7 @@ function search(completeReceipt) {
 	if(window.posEnableDebug == 1)
 		$('#errors').append("<p>Payments have been printed.</p>");
 	
-	if(getTotalTip(completeReceipt.payments) > 0) {
+	if(getTotalTip(completeReceipt.payments) > 0 && window.posShowPrice == 1) {
 		$( "#totalTipTemplate" ).tmpl( completeReceipt ).appendTo( "#totalTip" );
 	}
 
@@ -1267,15 +1356,15 @@ function search(completeReceipt) {
 	 //console.log($(e));
 	 $(e).css({"font-family":completeReceipt.template.smallFontName});
 	 $(e).css({"font-size":completeReceipt.template.smallFontSize});
-	}); 
+	});  
 	if(window.posEnableSortOnCourseThenOnKitchenName == 1 && window.posEnableCourseLines == 1)
     	checkLine();
 	if(window.posShowPrice == 0) {
 		removePrice();     
 		$(".name").css("width", "100%");
-	}
+	} 
 	if(window.posShowReceiptItemsHeaders == 0)
-		$('#receiptItemsList tr:nth-child(1)').remove();
+		$('#receiptItemsList tr:nth-child(1)').remove();  
 }		
 </script>
 </head>
@@ -1287,8 +1376,8 @@ function search(completeReceipt) {
             <tr>
             	<th style="display:none;"></th>
                 <th id="amountItems" align="left">#</th>
-                <th id="productItem" align="left">Naam</th>
-                <th id="priceHide" align="right">Prijs</th>
+                <th id="productItem" align="left">Produit</th>
+                <th id="priceHide" align="right">Prix</th>
             </tr>
         </table>
 	</div> 
@@ -1299,7 +1388,7 @@ function search(completeReceipt) {
     <table id="netPrice">
     </table>   
     <table id="paymentsTable">
-		<tr i21D='defaultFontSize' id="paymentHeader"><th align="left">Betaling</th><th align="right">Bedrag</th></tr>  
+		<tr i21D='defaultFontSize' id="paymentHeader"><th align="left">Paiement</th><th align="right">Montant</th></tr>  
   	</table>
   	<table id="totalAmount">
   		<tr><th></th><th></th></tr>
@@ -1311,9 +1400,9 @@ function search(completeReceipt) {
     <table id="vat" i21D='smallFontSize'>
         <tr>
         	<th id="vatPercent"></th>
-            <th class="alignRight">Netto</th>
-            <th class="alignRight">BTW</th>
-            <th class="floatRight">Totaal</th>
+            <th class="alignRight">Net</th>
+            <th class="alignRight">TVA</th>
+            <th class="floatRight">Total</th>
        </tr>
     </table>
     <div id="footer">

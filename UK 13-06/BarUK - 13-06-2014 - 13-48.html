@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-    <title>Revised by Nico 04-04-2014 13:59</title>
+    <title>Revised by Nico - 13-06-2014 13:48</title>
 	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 	<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
 	<script type="text/javascript" src="jquery.min.js"></script>
@@ -61,6 +61,7 @@
         }        
         table { 
 			border: none;
+			border-collapse:collapse
         }        
         th {
             margin: 0px;
@@ -126,7 +127,7 @@
 			text-align: center;
 		}
 		.topLine {
-			border-top: 1px solid black;
+			 border-top: 1px solid black;
 		}
 		.widthHundred {
 			width: 100%;
@@ -304,11 +305,23 @@
 			{{if price == 0}}
 				{{if window.posShowZeroValuedPricesProducts == 1}}
 					<td id="hiddenRow" style="display:none;">${line}</td>
-					<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
-					{{if checkIfNotZeroEmptyOrNull(kitchenName)}}
-						<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+					{{if amount < 0}}
+						<td class="amount" i21D='defaultFontSize' id="firstRow"><b><i>${amount}</i></b></td>
 					{{else}}
-						<td class="name" i21D='defaultFontSize'>${name}</td>
+						<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+					{{/if}}
+					{{if !(isNameChanged(name, pOid)) && checkIfNotZeroEmptyOrNull(kitchenName)}}
+						{{if amount < 0 }}
+							<td class="name" i21D='defaultFontSize'><b><i>${kitchenName}</i></b></td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+						{{/if}}
+					{{else}}
+						{{if amount < 0 }}
+							<td class="name" i21D='defaultFontSize'><b><i>${name}</i></b></td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${name}</td>
+						{{/if}}
 					{{/if}}
 					{{if window.posShowPrice == 1}}
 						{{if window.posShowAdditions == 1}}
@@ -330,11 +343,23 @@
 				{{/if}}
 			{{else}}
 				<td id="hiddenRow" style="display:none;">${line}</td>
-				<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
-				{{if checkIfNotZeroEmptyOrNull(kitchenName)}}
-					<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+				{{if amount < 0}}
+					<td class="amount" i21D='defaultFontSize' id="firstRow"><b><i>${amount}</i></b></td>
 				{{else}}
-					<td class="name" i21D='defaultFontSize'>${name}</td>
+					<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+				{{/if}}
+				{{if !(isNameChanged(name, pOid)) && checkIfNotZeroEmptyOrNull(kitchenName)}}
+					{{if amount < 0 }}
+						<td class="name" i21D='defaultFontSize'><b><i>${kitchenName}</i></b></td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${kitchenName}</td>
+					{{/if}}
+				{{else}}
+					{{if amount < 0 }}
+						<td class="name" i21D='defaultFontSize'><b><i>${name}</i></b></td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${name}</td>
+					{{/if}}
 				{{/if}}		
 				{{if window.posShowPrice == 1}}
 					{{if window.posShowAdditions == 1}}
@@ -465,10 +490,10 @@
 			{{if window.posShowPayments == 1}}				
 				<tr>
 					{{if getChange(receipt.total,payments) > 0}}
-						<th i21D='defaultFontSize'>Wisselgeld</th>
+						<th i21D='defaultFontSize'>Change</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
 					{{else getChange(receipt.total,payments) < 0}}
-						<th i21D='defaultFontSize'>Saldo</th>
+						<th i21D='defaultFontSize'>Balance</th>
 						<td class="tipPaid" i21D='defaultFontSize'><b>${ ((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
 					{{/if}}
 				</tr>
@@ -549,27 +574,25 @@
 				{{/if}}
 			{{/if}}
 		{{/if}}
-		{{if completeReceipt.template.showCompanyInfo == 1}}
-			<div id="restaurantInfo" i21D='defaultFontSize'>
-				{{if window.posEnableCustomerInfoCentering == 1 && receipt.url == ""}}
-					<div id="centeredCompanyInfo" class='spreadEvenly'>
-				{{else}}
-					<div class="floatLeft">				
-				{{/if}}
-					{{if window.posCompanyAvailable == 1 && window.posUserAvailable == 1}}
-						{{if checkIfNotZeroEmptyOrNull(company)}}
-								<p><b>${company.displayName}</b></p>
-								<p>${company.street} ${company.streetNumber}</p>
-								<p>${company.zip} ${company.city}</p>
-								<p>${company.telephone}</p>
-								<p>${company.vat}</p>
-								<p>${company.url}</p>
-								<p>${user.email}</p>
-							</div>	
-						{{/if}}
+		<div id="restaurantInfo" i21D='defaultFontSize'>
+			{{if window.posEnableCustomerInfoCentering == 1 && receipt.url == ""}}
+				<div id="centeredCompanyInfo" class='spreadEvenly'>
+			{{else}}
+				<div class="floatLeft">				
+			{{/if}}
+				{{if window.posCompanyAvailable == 1 && window.posUserAvailable == 1}}
+					{{if checkIfNotZeroEmptyOrNull(company)}}
+							<p><b>${company.displayName}</b></p>
+							<p>${company.street} ${company.streetNumber}</p>
+							<p>${company.zip} ${company.city}</p>
+							<p>${company.telephone}</p>
+							<p>${company.vat}</p>
+							<p>${company.url}</p>
+							<p>${user.email}</p>
+						</div>	
 					{{/if}}
-			</div>
-		{{/if}}
+				{{/if}}
+		</div>
 		{{if checkIfNotZeroEmptyOrNull(template.bottomLogoUrl)}}
 			{{if window.posShowBottomLogo == 1}}
 				{{if window.posEnableBottomLogoTopline == 1}}
@@ -614,8 +637,8 @@ function dateToString(passedDate, option) {
 	}
 	if(option == 2) {
 		var date = new Date();
-		var mm = date.getMonth() + 1;
 		var dd = date.getDate();
+		var mm = date.getMonth() + 1;
 		
 		if(dd < 10)
 			dd = '0' + dd;
@@ -715,17 +738,21 @@ function sortJsonArrayByProperty(objArray, prop, direction){
     var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
 	var intRegex = /^\d+$/;
 
+	console.log(objArray);
     //if (objArray && objArray.constructor===Array){
 	if(objArray) {
+		console.log("test");
         var propPath = (prop.constructor===Array) ? prop : prop.split(".");
+		console.log(propPath);
         objArray.sort(function(a,b){
             for (var p in propPath){
+				console.log(p);
                 if (a[propPath[p]] && b[propPath[p]]){
                     a = a[propPath[p]];
                     b = b[propPath[p]];
                 }
             }
-
+			
 			if(!(intRegex.test(a) && intRegex.test(b))) {
 				// convert numeric strings to integers
 				a = a.match(/^\d+$/) ? +a : a;
@@ -814,14 +841,13 @@ var sort_by;
 function checkLine() {
 	if(window.posEnableSortOnCourseThenOnKitchenName == 1) {
 		var table = document.getElementById("receiptItemsList");
+		console.log("test");
 		for (var i = 0, row; row = table.rows[i]; i++) {
 		   //iterate through rows
 		   //rows would be accessed using the "row" variable assigned in the for loop
-		   if(row.cells[0].innerHTML == 1) {
+		   console.log(row.cells[0].innerHTML);
+		   if(row.cells[0].innerHTML == 1)
 		      row.className = "topLine";
-		      if(window.posEnableCourseMargin == 1)
-		      	$("#receiptItemsList tbody tr:eq('" + i + "') td").attr("class", "lineMargin");
-		   }
 		}
 	}
 }
@@ -883,30 +909,13 @@ function combineItems(receiptItems) {
 		else {
 			// Check if pOid has already been added to combinedArray
 			var foundIndex = checkedIds.allIndexOf(receiptItemsToArray[i].pOid);
-			if(window.posCombineMenuAndRegularItems == 1) {
-				var flag = -1;
-				for(var j = 0; j < combinedArray.length; j++) {
-					if(isSameProduct(combinedArray[j], receiptItemsToArray[i])) {
-						combinedArray[j].amount += receiptItemsToArray[i].amount;
-						flag++;
-					}			
-				}
-				if(flag < 0) {
-					combinedArray.push(receiptItemsToArray[i]);
-					checkedIds.push(receiptItemsToArray[i].pOid);
-				}	
-				else if(flag > 0) {
-					console.log("Something went wrong here. This is not possible.");
-				}	
-				continue;
-			}
 			if(foundIndex < 0) {
 				// The pOid has not been added yet
 				combinedArray.push(receiptItemsToArray[i]);
 				checkedIds.push(receiptItemsToArray[i].pOid);				
 			}
 			else if(foundIndex.length > 1) {
-				var flag = -1;
+				var flag = 0;
 				// Check each index to check if the product has the same details as the one stored
 				for(var index = 0; index < foundIndex.length; index++) {
 					// Check if the product has the same details as the one stored
@@ -915,11 +924,11 @@ function combineItems(receiptItems) {
 						flag++;
 					}				
 				}
-				if(flag < 0) {
+				if(flag < 1) {
 					combinedArray.push(receiptItemsToArray[i]);
 					checkedIds.push(receiptItemsToArray[i].pOid);
 				}
-				else if(flag > 0) {
+				else if(flag > 1) {
 					console.log("Something went wrong here. This is not possible.");
 				}
 
@@ -942,7 +951,7 @@ function combineItems(receiptItems) {
 
 function isSameProduct(storedReceiptItem, newReceiptItem) {
 	if(storedReceiptItem.name == newReceiptItem.name) {
-		// Check if unit price is the same
+		// Check if the additions are the same
 		if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
 			return true;
 		else
@@ -1004,6 +1013,18 @@ function compareAdditions(a,b) {
 function sortNumber(a,b) {
     return a - b;
 }
+
+function isNameChanged(name, productId) {
+	var productCategories = completeReceipt.productCategories;
+	for(var i = 0; i < productCategories.length; i++) {
+		for(var j = 0; j < productCategories[i].products.length; j++) {
+			if(productCategories[i].products[j].oid == productId)
+				if(productCategories[i].products[j].displayNames[0] === name)
+					return false;
+		}
+	}
+	return true;
+}
 	
 /*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/
 var generatedCount = 0;
@@ -1050,12 +1071,12 @@ function search(completeReceipt) {
 	// When set to 1, the customer information will be centered. *** When enabling this option, reset the width of the div with ID centeredCompanyInfo so that the div
 	// will actually be in the center ***.
 	window.posEnableCustomerInfoCentering = 0;
-	// Set this value to order by. Supported values are 'receiptItems.name', 'kitchenItems.pId' (PLU), 'kitchenItems.modificationDate'. When set empty "", no sorting will be used.
-	window.posOrderBy = "kitchenItems.name";
+	// Set this value to order by. Supported values are 'barItems.name', 'barItems.kitchenName', 'barItems.pId' (PLU), 'barItems.modificationDate'. When set empty "", no sorting will be used.
+	window.posOrderBy = "barItems.name";
+	// When set to 1, the above identifier will be used to sort by.
+	window.posOrderByIdentifier = 0;
 	// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
 	window.posOrderDirection = 1;
-	// When set to 1, the order by function will be used.
-	window.posOrderByIdentifier = 0;
 	// When set to 1, the payments will be shown.
 	window.posShowPayments = 0;
 	// When set to 1, a custom sort function is called.
@@ -1069,9 +1090,7 @@ function search(completeReceipt) {
 	// When set to 1, a big whitespace will be left between courses. This comes in hadny when lines aren't drawn between courses.
 	window.posEnableCourseMargin = 0;
 	// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
-	window.posShowReceiptItemsHeaders = 0;
-	// Combine menu items with regular items
-	window.posCombineMenuAndRegularItems = 0;
+	window.posShowReceiptItemsHeaders = 1;
 	// When set to 1, multiple debug lines will be printed to see where the error occurs when princing the receipt.
 	window.posEnableDebug = 0;
 	// These are values which test if objects are present. Do not touch.
@@ -1082,8 +1101,8 @@ function search(completeReceipt) {
 	window.posUserAvailable = 0;
 	window.posTableAvailable = 0;
 	window.posVatAvailable = 0;
-	window.poskitchenItemsAvailable = 0;
 	window.posBarItemsAvailable = 0;
+	window.posKitchenItemsAvailable = 0;
 	window.posPaymentsAvailable = 0;
 	window.posProductCategoriesAvailable = 0;
 	window.posAdditionValuesAvailable = 0;
@@ -1096,7 +1115,7 @@ function search(completeReceipt) {
 	*/
 	
 	var data = eval(completeReceipt);
-	
+
 	if(window.posEnableBodySubline == 1) {
 		var table = document.getElementById("receipt");
 		table.className = "borderBottom";
@@ -1151,8 +1170,8 @@ function search(completeReceipt) {
 		window.posTableAvailable = 1;
 	if(checkIfNotZeroEmptyOrNull(completeReceipt.vat))
 		window.posVatAvailable = 1;
-	if(checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems))
-		window.poskitchenItemsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.barItems))
+		window.posBarItemsAvailable = 1;
 	if(checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems))
 		window.posKitchenItemsAvailable = 1;
 	if(checkIfNotZeroEmptyOrNull(completeReceipt.payments))
@@ -1174,50 +1193,13 @@ function search(completeReceipt) {
 	if(window.posEnableDebug == 1)
 		$('#errors').append("<p>Company info has been printed.</p>");
 
-	if (window.posEnableCombineItems == 1 && checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems)) {
-		var courseArray = new Array();
-		var lineArray = new Array();
-		var mergedArray = new Array();
-		var lineCount = 0;
-		for(var key in completeReceipt.kitchenItems) {
-			if(completeReceipt.kitchenItems.hasOwnProperty(key)) {
-				if(key == 0 && completeReceipt.kitchenItems[0].oid != -2) {
-					courseArray[lineCount] = new Array();	
-					lineCount++;				
-					courseArray[lineCount-1].push(completeReceipt.kitchenItems[key]);
-				}
-				else if(completeReceipt.kitchenItems[key].oid == -2) {
-					// Create array for each course
-					courseArray[lineCount] = new Array();
-					// Keep these for future reference
-					lineArray.push(completeReceipt.kitchenItems[key]);
-					lineCount++;	
-				}
-				else {
-					courseArray[lineCount-1].push(completeReceipt.kitchenItems[key]);
-				}
-			}
-		}
-		for(var i = 0; i < courseArray.length; i++) {
-			if(window.posEnableCombineItems == 1)
-				courseArray[i] = combineItems(courseArray[i]);
-			if(window.posOrderBy != "" && window.posOrderByIdentifier == 1)
-				sortJsonArrayByProperty(courseArray[i], window.posOrderBy, window.posOrderDirection);
-			for(var key in courseArray[i]) {
-				if(courseArray[i].hasOwnProperty(key)) {
-					mergedArray.push(courseArray[i][key]);
-				}
-			}
-			if(lineArray.length > 0)
-				mergedArray.push(lineArray[0]);
-		}
-		if(mergedArray[mergedArray.length-1].oid == -2)
-			mergedArray.pop();
-		completeReceipt.kitchenItems = mergedArray;
-	}
+	completeReceipt.barItems = combineItems(completeReceipt.barItems);
+
+	if(window.posOrderByIdentifier == 1 && window.posOrderBy != "")
+		sortJsonArrayByProperty(completeReceipt.barItems, window.posOrderBy, window.posOrderDirection);
 	
 	//$( "#receiptItemsTemplate" ).tmpl( receiptItemsArray ).appendTo( "#receiptItemsList" );
-	$( "#receiptItemsTemplate" ).tmpl( completeReceipt.kitchenItems ).appendTo( "#receiptItemsList" );
+	$( "#receiptItemsTemplate" ).tmpl( completeReceipt.barItems ).appendTo( "#receiptItemsList" );
 	
 	if(window.posEnableDebug == 1)
 		$('#errors').append("<p>Receipt items have been printed.</p>");	
@@ -1276,7 +1258,7 @@ function search(completeReceipt) {
 	if(window.posEnableDebug == 1)
 		$('#errors').append("<p>Payments have been printed.</p>");
 	
-	if(getTotalTip(completeReceipt.payments) > 0 && window.posShowPrice == 1) {
+	if(getTotalTip(completeReceipt.payments) > 0) {
 		$( "#totalTipTemplate" ).tmpl( completeReceipt ).appendTo( "#totalTip" );
 	}
 
@@ -1320,7 +1302,7 @@ function search(completeReceipt) {
 	 //console.log($(e));
 	 $(e).css({"font-family":completeReceipt.template.smallFontName});
 	 $(e).css({"font-size":completeReceipt.template.smallFontSize});
-	});  
+	}); 
 	if(window.posEnableSortOnCourseThenOnKitchenName == 1 && window.posEnableCourseLines == 1)
     	checkLine();
 	if(window.posShowPrice == 0) {
