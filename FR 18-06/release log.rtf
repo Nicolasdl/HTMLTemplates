@@ -4,7 +4,30 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
 
-\f0\fs24 \cf0 \ul \ulc0 04-03-2014\
+\f0\fs24 \cf0 \ul \ulc0 05-12-2013\ulnone \
+* Header lines can now be deleted without it getting all mangled up.\
+* Added new option window.posShowOfferts which prints the offers even though prices of value zero are not printed.\
+* When a zero valued product has a priced addition, the product will be shown.\
+\
+\ul 08-12-2013\
+\ulnone * Fixed combineItems function where products with the same additions, but in different order, would not combine.\
+* Fixed bug where combineItems and sort function would mess up the amount of items.\
+\
+\ul 13-12-2013\
+\ulnone * Fixed a bug where the price of the addition was not multiplied by the amount when added to the price of the receipt item and additions were hidden.\
+\
+\ul 14-12-2013\
+\ulnone * Fixed a bug where manually changing the original price of a product in the app would cause problems on the receipt.\
+* It is now possible to use all sorting functions in combination. You can now for example use the combine items function, and then sort on name.\
+\
+\ul 15-12-2013\
+\ulnone * All sorting functions can now be used in conjunction with each other in the kitchen template. You can now for example use the combine items function, and then sort on name.\
+\
+\ul 09-01-2014\
+\ulnone * When an offert is being printed, the note will be printed with it as addition disregarding the setting posShowZeroValuedAdditions and posShowZeroValuedPricesProducts.\ul \
+\ulnone * Fixed a bug where combining of items did not happen when the products didn\'92t have any modifiers.\
+\
+\ul 03-03-2014\
 \ulnone * Receipts now support menu\'92s. Menu\'92s won\'92t be scrambled anymore and simply display the menu name and the items. An option is added to show the original headers as well (main course, dessert). Menu\'92s cannot be combined!\
 \
 \ul 12-03-2014\
@@ -29,5 +52,7 @@
 \
 \ul 13-06-2014\
 \ulnone * Fixed bug where products with kitchenName would never show the name of the product if changed.\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 * Sent products with negative amount will be put in bold and italic.}
+* Sent products with negative amount will be put in bold and italic.\
+\
+\ul 18-06-2014\
+\ulnone * Fixed a rare bug that could occur when the new version of the app (2.11) in combination with the old server version (3.01) doubled discounts.}
