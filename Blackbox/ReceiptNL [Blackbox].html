@@ -267,6 +267,7 @@
 		}
 		#poweredByDiv {
 			margin-top: 10px;
+			text-align: center;
 		}
 		#poweredBy {
 			max-width: 50%;
@@ -556,8 +557,10 @@
 		{{if window.posPaymentsAvailable == 1 && window.posReceiptAvailable == 1}}
 			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
 				<tr>
-					{{if payments}}
+					{{if payments && window.isNoPayment == 0}}
 						<td class="totalAmountPaid" i21D='defaultFontSize'><b>Betaald</b</td>
+					{{else}}
+						<td class="totalAmountPaid" i21D='defaultFontSize'><b>Saldo</b</td>
 					{{/if}}
 					
 					 {{if payments}}
@@ -1454,6 +1457,12 @@ function calculateServiceCharge(receipts) {
 function calculateSubtotal(total) {
 	return total - calculateDiscount(completeReceipt.receipt) - calculateServiceCharge(completeReceipt.receipt);
 }
+
+function isNoPayment(payment) {
+	if(payment.paymentTypeTypeId == 7)
+		return true;
+	return false;
+}
 	
 /*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/
 var generatedCount = 0;
@@ -1541,6 +1550,7 @@ function search(completeReceipt) {
 	window.posProductCategoriesAvailable = 0;
 	window.posAdditionValuesAvailable = 0;
 	window.posCount = 0;
+	window.posIsNoPayment = 0;
 
 	/*
 	* Hiermee kan je een element verbergen.
@@ -1799,6 +1809,8 @@ function search(completeReceipt) {
 				if(completeReceipt.payments.hasOwnProperty(key)) {
 					if(checkIfNotZeroEmptyOrNull(completeReceipt.payments[key].name))
 						paymentsArray.push(completeReceipt.payments[key]);
+					if(isNoPayment(completeReceipt.payments[key]))
+						window.posIsNoPayment = 1;
 				}
 			}
 			$( "#paymentTypeTemplate" ).tmpl( paymentsArray ).appendTo( "#paymentsTable" );

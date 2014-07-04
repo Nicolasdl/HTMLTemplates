@@ -1,0 +1,1446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    <title>Receipt 2.0</title>
+	<style type="text/css">
+		/* HTML */
+		html, body {
+			margin: 0px;
+			width: 100%;
+		}     
+        table { 
+			border: none;
+			border-collapse: collapse;
+			width: 100%;
+        }        
+		img {
+			max-width: 100%;
+		}
+		p {
+			margin: 0px;
+		}
+
+		/* Classes */
+		.floatLeft {
+			float: left;
+		}
+		.floatRight {
+			float: right;
+		}
+		.borderTop {
+			border-top: 1px solid black;
+		}
+		.borderBottom {
+			border-bottom: 1px solid black;
+		}
+		.alignLeft {
+			text-align: left;
+		}
+		.alignRight {
+			text-align: right;
+		}
+		.alignCenter {
+			text-align: center;
+		}
+		.fontWeightNormal {
+			font-weight: normal;
+		}
+		.widthHundred {
+			width: 100%;
+		}
+		.widthSixty {
+			width: 60%;
+		}
+		.widthFifty {
+			width: 50%;
+		}
+		.widthTen {
+			width: 10%;
+		}
+        .marginClearRight {
+			clear: right;
+		}
+		.marginClearLeft {
+			clear:left;
+		}
+		.clearBoth {
+			clear: both;
+		}
+		.autoMargin {
+			margin: auto;
+		}
+		
+    	/* IDs */
+		#qrCode {
+			margin: 10px;
+		}
+		#signatureLine {
+			border-bottom: 1px dotted;
+		}
+		#container {
+			margin-right: 100px;
+		}
+		#change {
+			margin-top: 40px;
+		}
+		#titleText {
+			margin-bottom: 40px;
+		}
+	</style>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="moment.min.js"></script>
+	<script type="text/javascript">  
+		var NL = ["Subtotaal", "Taks", "Korting", "Service Charge", "Tip", "Totaal", "Betaald", "Kaartinformatie", "Kaart type", "Kaart nummer", "Handtekening", "BTW", "Wisselgeld", "Saldo", "Naam",
+					"Prijs", "Betaling", "Bedrag", "Netto", "BTW", "Totaal"];
+		var EN = ["Subtotal", "Tax", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "VAT", "Change", "Outstanding amount", "Item",
+					"Price", "Payment", "Amount", "Net", "VAT", "Gross"];
+		var FR = ["Sous-total", "Impôt", "Réduction", "Service Charge", "Pourboire", "Total", "Payé", "Informations de carte", "Type de carte", "Numéro de carte", "Signature", "TVA", "À remettre", "Solde", 
+					"Produit", "Prix", "Paiement", "Montant", "Net", "TVA", "Total"];
+		var DE = ["Zwischensumme", "Steuer", "Rabatt", "Service Charge", "Spitze", "Summe", "Bezahlt", "Karteninformationen", "Karten-Typ", "Kreditkartennummer", "Unterschrift", "MWSt", "Wechselgeld", 
+					"Saldo", "Name", "Betrag", "Bezahlung", "Betrag", "Netto", "Mwst", "Summe"];
+		var AU = ["Subtotal", "Tax", "Discount", "Gratuity", "Tip", "Total", "Paid", "Card information", "Card type", "Card number", "Signature", "GST", "Change", "Outstanding amount", "Item",
+					"Price", "Payment", "Amount", "Net", "GST", "Gross"];
+		var FI = ["Välisumma", "Vero", "Alennus", "Juomaraha", "Tippi", "Summa", "Maksettu", "Kortin tiedot", "Kortin tyyppi", "Kortin numero", "Allekirjoitus", "ALV", "Takaisin", "Maksamatta", "Tuote",
+					"Hinta", "Maksu", "Määrä", "Netto", "ALV", "Brutto"];
+
+		/**********************************************
+		* Set language here:*/ window.language = EN; /*
+		**********************************************/
+
+		(function(){
+			Array.prototype.allIndexOf = function(searchElement) {
+				if (this === null) { return [-1]; }
+				var len = this.length,
+				hasIndexOf = Array.prototype.indexOf,
+				i = (hasIndexOf) ? this.indexOf(searchElement) : 0, n, indx = 0, result = [];
+				if (len === 0 || i === -1) { return [-1]; }
+				if (hasIndexOf) {
+					for (n = 0; n <= len; n++) {
+						i = this.indexOf(searchElement, indx);
+					if (i !== -1) {
+						indx = i + 1;
+						result.push(i);
+					} else {
+						return result;
+					}
+				}
+				return result;
+				} else {
+					for (n = 0; n <= len; n++) {
+						if (this[n] === searchElement) {
+							result.push(n);
+						}
+					}
+					return (result.length > 0) ? result : [-1];
+				}
+			};
+		})();
+
+		function checkIfNotZeroEmptyOrNull(passedValue) {
+			if(typeof passedValue !== "undefined") {
+				if(!passedValue)
+					return false;
+				else
+					if(passedValue === "" || passedValue.length == 0)
+						return false;
+					else
+						return true;
+			}
+		}
+
+		function calculateAdditionsPrices(additions, option) {
+			var total = 0;
+
+			for(var key in additions) {
+				if(additions.hasOwnProperty(key)) {
+					// Option added for menus.
+					if(option == 2) {
+						if(completeReceipt.company.vatInclusive == true)
+							total += additions[key].price;
+						else
+							total += additions[key].priceWithoutVAT;
+					}
+					else {
+						if(completeReceipt.company.vatInclusive == true)
+							total += additions[key].price * additions[key].amount;
+						else
+							total += additions[key].priceWithoutVAT * additions[key].amount;
+					}
+				}
+			}
+
+			return total;
+		}
+
+		function productIsOffert(productName) {
+			if(productName.indexOf('*') > -1)
+				return true;
+			return false;
+		}
+
+		// Option 1: Belgian date and time dd/mm/yyyy hh:mm
+		// Option 2: Belgian date          dd/mm/yyyy
+		// Option 3: UK/US date and time   mm/dd/yyyy hh:mm AM/PM
+		// Option 4: UK/US date            mm/dd/yyyy
+		function dateToString(passedDate, option) {
+			var meridiem = 'AM';
+			if(passedDate)
+				var date = new Date(passedDate);
+			else
+				var date = new Date();
+			var dd = date.getDate();
+			var mm = date.getMonth() + 1;
+			var hh = date.getHours();
+			var m = date.getMinutes();
+			var s = date.getSeconds();
+			if(dd < 9)
+				dd = '0' + dd;
+			if(mm < 9)
+				mm = '0' + mm;
+			if(hh > 12 && option == 3)
+				hh = hh - 12;
+			if(hh == 12 && option == 3)
+				meridiem = 'PM';
+			if(hh < 10)
+				hh = '0' + hh;
+			if(m < 10)
+				m = '0' + m;
+			if(s < 10)
+				s = '0' + s;
+			var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+			var month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+			var stringTime = '';
+			switch(option) {
+				case 1: stringTime = dd + '/' + mm + '/' + date.getFullYear() + ' ' + hh + ":" + m;
+						break;
+				case 2: stringTime = dd + '/' + mm + '/' + date.getFullYear();
+						break;
+				case 3: stringTime = mm + '/' + dd + '/' + date.getFullYear() + ' ' + hh + ":" + m + ' ' + meridiem;
+						break;
+				case 4: stringTime = mm + '/' + dd + '/' + date.getFullYear();
+						break;
+				case 5: stringTime = days[date.getDay()] + ' ' + month[Number(mm - 1)] + ' ' + dd + ' ' + date.getFullYear();
+						break;
+				case 6: stringTime = hh + ':' + m + ':' + s;
+						break;
+			}
+			return stringTime;
+		}
+
+		function getPayment(payments) {
+			window.posCreditPayments = 0.0;
+			var totalPayment = 0;
+				
+			if(!payments) {
+				return 0;
+			}
+				
+			for (var pIndex in payments) {
+				if(payments.hasOwnProperty(pIndex)) {
+					var payment = payments[pIndex];
+					
+					if(payment) 
+						totalPayment += payment.amount;
+					if(payment.paymentTypeTypeId = 15)
+						window.posCreditPayments += payment.amount;
+				}
+			}		
+			return totalPayment;	
+		}
+
+		function markUpName(passedName) {
+			return passedName[0].toUpperCase() + passedName.substring(1);
+		}
+
+		function sortJsonArrayByProperty(objArray, prop, direction){
+			if (arguments.length < 2) throw new Error("sortJsonArrayByProp requires 2 arguments");
+			var direct = arguments.length > 2 ? arguments[2] : 1; //Default to ascending
+			var intRegex = /^\d+$/;
+
+			if(objArray) {
+				var propPath = (prop.constructor === Array) ? prop : prop.split(".");
+				objArray.sort(function(a, b) {
+					for (var p in propPath) {
+						if (a[propPath[p]] && b[propPath[p]]) {
+							a = a[propPath[p]];
+							b = b[propPath[p]];
+						}
+					}
+
+					if(!(intRegex.test(a) && intRegex.test(b))) {
+						// convert numeric strings to integers
+						a = a.match(/^\d+$/) ? +a : a;
+						b = b.match(/^\d+$/) ? +b : b;
+					}
+					return ((a < b) ? -1 * direct : ((a > b) ? 1 * direct : 0));
+				});
+			}
+		}
+
+		var sort_by;
+
+		(function() {
+			// utility functions
+			var default_cmp = function(a, b) {
+				if (a == b) return 0;
+				return a < b ? -1 : 1;
+			},
+			getCmpFunc = function(primer, reverse) {
+				var dfc = default_cmp, // closer in scope
+				cmp = default_cmp;
+				if (primer) {
+					cmp = function(a, b) {
+						return dfc(primer(a), primer(b));
+					};
+				}
+				if (reverse) {
+					return function(a, b) {
+						return -1 * cmp(a, b);
+					};
+				}
+				return cmp;
+			};
+
+			// actual implementation
+			sort_by = function() {
+				var fields = [], n_fields = arguments.length, field, name, reverse, cmp;
+
+				// preprocess sorting options
+				for (var i = 0; i < n_fields; i++) {
+					field = arguments[i];
+					if (typeof field === 'string') {
+						name = field;
+						cmp = default_cmp;
+					}
+					else {
+						name = field.name;
+						cmp = getCmpFunc(field.primer, field.reverse);
+					}
+					fields.push({
+						name: name,
+						cmp: cmp
+					});
+				}
+
+				// final comparison function
+				return function(A, B) {
+					var a, b, name, result;
+					for (var i = 0; i < n_fields; i++) {
+						result = 0;
+						field = fields[i];
+						name = field.name;
+
+						result = field.cmp(A[name], B[name]);
+						if (result !== 0) break;
+					}
+					return result;
+				}
+			}
+		}());
+
+		function calculateTip(payments) {
+			var totalTip = 0;
+				
+			if(!payments)
+				return 0;	
+				
+			for (var pIndex in payments) {
+				if(payments.hasOwnProperty(pIndex)) {
+			  		var payment = payments[pIndex];
+							
+					if(payment) 
+				  		totalTip += payment.tips;
+				}
+			}			
+			return totalTip;
+		}
+
+		function flattenReceiptItemsHierarchy(items) {
+			var res = new Array();
+			addReceiptItemsWithParentTo(items, 0, res);
+			// add orphaned items (shouldn't happen!)
+			if(items.length != res.length) {
+				for(var item in items)
+					if(items.hasOwnProperty(item))
+						if(!res.indexOf(items[item]) > 1)
+							res[res.length] = items[item];
+			}
+			return res;
+		}
+
+		function addReceiptItemsWithParentTo(items, parentRiReceiptId, res) {
+			for(var item in items) {
+				if(items.hasOwnProperty(item)) {
+					if(items[item].parentRiReceiptId == parentRiReceiptId) {
+						var counter = 1, encountered = 0;
+						if(res.length != 0 && items[item].parentRiReceiptId != 0 && items[item].priceTypeId != 11 && items[item].priceTypeId != 12) {
+							while(res.length - counter >= 0 && encountered == 0) {
+								var foundRoot = 0, branchParent = -1;
+								while(res.length - counter >= 0 && foundRoot == 0) {
+									if(parentRiReceiptId == res[res.length - counter].riReceiptId) {
+										if(completeReceipt.company.vatInclusive == true) {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += items[item].price;
+										}
+										else {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100) + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100);
+										}
+										branchParent = res[res.length - counter].parentRiReceiptId;
+										counter++;
+									}
+									while(branchParent != 0 && res[res.length - counter].riReceiptId == branchParent) {
+										if(completeReceipt.company.vatInclusive == true) {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += items[item].price;
+										}
+										else {
+											if(window.posShowAdditions == 0)
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100) + calculateAdditionsPrices(items[item].additionValues, 2);
+											else
+												res[res.length - counter].price += (items[item].price/(100 + items[item].vat) * 100);
+										}
+										branchParent = res[res.length - counter].parentRiReceiptId;
+										counter++;
+									}
+									if(branchParent == 0)
+										foundRoot = 1;
+									counter++;
+								}
+							}
+						}
+						res[res.length] = items[item];
+						if(items[item].riReceiptId != 0)
+							addReceiptItemsWithParentTo(items, items[item].riReceiptId, res);
+					}
+				}
+			}
+		}
+
+		// Need to be globally accessible for sorting
+		var itemArray, combinedMenuArray;
+
+		function combineMenusAndItems(receiptItemsToArray) {
+			var combinedArray = new Array(), menuItemArray = new Array(), itemArray = new Array();
+
+			// Go over the different receipt items and divide menus from regular items
+			for(var i = 0; i < receiptItemsToArray.length; i++) {
+				if(checkIfMenu(receiptItemsToArray[i]))
+					menuItemArray.push(receiptItemsToArray[i]);
+				else
+					itemArray.push(receiptItemsToArray[i]);
+			}
+
+			// Combine regular items
+			itemArray = combineItems(itemArray);
+
+			// Split up the menu's
+			var menuArray = new Array(), counter = -1;
+
+			for(var i = 0; i < menuItemArray.length; i++) {
+				if(checkIfMenu(menuItemArray[i]) && menuItemArray[i].parentRiReceiptId == 0) {
+					counter++;
+					menuArray[counter] = new Array();
+					menuArray[counter].push(menuItemArray[i]);
+				}
+				else
+					menuArray[counter].push(menuItemArray[i]);
+			}
+
+			// Now the tough job, combining menu's
+			var storedMenu = new Array(), storedMenuDetails = new Array(), combinedMenuArray = new Array(), counter = 0;
+
+			for(var j = 0; j < menuArray.length; j++) {
+				if(j == 0) {
+					storedMenu[0] = new Array();
+					storedMenu[0].push(menuArray[0]);
+					combinedMenuArray[0] = new Array();
+					combinedMenuArray[0].push(menuArray[0]);
+					storedMenuDetails[0] = new Array();
+					storedMenuDetails[0].push(menuArray[0][0].name);
+					storedMenuDetails[0].push(menuArray[0].length);
+					storedMenuDetails[0].push(menuArray[0][0].price);
+					storedMenuDetails[0].push(getBranchNames(menuArray[0]));
+					counter++;
+				}
+				else {
+					var index = menuDetailsPresent(menuArray[j], storedMenuDetails);
+					if(index != -1) {
+						var flag = 0;
+						for(var i = 0; i < index.length; i++) {
+							if(checkIfMenuIsSame(menuArray[j], storedMenu[index[i]])) {
+								for(var h = 0; h < menuArray[index[i]].length; h++)
+									combinedMenuArray[index[i]][0][h].amount += menuArray[j][h].amount;
+								flag++;
+							}
+						}
+						if(flag == 0) {
+							storedMenu[counter] = new Array();
+							storedMenu[counter].push(menuArray[j]);
+							combinedMenuArray[counter] = new Array();
+							combinedMenuArray[counter].push(menuArray[j]);
+							storedMenuDetails[counter] = new Array();
+							storedMenuDetails[counter].push(menuArray[j][0].name);
+							storedMenuDetails[counter].push(menuArray[j].length);
+							storedMenuDetails[counter].push(menuArray[j][0].price);
+							storedMenuDetails[counter].push(getBranchNames(menuArray[j]));
+							counter++;
+						}
+					}
+					else {
+						storedMenu[counter] = new Array();
+						storedMenu[counter].push(menuArray[j]);
+						combinedMenuArray[counter] = new Array();
+						combinedMenuArray[counter].push(menuArray[j]);
+						storedMenuDetails[counter] = new Array();
+						storedMenuDetails[counter].push(menuArray[j][0].name);
+						storedMenuDetails[counter].push(menuArray[j].length);
+						storedMenuDetails[counter].push(menuArray[j][0].price);
+						storedMenuDetails[counter].push(getBranchNames(menuArray[j]));
+						counter++;
+					}
+				}
+			}
+
+			for(var j = 0; j < itemArray.length; j++)
+				combinedArray.push(itemArray[j]);
+			for(var j = 0; j < combinedMenuArray.length; j++)
+				for(h = 0; h < combinedMenuArray[j][0].length; h++)
+					combinedArray.push(combinedMenuArray[j][0][h]);
+
+			// We made it!
+			return combinedArray;
+		}
+
+		function checkIfMenu(item) {
+			if((item.priceTypeId == 11 || item.priceTypeId == 12) || item.parentRiReceiptId != 0)
+				return true;
+			return false;
+		}
+
+		function getBranchNames(menu) {
+			var branchNames = new Array();
+
+			for(var i = 0; i < menu.length; i++)
+				if((menu[i].priceTypeId == 11 || menu[i].priceTypeId == 12) && menu[i].parentRiReceiptId != 0)
+					branchNames.push(menu[i].name);
+
+			return branchNames.sort();
+		}
+
+		function menuDetailsPresent(menu, storedMenuDetails) {
+			var name = menu[0].name;
+			var length = menu.length;
+			var price = menu[0].price;
+			var branchNames = getBranchNames(menu);
+			var index = new Array();
+			
+			for(var i = 0; i < storedMenuDetails.length; i++) {
+				if(storedMenuDetails[i][0] === name && storedMenuDetails[i][1] == length && storedMenuDetails[i][2] == price && storedMenuDetails[i][3].length == branchNames.length) {
+					for(var j = 0; j < branchNames.length; j++) {
+						if(!branchNames[j] === storedMenuDetails[i][j])
+							break;
+					}
+					index.push(i);
+				}
+			}
+
+			return index.length > 0 ? index : -1;
+		}
+
+		function checkIfMenuIsSame(menu, storedMenu) {
+			if(menu.length == storedMenu[0].length) {
+				for(var i = 0; i < menu.length; i++) {
+					if(!isSameProduct(menu[i], storedMenu[0][i]))
+						return false;
+				}
+			}
+			else {
+				return false;
+			}
+			return true;
+		}
+
+		function combineItems(receiptItems) {
+			var combinedArray = new Array(), checkedIds = new Array(), correctArray = new Array();
+
+			// Go over the different receipt items
+			for(var i = 0; i < receiptItems.length; i++) {
+				// Store first item
+				if(i == 0) {
+					combinedArray.push(receiptItems[i]);
+					checkedIds.push(receiptItems[i].pOid);
+				}
+				else {
+					// Check if pOid has already been added to combinedArray
+					var foundIndex = checkedIds.allIndexOf(receiptItems[i].pOid);
+					if(foundIndex == -1) {
+						// The pOid has not been added yet
+						combinedArray.push(receiptItems[i]);
+						checkedIds.push(receiptItems[i].pOid);				
+					}
+					else {
+						var flag = 0;
+						// Check each index to check if the product has the same details as the one stored
+						for(var index = 0; index < foundIndex.length; index++) {
+							// Check if the product has the same details as the one stored
+							if(isSameProduct(combinedArray[foundIndex[index]], receiptItems[i])) {
+								combinedArray[foundIndex[index]].amount += receiptItems[i].amount;
+								flag++;
+							}				
+						}
+						if(flag < 1) {
+							combinedArray.push(receiptItems[i]);
+							checkedIds.push(receiptItems[i].pOid);
+						}
+						else if(flag > 1) {
+							console.log("Something went wrong here. This is not possible.");
+						}
+					}
+				}
+			}
+			
+			for(var key in combinedArray)
+				if(combinedArray.hasOwnProperty(key))
+					if(combinedArray[key].amount != 0)
+						correctArray.push(combinedArray[key]);
+			return correctArray;
+		}
+
+		function isSameProduct(storedReceiptItem, newReceiptItem) {
+			if(storedReceiptItem.name === newReceiptItem.name && storedReceiptItem.price == newReceiptItem.price && storedReceiptItem.additionValues.length == newReceiptItem.additionValues.length) {
+				if(storedReceiptItem.additionValues.length != 0)
+					if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
+						return true;
+				else
+					return true;
+			}
+			return false;
+		}
+
+		function areSameAdditions(storedAdditions, newAdditions) {
+			storedAdditions.sort(compareAdditions);
+			newAdditions.sort(compareAdditions);
+
+			for(var i = 0; i < storedAdditions.length; i++) {
+				if(!(storedAdditions[i].additionId == newAdditions[i].additionId
+					&& storedAdditions[i].name == newAdditions[i].name
+					&& storedAdditions[i].price == newAdditions[i].price
+					&& storedAdditions[i].oid == newAdditions[i].oid
+					&& storedAdditions[i].priceWithoutVAT == newAdditions[i].priceWithoutVAT))
+					return false;
+			}
+			return true;
+		}
+
+		function compareAdditions(a,b) {
+			if (a.oid < b.oid)
+				return -1;
+			if (a.oid > b.oid)
+				return 1;
+			return 0;
+		}
+
+		function addReceiptItemsAmountToAdditions(receiptItems) {
+			for(var key in receiptItems)
+				if(receiptItems.hasOwnProperty(key))
+					for(var key2 in receiptItems[key].additionValues)
+						if(receiptItems[key].additionValues.hasOwnProperty(key2))
+							receiptItems[key].additionValues[key2].amount = receiptItems[key].amount;
+		}
+
+		function checkPaymentOptionalInfoPresent(payments) {
+			var creditCardPayments = new Array();
+			for(var key in payments)
+				if(payments.hasOwnProperty(key))
+					if(checkIfNotZeroEmptyOrNull(payments[key].optionalInfo))
+						creditCardPayments.push(payments[key]);
+			if(creditCardPayments.length != 0)
+				return creditCardPayments;
+			else
+				return null;
+		}
+
+				
+		function getChange(receiptTotal,payments) {
+			return getPayment(payments) - receiptTotal - calculateTip(payments);	
+		}
+
+		function calculateDiscount(receipts) {
+			var discount = 0;
+
+			checkIfNotZeroEmptyOrNull(receipts.actionReceiptItems)
+				for(var key in receipts.actionReceiptItems)
+					if(receipts.actionReceiptItems.hasOwnProperty(key))
+						if(receipts.actionReceiptItems[key].priceTypeId > 50 && receipts.actionReceiptItems[key].priceTypeId < 57)
+							discount += receipts.actionReceiptItems[key].price * receipts.actionReceiptItems[key].amount;
+
+			checkIfNotZeroEmptyOrNull(receipts.receiptItems)
+				for(var key in receipts.receiptItems)
+					if(receipts.receiptItems.hasOwnProperty(key))
+						if(receipts.receiptItems[key].priceTypeId > 50 && receipts.receiptItems[key].priceTypeId < 57)
+							discount += receipts.receiptItems[key].price * receipts.receiptItems[key].amount;
+
+			return discount;
+		}
+
+		function calculateServiceCharge(receipts) {
+			var serviceCharge = 0;
+
+			checkIfNotZeroEmptyOrNull(receipts.actionReceiptItems)
+				for(var key in receipts.actionReceiptItems)
+					if(receipts.actionReceiptItems.hasOwnProperty(key))
+						if((receipts.actionReceiptItems[key].priceTypeId > 59 && receipts.actionReceiptItems[key].priceTypeId < 62) || (receipts.actionReceiptItems[key].priceTypeId > 69 && receipts.actionReceiptItems[key].priceTypeId < 78))
+							serviceCharge += receipts.actionReceiptItems[key].price * receipts.actionReceiptItems[key].amount;
+
+			checkIfNotZeroEmptyOrNull(receipts.receiptItems)
+				for(var key in receipts.receiptItems)
+					if(receipts.receiptItems.hasOwnProperty(key))
+						if((receipts.receiptItems[key].priceTypeId > 59 && receipts.receiptItems[key].priceTypeId < 62) || (receipts.receiptItems[key].priceTypeId > 69 && receipts.receiptItems[key].priceTypeId < 78))
+							serviceCharge += receipts.receiptItems[key].price * receipts.receiptItems[key].amount;
+
+			return serviceCharge;
+		}
+
+		function calculatePrice(total, tax) {
+			if(completeReceipt.company.vatInclusive == false)
+				return (total / (100 + tax) * 100);
+			return total;
+		}
+
+		function calculateSubtotalAndTax(receiptItems) {
+			window.posSubtotal = 0.0;
+			window.posTax = 0.0;
+			var excludeIds = [11, 12, 51, 52, 53, 54, 55, 56, 60, 61, 70, 71, 72, 73, 74, 75, 76, 77];
+
+			for(var RI in receiptItems)
+				if(receiptItems.hasOwnProperty(RI))
+					if(excludeIds.indexOf(receiptItems[RI].priceTypeId) == -1) {
+						if(completeReceipt.company.vatInclusive == 1)
+							window.posSubtotal += receiptItems[RI].totalPrice;
+						else
+							window.posSubtotal += receiptItems[RI].totalPrice / (100 + receiptItems[RI].vat) * 100;
+						window.posTax += receiptItems[RI].totalPrice - (receiptItems[RI].totalPrice / (100 + receiptItems[RI].vat) * 100);
+					}
+		}
+		function htmlForTextWithEmbeddedNewlines(text) {
+			if(!checkIfNotZeroEmptyOrNull(text)) {
+				return text;
+			}
+			var htmls = [];
+			var lines = text.split(/\\n/);
+			var tmpDiv = jQuery(document.createElement('div'));
+			for (var i = 0 ; i < lines.length ; i++)
+				htmls.push(tmpDiv.text(lines[i]).html());
+			return htmls.join("<br/>");
+		}
+	</script>
+	<script id="logoTemplate" type="text/x-jquery-tmpl">
+		{{if checkIfNotZeroEmptyOrNull(template.logoUrl)}}
+			<div class="alignCenter">
+				<img src="${template.logoUrl}"/>
+			</div>
+			<br class="clearBoth">
+		{{/if}}
+	</script>
+	<script id="headerTemplate" type="text/x-jquery-tmpl">
+		{{if checkIfNotZeroEmptyOrNull(template.title)}}
+			{{if window.posTitleWithUnderline == 1}}
+				<div id="titleText" align="left" i21D='defaultFontSize'><u>${template.title}</u></div>
+			{{else}}
+				<div id="titleText" align="left" i21D='defaultFontSize'>${template.title}</div>
+			{{/if}}
+		{{/if}}
+
+		{{if template.showWaiterTableTime == 1}} 
+			<p class="floatLeft">You were served by ${user.username} on ${table.name} at</p>
+			<p class="floatLeft marginClearLeft">${dateToString("", 5)}</p>
+			<p class="floatRight marginClearRight">${dateToString("", 6)}</p>
+			<p class="floatLeft marginClearLeft">Number of people: ${receipt.numberOfCustomers}</p>
+		{{/if}}
+		<br/><br/>
+		<br/>
+    </script>
+	<script id="receiptItemsTemplate" type="text/x-jquery-tmpl">
+		{{if !(priceTypeId == 11 && parentRiReceiptId != 0 && window.posShowBranches == 0) && !(priceTypeId == 12 && parentRiReceiptId != 0 && window.posShowBranches == 0) && (priceTypeId < 51 || priceTypeId > 56) && (priceTypeId < 60 || priceTypeId > 61) && (priceTypeId < 70 || priceTypeId > 77)}}
+			<tr>
+				{{if price == 0}}
+					{{if window.posShowZeroValuedPricesProducts == 1 || (window.posShowZeroValuedPricesProducts == 0 && productIsOffert(name) && window.posShowOfferts == 1) || calculateAdditionsPrices(additionValues, 1) > 0}}
+						{{if parentRiReceiptId != 0}}
+							<td class="widthTen"></td>
+						{{else}}
+							<td class="widthTen">${amount}</td>
+						{{/if}}
+						{{if parentRiReceiptId != 0}}
+							<td class="alignLeft widthSixty">- ${name}</td>
+						{{else}}
+							<td class="alignLeft widthSixty">${name}</td>
+						{{/if}}
+						{{if window.posShowPrice == 1}}
+							{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
+								{{if completeReceipt.company.vatInclusive == 1}}
+									{{if window.posShowAdditions == 1}}
+										<td class="alignRight">${(amount*price).toFixed(window.posRoundToDecimals)}</td>
+									{{else}}
+										<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+									{{/if}}
+								{{else}}
+									{{if window.posShowAdditions == 1}}
+										<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(window.posRoundToDecimals)}</td>
+									{{else}}
+										<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+									{{/if}}
+								{{/if}}
+							{{else}}
+								<td></td>
+							{{/if}}
+						{{else}}
+							<td id="priceHide"></td>
+						{{/if}}		
+					{{else}}
+						<td></td><td></td><td></td>
+					{{/if}}
+				{{else}}
+					{{if parentRiReceiptId != 0}}
+						<td class="amount widthTen"></td>
+					{{else}}
+						<td class="amount widthTen">${amount}</td>
+					{{/if}}
+					{{if parentRiReceiptId != 0}}
+						<td class="alignLeft widthSixty">- ${name}</td>
+					{{else}}
+						<td class="alignLeft widthSixty">${name}</td>
+					{{/if}}
+					{{if window.posShowPrice == 1}}
+						{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
+							{{if completeReceipt.company.vatInclusive == 1}}
+								{{if window.posShowAdditions == 1}}
+									<td class="alignRight">${(amount*price).toFixed(window.posRoundToDecimals)}</td>
+								{{else}}
+									<td class="alignRight">${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+								{{/if}}
+							{{else}}
+								{{if window.posShowAdditions == 1}}
+									<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(window.posRoundToDecimals)}</td>
+								{{else}}
+									<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+								{{/if}}
+							{{/if}}
+						{{else}}
+							<td></td>
+						{{/if}}
+					{{else}}
+						<td id="priceHide"></td>
+					{{/if}}
+				{{/if}}
+			</tr>
+			
+			{{if checkIfNotZeroEmptyOrNull(additionValues)}}
+				{{if window.posShowAdditions == 1}}
+					{{if calculateAdditionsPrices(additionValues) > 0 && productIsOffert(name) == false}}
+						{{tmpl(additionValues) "#additionValueTemplate"}}
+					{{else productIsOffert(name) && window.posShowOfferts == 1}}
+						{{tmpl(additionValues) "#additionValueTemplate"}}
+					{{else window.posShowZeroValuedAdditions == 1 && productIsOffert(name) == false}}
+						{{tmpl(additionValues) "#additionValueTemplate"}}
+					{{/if}}
+				{{/if}}
+			{{/if}}
+		{{/if}}
+	</script>
+    <script id="additionValueTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<td></td>
+			{{if price == 0}}
+				{{if window.posShowZeroValuedAdditions == 1}}
+					{{if info == ""}}	
+						<td class="alignLeft widthTen" i21S='smallFontSize'><i>* ${name}</i></td>
+					{{else}}
+						<td class="alignLeft widthTen" i21S='smallFontSize'><i>* ${info} ${name}</i></td>
+					{{/if}}
+					{{if window.posShowPrice == 1}}
+						{{if completeReceipt.company.vatInclusive == 1}}
+							<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(window.posRoundToDecimals)}</i></td>
+						{{else}}
+							<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(window.posRoundToDecimals)}</i></td>
+						{{/if}}
+					{{else}}
+						<td id="priceHide"></td>
+					{{/if}}
+				{{else}}
+					<td></td><td></td>
+				{{/if}}
+			{{else}}
+				{{if info == ""}}	
+					<td class="alignLeft widthTen" i21S='smallFontSize'><i>* ${name}</i></td>
+				{{else}}
+					<td class="alignLeft widthTen" i21S='smallFontSize'><i>* ${info} ${name}</i></td>
+				{{/if}}					
+				{{if window.posShowPrice == 1}}
+					{{if completeReceipt.company.vatInclusive == 1}}
+						<td class="alignRight" i21S='smallFontSize'><i>${(amount*price).toFixed(window.posRoundToDecimals)}</i></td>
+					{{else}}
+						<td class="alignRight" i21S='smallFontSize'><i>${(amount*priceWithoutVAT).toFixed(window.posRoundToDecimals)}</i></td>
+					{{/if}}				{{else}}
+					<td id="priceHide"></td>
+				{{/if}}
+			{{/if}}			
+		</tr>  
+	</script>
+	<script id="subtotalsTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<th class="alignLeft">${window.language[0]}</th>
+			<td class="floatRight"><b>${(window.posSubtotal).toFixed(window.posRoundToDecimals)}</b></td>
+		</tr>
+	</script>
+	<script id="taxTemplate" type="text/x-jquery-tmpl">
+		<tr>		
+			<th class="alignLeft fontWeightNormal">${window.language[1]}</th>
+			<td class="floatRight">${(window.posTax).toFixed(window.posRoundToDecimals)}</td>
+		</tr>
+	</script>
+	<script id="discountsTemplate" type="text/x-jquery-tmpl">
+		<tr>		
+			<th class="alignLeft fontWeightNormal">${window.language[2]}</th>
+			<td class="floatRight">${calculateDiscount(completeReceipt.receipt).toFixed(window.posRoundToDecimals)}</td>
+		</tr>
+	</script>
+	<script id="gratuityTemplate" type="text/x-jquery-tmpl">
+		{{if (priceTypeId > 59 && priceTypeId < 68 && price != 0) || (priceTypeId > 69 && priceTypeId < 78 && price != 0)}}
+			<tr>
+				<th class="alignLeft fontWeightNormal">${window.language[3]}</th>
+				<td class="floatRight">${price.toFixed(window.posRoundToDecimals)}</td>
+			</tr>			
+		{{/if}}
+	</script>
+	<script id="totalTipTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<th class="alignLeft fontWeightNormal">${window.language[4]}</th>
+			<td class="floatRight">${calculateTip(payments).toFixed(window.posRoundToDecimals)}</td>
+		</tr>
+	</script>
+	<script id="receiptTotals" type="text/x-jquery-tmpl">
+		<tr>		
+			<th class="alignLeft">${window.language[5]}</th>
+			<td class="floatRight"><b>£ ${((receipt.total + calculateTip(payments)).toFixed(window.posRoundToDecimals))}</b></td>		
+		</tr>
+	</script> 
+	<script id="paymentTypeTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<th class="alignLeft fontWeightNormal">${type}:</th>
+			<td class="floatRight">${amount.toFixed(window.posRoundToDecimals)}</td>
+		</tr>
+	</script>
+	<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<th class="alignLeft"><b>${window.language[6]}</b</th>
+			<td class="floatRight"><b>${getPayment(payments).toFixed(window.posRoundToDecimals)}<b></td>	
+		</tr>
+	</script> 
+	<script id="signatureTemplate" type="text/x-jquery-tmpl">
+		<p><b>${window.language[7]}</b></p>
+		<p class="floatLeft widthFifty">${window.language[8]}:</p><p class="floatRight widthFifty alignRight">${cardHolder}</p>
+		<p class="floatLeft widthFifty">${window.language[9]}:</p><p class="floatRight widthFifty alignRight">${cardNumber}</p>
+		<br/></br></br></br>
+		<p id="signatureLine">${window.language[10]}:</p>
+	</script>
+	<script id="vatTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<td>${window.language[11]} ${Number(vat).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}%:</td>
+			<td class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.posRoundToDecimals)}</td>
+			<td class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.posRoundToDecimals)}</td>			
+			<td class="floatRight">${price.toFixed(window.posRoundToDecimals)}</td>
+		</tr>	
+	</script>
+	<script id="changeTemplate" type="text/x-jquery-tmpl">			
+		<tr>
+			{{if getChange(receipt.total,payments) > 0}}
+				<th class="alignLeft">${window.language[12]}</th>
+				<td class="floatRight"><b>${getChange(receipt.total,payments).toFixed(window.posRoundToDecimals)}</b></td>
+			{{else getChange(receipt.total,payments) < 0}}
+				<th class="alignLeft">${window.language[13]}</th>
+				<td class="floatRight"><b>${((getChange(receipt.total,payments)) * -1).toFixed(window.posRoundToDecimals)}</b></td>
+			{{/if}}
+		</tr>
+	</script>
+	<script id="thankYouTemplate" type="text/x-jquery-tmpl">
+		{{if window.posEnableThankYouUnderline == 1}}		
+			<p class="widthHundred alignCenter"><u>${thankYouText}</u></p>
+		{{else}}
+			<p class="widthHundred alignCenter">${thankYouText}</p>
+		{{/if}}	
+	</script>
+	<script id="promotionTemplate" type="text/x-jquery-tmpl">
+		{{if window.posEnablePromotionYouUnderline == 1}}		
+			<p id="promotionText"><u>${promotionText}</u></p>
+		{{else}}
+			<p id="promotionText">${promotionText}</p>
+		{{/if}}	
+	</script>
+	<script id="customerInfoTemplate" type="text/x-jquery-tmpl">
+		<p><b>${checkIfNotZeroEmptyOrNull(firstname) ? firstname : ""} ${checkIfNotZeroEmptyOrNull(lastname) ? lastname : ""}</b></p>
+		<p>${checkIfNotZeroEmptyOrNull(telephone) ? telephone : ""}</p>
+		<p>${checkIfNotZeroEmptyOrNull(email) ? email : ""}</p>
+		{{if checkIfNotZeroEmptyOrNull(firstname) || checkIfNotZeroEmptyOrNull(lastname)}}
+			<p>New credit balance: ${credits - window.posCreditPayments}</p>
+		{{/if}}
+		{{if checkIfNotZeroEmptyOrNull(street) || checkIfNotZeroEmptyOrNull(streetNumber)}}
+			<p><b>Address</b></p>
+			<p>${checkIfNotZeroEmptyOrNull(street) ? street : ""} ${checkIfNotZeroEmptyOrNull(streetNumber) ? streetNumber : ""}
+		{{/if}}
+		{{if checkIfNotZeroEmptyOrNull(zip) || checkIfNotZeroEmptyOrNull(city)}}
+			<p>${checkIfNotZeroEmptyOrNull(zip) ? zip : ""} ${checkIfNotZeroEmptyOrNull(city) ? city : ""}
+		{{/if}}
+		{{if checkIfNotZeroEmptyOrNull(deliveryStreet) || checkIfNotZeroEmptyOrNull(deliveryStreetNumber)}}
+			<p><b>Delivery address</b></p>
+			<p>${checkIfNotZeroEmptyOrNull(deliveryStreet) ? deliveryStreet : ""} ${checkIfNotZeroEmptyOrNull(deliveryStreetNumber) ? deliveryStreetNumber : ""}
+		{{/if}}
+		{{if checkIfNotZeroEmptyOrNull(deliveryZip) || checkIfNotZeroEmptyOrNull(deliveryCity)}}
+			<p>${checkIfNotZeroEmptyOrNull(deliveryZip) ? deliveryZip : ""} ${checkIfNotZeroEmptyOrNull(deliveryCity) ? deliveryCity : ""}
+		{{/if}}
+	</script>
+	<script id="restaurantInfoTemplate" type="text/x-jquery-tmpl">
+		<div class="floatLeft">				
+			<p><b>${displayName}</b></p>
+			<p>${street} ${streetNumber}</p>
+			<p>${zip} ${city}</p>
+			<p>${telephone}</p>
+			<p>${vat}</p>
+			<p>${url}</p>
+		</div>
+	</script>
+	<script id="footerTemplate" type="text/x-jquery-tmpl">
+		{{if window.posShowBottomLogo == 1}}
+			<div class="alignCenter clearBoth">
+				<img src="${bottomLogoUrl}"/>
+			</div>
+		{{/if}}
+	</script>
+	<script type="text/javascript">
+	function search(completeReceipt) {		
+		// Make sure completeReceipt is globally accessible
+		window.completeReceipt = completeReceipt;
+		// When set to 1, an underline will be added to the title.
+		window.posTitleWithUnderline = 0;
+		// When set to 1, a topline will be drawn above the info section.
+		window.posEnableInfoTopline = 0;
+		// When set to 1, a line will be drawn underneath the receipt info.
+		window.posEnableInfoSubline = 0;
+		// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
+		window.posShowReceiptItemsHeaders = 0;
+		// When set to 1, the titles of the menus/choices will be printed.
+		window.posShowBranches = 0;
+		// When set to 1, only the menu name will be displayed without the branches and products.
+		window.posShowMenuOnly = 0;
+		// Set this value to order by. Supported values are 'receiptItems.name', 'receiptItems.pId' (PLU), 'receiptItems.modificationDate'. When set to "", no ordering will happen.
+		window.posOrderBy = "receiptItems.name";
+		// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
+		window.posOrderDirection = 1;
+		// When set to 1, the receipt items will be combined. The app does not recognise the same items when the additions have been entered in a different order. This function will combine them.
+		window.posEnableCombineItems = 1;
+		// When set to a value, the value will be added as margin to the head of the receipt items list. Start at 100;
+		window.posAddReceiptItemsTopMargin = 60;
+		// When set to a value, the value will be added as margin to the bottom of the receipt items list. Start at 10;
+		window.posAddReceiptItemsBottomMargin = 40;
+		// When set to 1, the prices will be shown.
+		window.posShowPrice = 1;
+		// When set to 2, 2 decimals will be shown.
+		window.posRoundToDecimals = 2;
+		// When set to 1, additions will be printed.
+		window.posShowAdditions = 1;
+		// When set to 1, additions of value zero will be printed.
+		window.posShowZeroValuedAdditions = 0;
+		// When set to 1, the prices of the products with a value of zero will be printed.
+		window.posShowZeroValuedPricesProducts = 0;
+		// When set to 1, offerts will be shown even though products with price zero are not shown.
+		window.posShowOfferts = 1;
+		// When set to 1, a line will be drawn underneath the body of the receipt.
+		window.posEnableBodySubline = 0;
+		// When set to 1, a line will be drawn underneath the total price.
+		window.posEnableTotalSubline = 0;
+		// When set to a value, the value will be added as margin to the bottom of the total price. Start at 10;
+		window.posAddTotalBottomMargin = 40;
+		// When set to 1, the payments will be shown.
+		window.posShowPayments = 1;
+		// When set to 1, the payment header "Payment" and "Amount" will be shown.
+		window.posShowHeadersPaymentTypes = 0;
+		// When set to 1, a line will be drawn underneath the change. If there is no change, the line will be drawn under total paid.
+		window.posEnableChangeSubline = 0;
+		// When set to a value, the value will be added as margin to the bottom of the payments list. Start at 10;
+		window.posAddPaymentsBottomMargin = 0;
+		// When set to 1, a line will be drawn underneath the VAT.
+		window.posEnableVATSubline = 1;
+		// When set to a value, the value will be added as margin to the bottom of the VAT list. Start at 10;
+		window.posAddVATBottomMargin = 10;
+		// When set to 1, a line will be drawn underneath the thank you text.
+		window.posEnableThankYouSubline = 0;
+		// when set to 1, the thank you text will be underlined.
+		window.posEnableThankYouUnderline = 1;
+		// When set to a value, the value will be added as margin to the bottom of the thank you text. Start at 10;
+		window.posAddThankYouBottomMargin = 40;
+		// When set to 1, a line will be drawn underneath the promotion text.
+		window.posEnablePromotionSubline = 0;
+		// when set to 1, the promotion text will be underlined.
+		window.posEnablePromotionYouUnderline = 0;		
+		// When set to 1, a thin line will be drawn around the promotion text. 2 will draw a medium one, 3 a thick one. Default: no frame.
+		window.posThicknessOfFramePromotion = 0;
+		// When set to a value, the frame will be adjusted to the value in percentage. 80 Means 80% of the screen in width.
+		window.posFrameWidth = 50;
+		// When set to a value, the value will be added as margin to the bottom of the promotion text. Start at 10;
+		window.posAddPromotionBottomMargin = 20;
+		// When set to 1, the customer info will be shown at the bottom of the receipt.
+		window.posShowCustomerInfo = 0;
+		// When set to 1, a line will be drawn underneath the customer info.
+		window.posEnableCustomerSubline = 1;
+		// When set to a value, the value will be added as margin to the bottom of the customer information. Start at 10;
+		window.posAddCustomerBottomMargin = 10;
+		// When set to 1, the bottom logo will be printed provided the URL is correct.
+		window.posShowBottomLogo = 1;
+		// When set to 1, multiple debug lines will be pinted to see where the error occurs when princing the receipt.
+		window.posEnableDebug = 0;
+
+		if(window.posEnableInfoTopline == 1)
+			$("#header").attr("class", "borderBottom");
+
+		if(window.posEnableInfoSubline == 1)
+			$("#receiptItemsList").attr("class", "borderTop");
+	
+		if(window.posShowReceiptItemsHeaders == 0)
+			$('#receiptItemsList tr:nth-child(1)').remove();
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddReceiptItemsTopMargin))
+			$("#header").css('margin-bottom', window.posAddReceiptItemsTopMargin + 'px');
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddReceiptItemsBottomMargin))
+			$("#receiptItemsList").css('margin-bottom', window.posAddReceiptItemsBottomMargin + 'px');
+
+		if(window.posEnableBodySubline == 1)
+			$("#receiptItemsList").addClass("borderBottom");
+
+		if(window.posEnableTotalSubline == 1)
+			$("#totals").attr("class", "borderBottom");
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddTotalBottomMargin))
+			$("#totals").css('margin-bottom', window.posAddTotalBottomMargin + 'px');
+
+		if(window.posShowHeadersPaymentTypes == 0)
+			$("#paymentsTable tr:nth-child(1)").remove();	
+	
+		if(window.posEnableChangeSubline == 1)
+			if(getChange(completeReceipt.receipt.total, completeReceipt.payments) != 0)
+				$("#change").attr("class", "borderBottom");
+			else
+				$("#totalAmount").attr("class", "borderBottom");
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddPaymentsBottomMargin))
+			if(getChange(completeReceipt.receipt.total, completeReceipt.payments) != 0)
+				$("#change").css('margin-bottom', window.posAddPaymentsBottomMargin + 'px');
+			else
+				$("#totalAmount").css('margin-bottom', window.posAddPaymentsBottomMargin + 'px');
+
+		if(window.posEnableVATSubline == 1)
+			$("#vat").attr("class", "borderBottom");
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddVATBottomMargin))
+			$("#vat").css('margin-bottom', window.posAddVATBottomMargin + 'px');
+
+		if(window.posEnableThankYouSubline == 1)
+			$("#thankYou").attr("class", "borderBottom");
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddThankYouBottomMargin))
+			$("#thankYou").css('margin-bottom', window.posAddThankYouBottomMargin + 'px');
+
+		if(window.posEnablePromotionSubline == 1)
+			$("#promotion").attr("class", "borderBottom");
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddPromotionBottomMargin))
+			$("#promotion").css('padding-bottom', window.posAddPromotionBottomMargin + 'px');
+
+		if(window.posShowCustomerInfo == 1 && window.posEnableCustomerSubline == 1 && completeReceipt.customer.oid != 0)
+			$("#customerInfo").attr("class", "borderBottom");
+
+		if(checkIfNotZeroEmptyOrNull(window.posAddCustomerBottomMargin))
+			$("#customerInfo").css('margin-bottom', window.posAddCustomerBottomMargin + 'px');
+
+		/* Logo */
+		$( "#logoTemplate" ).tmpl(completeReceipt).appendTo("#logoHeader");	
+
+		/* Header */
+		$( "#headerTemplate" ).tmpl(completeReceipt).appendTo("#header");
+		$("#titleText").html(htmlForTextWithEmbeddedNewlines($("#titleText").html()));
+		
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Header printed.</p>");
+
+		/* Receipt items */
+		if(window.posOrderBy != "")
+			sortJsonArrayByProperty(completeReceipt.receipt.receiptItems, window.posOrderBy, window.posOrderDirection);
+
+		addReceiptItemsAmountToAdditions(completeReceipt.receipt.receiptItems);
+
+		if(window.posEnableCombineItems == 1) {
+			var items = new Array();
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems))
+				for(var key in completeReceipt.receipt.actionReceiptItems) {
+					if(completeReceipt.receipt.actionReceiptItems.hasOwnProperty(key))
+						items.push(completeReceipt.receipt.actionReceiptItems[key]);
+				}
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.receiptItems))
+				for(var key in completeReceipt.receipt.receiptItems) {
+					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
+						items.push(completeReceipt.receipt.receiptItems[key]);
+				}
+			if(checkIfNotZeroEmptyOrNull(items))
+				completeReceipt.receipt.receiptItems = combineMenusAndItems(flattenReceiptItemsHierarchy(items));
+
+			if(window.posShowMenuOnly == 1) {
+				var indexToDelete = new Array();
+				for(var key in completeReceipt.receipt.receiptItems)
+					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
+						if(completeReceipt.receipt.receiptItems[key].parentRiReceiptId != 0)
+							indexToDelete.push(key);
+				for(var i = indexToDelete.length - 1; i >= 0; i--)
+					completeReceipt.receipt.receiptItems.splice(indexToDelete[i], 1);
+			}
+		}
+
+		calculateSubtotalAndTax(completeReceipt.receipt.receiptItems);
+		$("#receiptItemsTemplate").tmpl(completeReceipt.receipt.receiptItems).appendTo("#receiptItemsList");
+
+		if(window.posShowPrice == 0)
+			$("#receiptItemsList #priceHide").remove()
+		
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Receipt items have been printed.</p>");
+
+		/* (Sub)total */
+		var discount = calculateDiscount(completeReceipt.receipt);
+		var service = calculateServiceCharge(completeReceipt.receipt);
+
+		if(discount != 0)
+			$("#discountsTemplate").tmpl().appendTo("#discounts");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Discounts have been printed.</p>");
+
+		if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems))
+			$("#gratuityTemplate").tmpl(completeReceipt.receipt.actionReceiptItems).appendTo("#gratuity");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Gratuity has been printed.</p>");
+
+		if(calculateTip(completeReceipt.payments) > 0)
+			$("#totalTipTemplate").tmpl(completeReceipt).appendTo("#totalTip");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Tip has been printed.</p>");
+
+		if(completeReceipt.template.showTotalPrice == 1) {
+			if(discount != 0 || service != 0 || completeReceipt.company.vatInclusive == 0)
+				$("#subtotalsTemplate").tmpl(completeReceipt.receipt).appendTo("#subtotals");
+			if(completeReceipt.company.vatInclusive == 0)
+				$("#taxTemplate").tmpl().appendTo("#tax");					
+			$("#receiptTotals").tmpl(completeReceipt).appendTo("#totals");
+		}
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Receipt totals have been printed.</p>");
+
+		/* Payments */
+		if(checkIfNotZeroEmptyOrNull(completeReceipt.payments) && window.posShowPayments == 1) {
+			$("#paymentTypeTemplate").tmpl(completeReceipt.payments).appendTo("#paymentsTable");
+			$("#paymentsTable").append('<tr><th class="alignLeft fontWeightNormal">Paypal:</th><td class="floatRight"></td></tr>');
+			//$("#totalAmountTemplate").tmpl(completeReceipt).appendTo("#totalAmount");
+			$( "#changeTemplate" ).tmpl( completeReceipt ).appendTo( "#change" );	
+		}
+		else
+			$("#paymentsTable").remove();
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Payments, change have been printed.</p>");
+
+		/* VAT */
+		var vatArray = new Array();
+					
+		for(var key in completeReceipt.vat)
+			if(completeReceipt.vat.hasOwnProperty(key))
+				if(completeReceipt.vat[key] != 0)
+					vatArray.push({vat:key,price:completeReceipt.vat[key]});
+
+		vatArray.sort();		
+		completeReceipt.vat = vatArray;
+				
+		if(completeReceipt.template.showVat == 1)
+			$("#vatTemplate").tmpl(completeReceipt.vat).appendTo("#vat");
+		else
+			$("#vat").hide();
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>VAT has been printed.</p>");
+
+		/* Signature */
+		var payments = checkPaymentOptionalInfoPresent(completeReceipt.payments);
+		if(payments != null)
+			for(var i = 0; i < payments.length; i++) {
+				var paymentInformation = new Object();
+				var cardInformation = payments[i].optionalInfo.split(";");
+				paymentInformation.cardHolder = cardInformation[0];
+				paymentInformation.cardNumber = cardInformation[1].substring(0, cardInformation[1].length - 4).replace(/\d/g,'X') + cardInformation[1].substring(cardInformation[1].length - 4);
+				$("#signatureTemplate").tmpl(paymentInformation).appendTo("#signature");
+			}
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Signature has been printed.</p>");
+
+		/* Thank you */
+		//$("#thankYouTemplate").tmpl(completeReceipt.template).appendTo("#thankYou");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Thank you has been printed.</p>");
+
+		/* Promotion */
+		$("#promotionTemplate").tmpl(completeReceipt.template).appendTo("#promotion");
+		$("#promotionText").html(htmlForTextWithEmbeddedNewlines($("#promotionText").html()));
+
+		if(window.posThicknessOfFramePromotion > 0 && checkIfNotZeroEmptyOrNull(completeReceipt.template.promotionText)) {
+			switch(window.posThicknessOfFramePromotion) {
+				case 1: $("#promotionText").css("border", "thin solid black");
+						break;
+				case 2: $("#promotionText").css("border", "medium solid black");
+						break;
+				case 3: $("#promotionText").css("border", "thick solid black");
+						break;
+				default: break;
+			}
+			if(checkIfNotZeroEmptyOrNull(window.posFrameWidth))
+				$("#promotionText").css('width', window.posFrameWidth + '%');				
+		}
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Promotion has been printed.</p>");
+
+		/* Customer information */
+		if(window.posShowCustomerInfo == 1)
+			$("#customerInfoTemplate").tmpl(completeReceipt.customer).appendTo("#customerInfo");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Customer information has been printed.</p>");
+
+		/* Company information */
+		if(completeReceipt.template.showCompanyInfo == 1) {
+			$("#restaurantInfoTemplate").tmpl(completeReceipt.company).appendTo("#restaurantInfo");
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.company.url))
+				$('#restaurantInfo').qrcode({width: 150,height: 150,text: completeReceipt.receipt.url});
+
+			if(document.getElementsByTagName('canvas')[0]) {
+				var canvas = document.getElementsByTagName('canvas')[0];
+				canvas.className = "floatRight";
+				canvas.id = "qrCode";
+				$("#restaurantInfo").append(canvas);
+			}
+		}
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Company information has been printed.</p>");
+
+		/* Bottom logo */
+		$("#footerTemplate").tmpl(completeReceipt.template).appendTo("#footer");
+
+		if(window.posEnableDebug == 1)
+			$('#errors').append("<p>Bottom logo has been printed.</p>");
+			
+		jQuery("[i21D='defaultFontSize']").each(function(i,e){
+			$(e).css({"font-family":completeReceipt.template.fontName});
+			$(e).css({"font-size":completeReceipt.template.fontSize});
+		});
+	
+		jQuery("[i21B='bigFontSize']").each(function(i,e){
+			$(e).css({"font-family":completeReceipt.template.bigFontName});
+			$(e).css({"font-size":completeReceipt.template.bigFontSize});
+		}); 
+
+		jQuery("[i21S='smallFontSize']").each(function(i,e){
+			$(e).css({"font-family":completeReceipt.template.smallFontName});
+			$(e).css({"font-size":completeReceipt.template.smallFontSize});
+		});
+
+		$("#receiptItemsList tr:nth-child(1) th:nth-child(3)").html(window.language[14]);
+		$("#receiptItemsList tr:nth-child(1) th:nth-child(4)").html(window.language[15]);
+
+		if(window.posShowHeadersPaymentTypes == 1) {
+			$("#paymentsTable tr:nth-child(1) th:nth-child(1)").html(window.language[16]);
+			$("#paymentsTable tr:nth-child(1) th:nth-child(2)").html(window.language[17]);
+		}
+
+		$("#vat tr:nth-child(1) th:nth-child(2)").html(window.language[18]);
+		$("#vat tr:nth-child(1) th:nth-child(3)").html(window.language[19]);
+		$("#vat tr:nth-child(1) th:nth-child(4)").html(window.language[20]);
+}		
+</script>
+</head>
+<body style="background:#fff">
+	<div id="errors"></div>
+	<div id="logoHeader"></div>	
+	<div id="container">
+		<div id="header" i21D='defaultFontSize'></div>
+		<table id="receiptItemsList" i21D='defaultFontSize'>
+			<tr>
+				<th id="amountItems" align="left">#</th>
+				<th id="productItem" align="left">Naam</th>
+				<th id="priceHide" align="right">Prijs</th>
+			</tr>
+		</table>
+		<table id="subtotals" i21D='defaultFontSize'>
+		</table>
+		<table id="tax" i21D='defaultFontSize'>
+		</table>
+		<table id="discounts" i21D='defaultFontSize'>
+		</table>
+		<table id="gratuity" i21D='defaultFontSize'>
+		</table>
+		<table id="totalTip" i21D='defaultFontSize'>
+		</table>
+		<table id="totals" i21B='bigFontSize'>
+		</table>
+		<table id="paymentsTable" i21D='defaultFontSize'>
+			<tr>
+				<th align="left">Betaling</th>
+				<th align="right">Bedrag</th>
+			</tr>  
+		</table>
+		<table id="totalAmount" i21D='defaultFontSize'>
+		</table>
+		<table id="change" i21D='defaultFontSize'>  
+		</table>    
+		<table id="vat" i21D='defaultFontSize'>
+			<tr>
+				<th></th>
+				<th class="alignRight">Netto</th>
+				<th class="alignRight">BTW</th>
+				<th class="floatRight">Totaal</th>
+			</tr>
+		</table>
+		<div id="signature" i21D='defaultFontSize'>
+		</div>
+		<div id="thankYou" i21B='bigFontSize'>
+		</div>
+		<div id="promotion" i21D='defaultFontSize'>
+		</div>
+		<div id="customerInfo" i21D='defaultFontSize'>
+		</div>
+		<div id="restaurantInfo" i21D='defaultFontSize'>
+		</div>
+	</div>
+	<div id="footer">
+	</div>
+</body>
+</html>
