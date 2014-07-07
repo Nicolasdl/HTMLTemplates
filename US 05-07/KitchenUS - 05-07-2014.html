@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-    <title>Revised by Nico - 13-06-2014 13:56</title>
+    <title>Revised by Nico - 05-07-2014</title>
 	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 	<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
 	<script type="text/javascript" src="jquery.min.js"></script>
@@ -81,7 +81,7 @@
 			width: 100%;
 			text-align:right;	
 		}
-		.price {
+		.price, .customerNr {
             text-align:right;
 			/*width: 7em;*/
 		}
@@ -239,6 +239,9 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
+		.customerNr, #customerNr {
+			width: 40%;
+		}
 	</style>
     <script id="headerTemplate" type="text/x-jquery-tmpl">
         <div style="text-align:center">
@@ -291,9 +294,9 @@
 			{{if pId == "---" || pOid == 0}} 
 				<tr class="line">
 					{{if window.posEnableCourseMargin == 1}}
-						<td class="lineMargin hide"></td><td></td><td></td><td></td>
+						<td class="lineMargin hide"></td><td></td><td></td><td></td><td></td>
 					{{else}}
-						<td></td><td></td><td></td><td></td>
+						<td></td><td></td><td></td><td></td><td></td>
 					{{/if}}	
 				</tr>
 		   	{{/if}}
@@ -322,6 +325,9 @@
 							<td class="name" i21D='defaultFontSize'>${name}</td>
 						{{/if}}
 					{{/if}}
+					{{if window.posShowCustomerNr == 1}}
+						<td class="customerNr" i21D='defaultFontSize'>${customerNr}</td>
+					{{/if}}
 					{{if window.posShowPrice == 1}}
 						{{if window.posShowAdditions == 1}}
 							{{if amount < 0 || amount > 1}}
@@ -338,7 +344,7 @@
 						{{/if}}
 					{{/if}}
 				{{else}}
-					<td></td><td></td><td></td>
+					<td></td><td></td><td></td><td></td>
 				{{/if}}
 			{{else}}
 				<td id="hiddenRow" style="display:none;">${line}</td>
@@ -359,7 +365,10 @@
 					{{else}}
 						<td class="name" i21D='defaultFontSize'>${name}</td>
 					{{/if}}
-				{{/if}}		
+				{{/if}}
+				{{if window.posShowCustomerNr == 1}}
+					<td class="customerNr" i21D='defaultFontSize'>${customerNr}</td>
+				{{/if}}
 				{{if window.posShowPrice == 1}}
 					{{if window.posShowAdditions == 1}}
 						{{if amount < 0 || amount > 1}}
@@ -397,20 +406,26 @@
 					{{else}}
 						<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
 					{{/if}}
-						{{if window.posShowPrice == 1}}
-							<td class="price" i21S='smallFontSize' style="font-style:italic;">${price.toFixed(2)}</td>
-						{{else}}
-							<td></td>
-						{{/if}}
+					{{if window.posShowCustomerNr == 1}}
+						<td></td>
+					{{/if}}
+					{{if window.posShowPrice == 1}}
+						<td class="price" i21S='smallFontSize' style="font-style:italic;">${price.toFixed(2)}</td>
+					{{else}}
+						<td></td>
+					{{/if}}
 				{{else}}
-					<td></td><td></td>
+					<td></td><td></td><td></td>
 				{{/if}}
 			{{else}}
 				{{if info == ""}}	
 					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
 				{{else}}
 					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
-				{{/if}}					
+				{{/if}}
+				{{if window.posShowCustomerNr == 1}}
+					<td></td>
+				{{/if}}		
 				{{if window.posShowPrice == 1}}
 					<td class="price" i21S='smallFontSize' style="font-style:italic;">${price.toFixed(2)}</td>
 				{{else}}
@@ -716,6 +731,10 @@ function isDineIn(receiptType) {
 
 function removePrice() {
     $('#priceHide').empty();
+}
+
+function removeCustomerNr() {
+	$('#customerNr').remove();
 }
 
 function checkProductOfAdditionHasValueZero(passedId) {
@@ -1105,9 +1124,11 @@ function search(completeReceipt) {
 	// When set to 1, a big whitespace will be left between courses. This comes in hadny when lines aren't drawn between courses.
 	window.posEnableCourseMargin = 0;
 	// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
-	window.posShowReceiptItemsHeaders = 0;
+	window.posShowReceiptItemsHeaders = 1;
 	// Combine menu items with regular items
 	window.posCombineMenuAndRegularItems = 0;
+	// When set to 1, the customer number will be show. Not to be combined with window.posShowPrice.
+	window.posShowCustomerNr = 0;
 	// When set to 1, multiple debug lines will be printed to see where the error occurs when princing the receipt.
 	window.posEnableDebug = 0;
 	// These are values which test if objects are present. Do not touch.
@@ -1362,7 +1383,11 @@ function search(completeReceipt) {
 	if(window.posShowPrice == 0) {
 		removePrice();     
 		$(".name").css("width", "100%");
-	} 
+	}
+	if(window.posShowCustomerNr == 0) {
+		removeCustomerNr();    
+		$(".name").css("width", "100%");
+	}
 	if(window.posShowReceiptItemsHeaders == 0)
 		$('#receiptItemsList tr:nth-child(1)').remove(); 
 }		
@@ -1377,6 +1402,7 @@ function search(completeReceipt) {
             	<th style="display:none;"></th>
                 <th id="amountItems" align="left">#</th>
                 <th id="productItem" align="left">Name</th>
+                <th id="customerNr" align="right">#</th>
                 <th id="priceHide" align="right">Price</th>
             </tr>
         </table>
