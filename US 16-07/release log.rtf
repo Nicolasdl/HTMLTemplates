@@ -1,0 +1,90 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 \ul \ulc0 05-12-2013\
+\ulnone * Added new option window.posEnableCombineItems which combines items taking into account the different courses.\
+* Header lines can now be deleted without it getting all mangled up.\
+* Added new option window.posShowOfferts which prints the offers even though prices of value zero are not printed.\
+* When a zero valued product has a priced addition, the product will be shown.\
+\
+\ul 08-12-2013\
+\ulnone * Fixed combineItems function where products with the same additions, but in different order, would not combine.\
+* Fixed bug where combineItems and sort function would mess up the amount of items.\
+* Service Charges are now supported, and is listed underneath the VAT.\
+\
+\ul 13-12-2013\
+\ulnone * Fixed a bug where the price of the addition was not multiplied by the amount when added to the price of the receipt item and additions were hidden.\
+\
+\ul 15-12-2013\
+\ulnone * Fixed a bug where manually changing the original price of a product in the app would cause problems on the receipt.\
+* It is now possible to use all sorting functions in combination. You can now for example use the combine items function, and then sort on name.\ul \
+\ulnone * All sorting functions can now be used in conjunction with each other in the kitchen template. You can now for example use the combine items function, and then sort on name.\
+\
+\ul 20-12-2014\
+\ulnone * Added credit card information to the receipt with signature line.\
+\
+\ul 03-03-2014\
+\ulnone * Receipts now support menu\'92s. Menu\'92s won\'92t be scrambled anymore and simply display the menu name and the items. An option is added to show the original headers as well (main course, dessert). Menu\'92s cannot be combined!\
+\
+\ul 12-03-2014\
+\ulnone * Fixed a bug when multiple items were in an AND-menu, the prices would not add up to the branches.\
+\
+\ul 07-04-2014\
+\ulnone * Separated discount products from regular products. Subtotal will appear.\ul \
+\ulnone * Added extra setting window.posCombineMenuAndRegularItems that will combine regular items and menu items on the kitchen template. Some people will not want this since products could be different in the menu\'92s. By default it is off.\ul \
+\ulnone * Added extra setting window.posShowMenuOnly that will only show the menu\'92s name and price. The subproducts and branches are not displayed.\
+* Fixed representation of credit cards.\
+\
+\ul 16-05-2014\
+\ulnone * Fixed bug where combination of items did not combine the amount of additions resulting in wrong display of addition prices.\
+\
+\ul 19-05-2014\
+\ulnone * Fixed bug where product without addition and same product with priced addition would combine leaving out the priced additionValue if the product without addition came first in the receipt.\
+\
+\ul 28-05-2014\
+\ulnone * Fixed bug where credit payments did not subtract/add to the current amount of credits.\
+\
+\ul 30-05-2014\
+\ulnone * Fixed bug where 1 product with vat 0 could lead to error.\
+\
+\ul 13-06-2014\
+\ulnone * Fixed bug where products with kitchenName would never show the name of the product if changed.\
+* Sent products with negative amount will be put in bold and italic.\
+\
+\ul 18-06-2014\
+\ulnone * Fixed a rare bug that could occur when the new version of the app (2.11) in combination with the old server version (3.01) doubled discounts.\
+\
+\ul 19-06-2014\
+\ulnone * Removed a check too much that causes zero priced products with priced additions to not show on the receipt.\
+\
+\ul 25-06-2014\
+\ulnone * Added setting window.posSplitDiscounts, by default on which will not combine the discounts but list them separately.\
+\
+\ul 27-06-2014\
+\ulnone * Added check that fixed some swipe cards to throw an exception.\
+\
+\ul 01-07-2014\ulnone \
+* Added extra setting to charge room.\
+* Added extra setting to split tax into multiple tax values.\
+\
+\ul 04-07-2014\
+\ulnone * Added extra setting window.posShowUnitPrice, by default off, which shows the unit price.\
+\
+\ul 05-07-2014\
+\ulnone * Added extra setting window.posShowCustomerNr, by default off, showing the assigned cst. #. For the moment not to be combined with window.posShowPrice.\
+\
+\ul 07-07-2014\
+\ulnone * Made sure combine function also takes customerNr into account.\
+\
+\ul 08-07-2014\
+\ulnone * Added extra setting window.posCourseIndication which indicates each course with a header.\
+\
+\ul 09-07-2014\
+\ulnone * Added extra setting window.posCourseIndicationWithoutIncrement.\
+* Made sure that receipts after reprint display SC correctly.\
+\
+\ul 16-07-2014\
+\ulnone * Discounts were no longer being shown on the receipt if the receipt was already finalised/voided.}

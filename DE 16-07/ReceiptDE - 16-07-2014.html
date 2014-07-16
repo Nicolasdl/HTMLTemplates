@@ -1,0 +1,1964 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    <title>Revised by Nico - 16-07-2014</title>
+	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+	<!--<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>-->
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="jquery.qrcode.min.js"></script> <!-- https://github.com/jeromeetienne/jquery-qrcode -->
+	<script type="text/javascript" src="moment.min.js"></script>
+    <script>
+    /*
+	Array.allIndexOf(searchElement)
+	  Array [Array] - the array to search within for the searchElement
+	  searchElement [String] - the desired element with which to find starting indexes
+	*/
+	(function(){
+	  Array.prototype.allIndexOf = function(searchElement) {
+	    if (this === null) { return [-1]; }
+	    var len = this.length,
+	    hasIndexOf = Array.prototype.indexOf, // you know, because of IE
+	    i = (hasIndexOf) ? this.indexOf(searchElement) : 0,
+	    n,
+	    indx = 0,
+	    result = [];
+	    if (len === 0 || i === -1) { return [-1]; }
+	    if (hasIndexOf) {
+	      // Array.indexOf does exist
+	      for (n = 0; n <= len; n++) {
+	        i = this.indexOf(searchElement, indx);
+	        if (i !== -1) {
+	          indx = i + 1;
+	          result.push(i);
+	        } else {
+	          return result;
+	        }
+	      }
+	      return result;
+	    } else {
+	    // Array.indexOf doesn't exist
+	      for (n = 0; n <= len; n++) {
+	        if (this[n] === searchElement) {
+	          result.push(n);
+	        }
+	      }
+	      return (result.length > 0) ? result : [-1];
+	    }
+	  };
+	})();
+	</script>
+	<style type="text/css">
+		/* HTML */
+		html,body {
+			margin: 0px;
+			width: 100%;
+			/*width:576px;*/        
+		}
+        h1,h2 {
+            margin: 0px;
+        }        
+        table { 
+			border: none;
+			border-collapse:collapse
+        }        
+        th {
+            margin: 0px;
+        }
+		img {
+			max-width:576px;
+		}
+		p {
+			margin: 0px;
+		}
+
+		/* Classes */
+		.name {
+			text-align:left;
+			width: 60%;
+		}
+		.amountPaid {	
+			width: 100%;
+			text-align:right;	
+		}
+		.price, .unitPrice {
+            text-align:right;
+			/*width: 7em;*/
+		}
+		.tipPaid {
+			width:100%;
+			text-align:right;
+		}
+        td.total {
+            width:100%;
+			text-align:right;
+        }		
+		td.amountPayed {
+			width:100%;
+			text-align:right;	
+		}
+		.floatLeft {
+			float: left;
+		}
+		.floatRight {
+			float: right;
+		}
+		.borderTop {
+			border-top: 1px solid black;
+		}
+		.borderBottom {
+			border-bottom: 1px solid black;
+		}
+		th.alignLeft {
+			text-align: left;
+		}
+		th.alignRight {
+			text-align: right;
+		}
+		td.alignRight {
+			text-align: right;
+		}
+		.spreadEvenly {
+			width: 100%;
+			text-align: center;
+		}
+		.topLine {
+			 border-top: 1px solid black;
+		}
+		.widthHundred {
+			width: 100%;
+		}
+		.widthFifty {
+			width: 50%;
+		}
+		.alignRight {
+			text-align: right;
+		}
+		
+    	/* IDs */
+        #header {
+            border-bottom: 1px solid black;		
+        }    		
+		#receiptItemsList {
+			width: 100%;
+		}	
+		#totalAmount {			
+			width: 100%;			
+		}
+		#paymentsTable { 
+			width: 100%;
+		}
+		#totalTip {
+			width: 100%;
+		}
+		#subtotals {
+			width: 100%;
+			border-bottom: 1px solid black;			
+		}
+		#totals {
+			width: 100%;
+			border-bottom: 1px solid black;
+		}
+		#discounts {
+			width: 100%;
+		}		
+		#totalAmount {
+			width: 100%;
+		}
+		#totalTip {	
+			width: 100%;	
+		}
+		#change	{
+			width: 100%	
+		}
+        #footer p {
+            margin: 0;
+        }        		
+		#paymentType {
+            width:100%;
+        }
+        #total .right {
+            text-align:right;
+        }        
+        #vat {            
+            width:100%;  
+        }		
+		#netPrice {			
+			width:100%;			
+		}		
+        #marginClearRight {
+			clear: right;
+		}
+		#marginClearLeft {
+			clear:left;
+		}
+		#firstRow {
+			width: 10%;
+		}
+		#vatPercent {		
+			width: 60%;	
+		}
+		#gratuityPercent {
+			width: 60%;
+		}
+		#promotionText {
+			display:inline-block;
+			width: 80%;
+			margin-bottom: 5px !important;	
+		}
+		#promotionTextThin {
+			display:inline-block;
+			width: 80%;
+			border: thin solid black;
+			margin-bottom: 5px !important;	
+		}
+		#promotionTextMedium {
+			display:inline-block;
+			width: 80%;
+			border: medium solid black;
+			margin-bottom: 5px !important;	
+		}
+		#promotionTextThick {
+			display:inline-block;
+			width: 80%;
+			border: thick solid black;
+			margin-bottom: 5px !important;	
+		}
+		#promotionTextDiv {
+			margin: 5px;
+		}
+		#thankYouTextDiv {
+			margin: 5px;
+		}
+		#restaurantInfo {
+			margin: 5px;
+		}
+		#takeAwayInfo {
+			display: inline-block;
+			width: 100%;
+			margin: 5px;
+		}
+		#qrCode {
+			margin: 10px;
+		}
+		#centeredCompanyInfo {
+			width: 600px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#signature {
+			margin-bottom: 10px;
+		}
+	</style>
+    <script id="headerTemplate" type="text/x-jquery-tmpl">
+        <div style="text-align:center">
+        	<img src="${template.logoUrl}" />
+        </div>  
+      
+        <br style="clear:both"/>
+        {{if window.posTemplateAvailable == 1}}
+			{{if checkIfNotZeroEmptyOrNull(template)}}
+				{{if template.title != ""}}
+					{{if window.posTitleWithUnderline == 1}}
+						<div align="center" i21B='bigFontSize' style="text-decoration:underline;">${template.title}</div>
+					{{else}}
+						<div align="center" id="title" i21B='bigFontSize'>${template.title}</div>
+					{{/if}}
+				{{/if}}
+			{{/if}}
+		{{/if}}
+
+		{{if window.posUserAvailable == 1 && window.posTableAvailable == 1 && window.posReceiptAvailable == 1}}
+			{{if checkIfNotZeroEmptyOrNull(user) && checkIfNotZeroEmptyOrNull(table) && checkIfNotZeroEmptyOrNull(receipt.type)}}
+				{{if template.showWaiterTableTime == 1}} 
+					<div id="waiter" i21D='defaultFontSize'>
+						<div class="floatLeft"><p>${table.name}</p></div>
+						<div class="floatRight"><p align="right">${dateToString("", 1)}</p></div>
+						<div class="floatLeft" id="marginClearLeft"><p>${receipt.numberOfCustomers} Personen</p></div>
+						<div class="floatRight" id="marginClearRight"><p>${receipt.sequenceNumber}</p></div>
+						{{if isDineIn(receipt.type)}}
+							<div class="floatLeft" id="marginClearLeft"><p>Dine in</p></div>
+						{{else}}
+							<div class="floatLeft" id="marginClearLeft"><p>Take-out</p></div>
+						{{/if}}
+						<div class="floatRight" id="marginClearRight"><p>${user.username}</p></div>
+						{{if window.posCustomerAvailable == 1}}
+							{{if checkIfNotZeroEmptyOrNull(customer.firstname) && checkIfNotZeroEmptyOrNull(customer.lastname)}}
+								<div class="floatLeft" id="marginClearLeft"><p><b>${markUpName(customer.firstname)} ${markUpName(customer.lastname)}</b></p></div>
+							{{else checkIfNotZeroEmptyOrNull(customer.firstname) && !checkIfNotZeroEmptyOrNull(customer.lastname)}}
+								<div class="floatLeft" id="marginClearLeft"><p><b>${markUpName(customer.firstname)}</b></p></div>
+							{{else checkIfNotZeroEmptyOrNull(customer.lastname) && !checkIfNotZeroEmptyOrNull(customer.firstname)}}
+								<div class="floatLeft" id="marginClearLeft"><p><b>${markUpName(customer.lastname)}</b></p></div>
+							{{/if}}
+						{{/if}}
+					 </div>
+				{{/if}}
+			{{/if}}
+		{{/if}}
+    </script>
+	<script id="receiptItemsTemplate" type="text/x-jquery-tmpl">
+		{{if !(priceTypeId == 11 && parentRiReceiptId != 0 && window.posShowBranches == 0) && !(priceTypeId == 12 && parentRiReceiptId != 0 && window.posShowBranches == 0)}}
+		{{if priceTypeId < 51 || priceTypeId > 56}}
+		{{if (priceTypeId < 60 || priceTypeId > 61) && (priceTypeId < 70 || priceTypeId > 77)}}
+			<tr>
+				{{if price == 0}}
+					{{if window.posShowZeroValuedPricesProducts == 1 || (window.posShowZeroValuedPricesProducts == 0 && productIsOffert(name) || calculateAdditionsPrices(additionValues, 1) > 0)}}
+						<td id="hiddenRow" style="display:none;">${line}</td>
+						{{if parentRiReceiptId != 0}}
+							<td class="amount" i21D='defaultFontSize' id="firstRow"></td>
+						{{else}}
+							<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+						{{/if}}
+						{{if parentRiReceiptId != 0}}
+							<td class="name" i21D='defaultFontSize'>   - ${name}</td>
+						{{else}}
+							<td class="name" i21D='defaultFontSize'>${name}</td>
+						{{/if}}
+						{{if window.posShowPrice == 1}}
+							{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
+								{{if window.posShowAdditions == 1}}
+									{{if amount < 0 || amount > 1}}
+										<td class="unitPrice" i21D='defaultFontSize'>${(price).toFixed(2)}</td>
+										<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+									{{else}}
+										<td class="unitPrice" i21D='defaultFontSize'>${(price).toFixed(2)}</td>
+										<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+									{{/if}}
+								{{else}}
+									{{if amount < 0 || amount > 1}}
+										<td class="unitPrice" i21D='defaultFontSize'>${(price + (calculateAdditionsPrices(additionValues, 2))).toFixed(2)}</td>
+										<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									{{else}}
+										<td class="unitPrice" i21D='defaultFontSize'>${(price + (calculateAdditionsPrices(additionValues, 2))).toFixed(2)}</td>
+										<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+									{{/if}}
+								{{/if}}
+							{{else}}
+								<td></td><td></td>
+							{{/if}}
+						{{/if}}
+					{{else productIsOffert(name) == true}}
+						{{if window.posShowAdditions == 1}}
+							{{if amount < 0 || amount > 1}}
+								<td class="unitPrice" i21D='defaultFontSize'>${(price).toFixed(2)}</td>
+								<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+							{{else}}
+								<td class="unitPrice" i21D='defaultFontSize'>${(price).toFixed(2)}</td>
+								<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+							{{/if}}
+						{{else}}
+							{{if amount < 0 || amount > 1}}
+								<td class="unitPrice" i21D='defaultFontSize'>${(price + (calculateAdditionsPrices(additionValues, 2))).toFixed(2)}</td>
+								<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+							{{else}}
+								<td class="unitPrice" i21D='defaultFontSize'>${(price + (calculateAdditionsPrices(additionValues, 2))).toFixed(2)}</td>
+								<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+							{{/if}}
+						{{/if}}					
+					{{else}}
+						<td></td><td></td><td></td><td></td>
+					{{/if}}
+				{{else}}
+					<td id="hiddenRow" style="display:none;">${line}</td>
+					{{if parentRiReceiptId != 0}}
+						<td class="amount" i21D='defaultFontSize' id="firstRow"></td>
+					{{else}}
+						<td class="amount" i21D='defaultFontSize' id="firstRow">${amount}</td>
+					{{/if}}
+					{{if parentRiReceiptId != 0}}
+						<td class="name" i21D='defaultFontSize'>   - ${name}</td>
+					{{else}}
+						<td class="name" i21D='defaultFontSize'>${name}</td>
+					{{/if}}
+					{{if window.posShowPrice == 1}}
+						{{if (priceTypeId == 11 || priceTypeId == 12) || parentRiReceiptId == 0}}
+							{{if window.posShowAdditions == 1}}
+								{{if amount < 0 || amount > 1}}
+									<td class="unitPrice" i21D='defaultFontSize'>${(price).toFixed(2)}</td>
+									<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+								{{else}}
+									<td class="unitPrice" i21D='defaultFontSize'>${(price).toFixed(2)}</td>
+									<td class="price" i21D='defaultFontSize'>${(amount*price).toFixed(2)}</td>
+								{{/if}}
+							{{else}}
+								{{if amount < 0 || amount > 1}}
+									<td class="unitPrice" i21D='defaultFontSize'>${(price + (calculateAdditionsPrices(additionValues, 2))).toFixed(2)}</td>
+									<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+								{{else}}
+									<td class="unitPrice" i21D='defaultFontSize'>${(price + (calculateAdditionsPrices(additionValues, 2))).toFixed(2)}</td>
+									<td class="price" i21D='defaultFontSize'>${(amount*price + (calculateAdditionsPrices(additionValues, 1))).toFixed(2)}</td>
+								{{/if}}
+							{{/if}}
+						{{else}}
+							<td></td><td></td>
+						{{/if}}
+					{{/if}}
+				{{/if}}
+			</tr>
+			
+			{{if additionValues.length && window.posShowAdditions == 1 && price != 0}}
+				{{tmpl(additionValues) "#additionValueTemplate"}}
+			{{else productIsOffert(name)}}
+				{{tmpl(additionValues) "#additionValueOffertTemplate"}}
+			{{else}} 
+				{{if additionValues.length && window.posShowAdditions == 1 && price == 0 && window.posShowZeroValuedAdditions == 1 && window.posShowZeroValuedPricesProducts == 1}}
+					{{tmpl(additionValues) "#additionValueTemplate"}}
+				{{else additionValues.length && window.posShowAdditions == 1 && price == 0 && calculateAdditionsPrices(additionValues, 1) > 0}}
+					{{tmpl(additionValues) "#additionValueTemplate"}}
+				{{/if}}
+			{{/if}}
+		{{/if}}
+		{{/if}}
+		{{/if}}
+	</script>
+    <script id="additionValueTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			<td></td>
+			{{if price == 0}}
+				{{if window.posShowZeroValuedAdditions == 1}}
+					{{if info == ""}}	
+						<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
+					{{else}}
+						<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
+					{{/if}}
+					{{if window.posShowPrice == 1}}
+						<td class="unitPrice" i21S='smallFontSize' style="font-style:italic;">${(price).toFixed(2)}</td>
+						<td class="price" i21S='smallFontSize' style="font-style:italic;">${(amount*price).toFixed(2)}</td>
+					{{else}}
+						<td></td><td></td>
+					{{/if}}
+				{{else}}
+					<td></td><td></td><td></td>
+				{{/if}}
+			{{else}}
+				{{if info == ""}}	
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}:</td>
+				{{else}}
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
+				{{/if}}					
+				{{if window.posShowPrice == 1}}
+					<td class="unitPrice" i21S='smallFontSize' style="font-style:italic;">${(price).toFixed(2)}</td>
+					<td class="price" i21S='smallFontSize' style="font-style:italic;">${(amount*price).toFixed(2)}</td>
+				{{else}}
+					<td></td><td></td>
+				{{/if}}
+			{{/if}}			
+		</tr>  
+	</script>
+    <script id="additionValueOffertTemplate" type="text/x-jquery-tmpl">
+    	{{if oid == 0}}
+			<tr>
+				<td></td>
+				{{if info == ""}}	
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
+				{{else}}
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${info} ${name}</td>
+				{{/if}}
+				<td></td>
+				<td></td>
+			</tr>
+		{{/if}} 
+	</script>
+	<script id="subtotalsTemplate" type="text/x-jquery-tmpl">
+		<tr>		
+			<th class="alignLeft" i21D='defaultFontSize'>Zwischensumme</th>
+			<td i21D='defaultFontSize' class="floatRight"><b>${calculateSubtotal(total).toFixed(2)}</b></td>		
+		</tr>
+	</script>	
+	<script id="discountsTemplate" type="text/x-jquery-tmpl">
+		<tr>
+			{{if window.posSplitDiscounts == 0}}
+				<th class="alignLeft" i21D='defaultFontSize' style="font-weight: normal;">Rabatt</th>
+				<td i21D='defaultFontSize' class="floatRight">${calculateDiscount(completeReceipt.receipt).toFixed(2)}</td>
+			{{else}}
+				<th class="alignLeft" i21D='defaultFontSize' style="font-weight: normal;">${name}</th>
+				<td i21D='defaultFontSize' class="floatRight">${(price * amount).toFixed(2)}</td>
+			{{/if}}
+		</tr>
+	</script>
+	<script id="gratuityTemplate" type="text/x-jquery-tmpl">
+		{{if (priceTypeId > 59 && priceTypeId < 68 && price != 0) || (priceTypeId > 69 && priceTypeId < 78 && price != 0)}}
+			<tr>
+				<th id="gratuityPercent" class='alignLeft' i21D='defaultFontSize' style="font-weight: normal;">${name}</th>
+				<td i21D='defaultFontSize' class="alignRight" style='width:40%;'>${price.toFixed(2)}<td>
+			</tr>			
+		{{/if}}
+	</script>
+	<script id="receiptTotals" type="text/x-jquery-tmpl">
+		<tr>		
+			<th class="alignLeft" i21D='defaultFontSize'>Summe</th>
+			<td i21D='defaultFontSize' class="floatRight"><b>€ ${total.toFixed(2)}</b></td>		
+		</tr>
+	</script> 
+	<script id="vatTemplate" type="text/x-jquery-tmpl">
+		{{if window.posVatAvailable == 1}}
+			{{if price != 0}}
+				<tr>
+					<td id="vatPercent" i21D='defaultFontSize'><p2>MWSt ${vat}%:</p2></td>
+					<td i21D='defaultFontSize' class="alignRight">${(price - price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}		</td>
+					<td i21D='defaultFontSize' class="alignRight">${(price*vat/(100.0+parseFloat(vat))).toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>			
+					<td i21D='defaultFontSize' class="floatRight">${price.toFixed(window.completeReceipt.template.nrOfDecimalsToRoundVATTo)}</td>
+				</tr>	
+			{{/if}}
+		{{/if}}
+	</script>
+	<script id="tablePaymentTypes" type="text/x-jquery-tmpl">
+		{{if window.posShowPayments == 1}}
+			<tr>		
+				<th id="paymentType" i21D='defaultFontSize'><p2 align="left">Bezahlung</p2></td>
+				<td class="total" i21D='defaultFontSize'><p2 align="right">Betrag</p2></td>		
+			</tr>	
+		{{/if}}	
+	</script>
+	<script id="paymentTypeTemplate" type="text/x-jquery-tmpl">
+	{{if window.posPaymentsAvailable == 1}}
+		{{if window.posShowPayments == 1}}
+			<tr>
+				<td class="paymentType" i21D='defaultFontSize' id="firstRow">${type}</td>
+				<td class="total" i21D='defaultFontSize' id="firstRow">${amount.toFixed(2)}</td>
+			</tr>
+		{{/if}}
+	{{/if}}
+	</script> 
+	<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
+		{{if window.posPaymentsAvailable == 1 && window.posReceiptAvailable == 1}}
+			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
+				<tr>
+					{{if payments}}
+						<td class="totalAmountPaid" i21D='defaultFontSize'><b>Bezahlt</b</td>
+					{{/if}}
+					
+					 {{if payments}}
+						<td class="amountPaid" i21D='defaultFontSize'><b>${getPayment(payments).toFixed(2)}<b></td>
+					{{/if}}
+					
+					{{if typeof(payments) == "undefined"}}
+						<td class="amountPaid" i21D='defaultFontSize'>${receipt.total.toFixed(2)}</td>
+					{{/if}}		
+				</tr>
+			{{/if}}
+		{{/if}}
+	</script> 
+	<script id="totalTipTemplate" type="text/x-jquery-tmpl">
+		{{if window.posPaymentsAvailable == 1}}
+			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
+				<tr>
+					<th class="tip" i21D='defaultFontSize'>+Tip</th>
+					<td class="tipPaid" i21D='defaultFontSize'>${getTotalTip(payments).toFixed(2)}</td>
+				</tr>
+			{{/if}}
+		{{/if}}
+	</script>
+	<script id="changeTemplate" type="text/x-jquery-tmpl">
+		{{if window.posPaymentsAvailable == 1}}     
+			<table id="change">
+				{{if window.posShowPayments == 1}}				
+					<tr>
+						{{if getChange(receipt.total,payments) > 0}}
+							<th i21D='defaultFontSize'>Wechselgeld</th>
+							<td class="tipPaid" i21D='defaultFontSize'><b>${getChange(receipt.total,payments).toFixed(2)}</b></td>
+						{{else getChange(receipt.total,payments) < 0}}
+							<th i21D='defaultFontSize'>Saldo</th>
+							<td class="tipPaid" i21D='defaultFontSize'><b>${ ((getChange(receipt.total,payments)) * -1).toFixed(2)}</b></td>
+						{{/if}}
+					</tr>
+				{{/if}}
+		{{/if}}
+	</script>
+	<script id="promotionTemplate" type="text/x-jquery-tmpl">
+		{{if window.posTemplateAvailable == 1}}
+			{{if checkIfNotZeroEmptyOrNull(completeReceipt.template.thankYouText)}}
+				{{if window.posEnableThankYouSubline == 1}}
+					<div i21B='bigFontSize' id="thankYouTextDiv" class="borderBottom spreadEvenly">
+						<p>${completeReceipt.template.thankYouText}</p>
+					</div>
+				{{else}}                     
+					<div i21B='bigFontSize' id="thankYouTextDiv" class="spreadEvenly">
+						<p>${completeReceipt.template.thankYouText}</p>
+					</div>		
+				{{/if}}
+			{{/if}}
+			{{if checkIfNotZeroEmptyOrNull(completeReceipt.template.promotionText)}}
+				{{if window.posEnablePromotionSubline == 1}}
+					<div i21D='defaultFontSize' id ="promotionTextDiv" class="borderBottom spreadEvenly">
+						{{if window.posThicknessOfFramePromotion == 1}}
+							<p id="promotionTextThin">${completeReceipt.template.promotionText}</p>
+						{{else window.posThicknessOfFramePromotion == 2}}
+							<p id="promotionTextMedium">${completeReceipt.template.promotionText}</p>
+						{{else window.posThicknessOfFramePromotion == 3}}
+							<p id="promotionTextThick">${completeReceipt.template.promotionText}</p>
+						{{else}}
+							<p id="promotionText">${completeReceipt.template.promotionText}</p>
+						{{/if}}
+					</div>
+				{{else}}
+					<div i21D='defaultFontSize' id ="promotionTextDiv" class="spreadEvenly">
+						{{if window.posThicknessOfFramePromotion == 1}}
+							<p id="promotionTextThin">${completeReceipt.template.promotionText}</p>
+						{{else window.posThicknessOfFramePromotion == 2}}
+							<p id="promotionTextMedium">${completeReceipt.template.promotionText}</p>
+						{{else window.posThicknessOfFramePromotion == 3}}
+							<p id="promotionTextThick">${completeReceipt.template.promotionText}</p>
+						{{else}}
+							<p id="promotionText">${completeReceipt.template.promotionText}</p>
+						{{/if}}
+					</div>		
+				{{/if}}
+			{{/if}}
+		{{/if}}
+	</script>
+	<script id="footerTemplate" type="text/x-jquery-tmpl">
+		{{if window.posCustomerAvailable == 1}}
+			{{if checkIfNotZeroEmptyOrNull(customer)}}
+				{{if window.posShowCustomerInfo == 1}}
+					<div id="takeAwayInfo" i21D='defaultFontSize'>
+						<div class="floatLeft">
+							{{if checkIfNotZeroEmptyOrNull(customer.firstname) && checkIfNotZeroEmptyOrNull(customer.lastname)}}
+								<p><b>${markUpName(customer.firstname)} ${markUpName(customer.lastname)}</b></p>
+							{{else checkIfNotZeroEmptyOrNull(customer.firstname) && !checkIfNotZeroEmptyOrNull(customer.lastname)}}
+								<p><b>${markUpName(customer.firstname)}</b></p>
+							{{else checkIfNotZeroEmptyOrNull(customer.lastname) && !checkIfNotZeroEmptyOrNull(customer.firstname)}}
+								<p><b>${markUpName(customer.lastname)}</b></p>
+							{{/if}}
+							{{if checkIfNotZeroEmptyOrNull(customer.street) && checkIfNotZeroEmptyOrNull(customer.streetNumber) && checkIfNotZeroEmptyOrNull(customer.zip) && checkIfNotZeroEmptyOrNull(customer.city)}}
+								<p>${customer.street} ${customer.streetNumber} ${customer.zip} ${customer.city}</p>
+							{{/if}}
+							{{if checkIfNotZeroEmptyOrNull(customer.telephone)}}
+								<p>${customer.telephone}</p>
+							{{/if}}
+							{{if checkIfNotZeroEmptyOrNull(customer.email)}}
+								<p>${customer.email}</p>
+							{{/if}}
+							{{if checkIfNotZeroEmptyOrNull(receipt.type)}}
+								<p>${receipt.type}</p>
+							{{/if}}
+							<p>${dateToString(receipt.deliveryDate, 1)}</p>
+							{{if checkIfNotZeroEmptyOrNull(customer.credits)}}
+								<p>New credit balance: ${customer.credits - window.posCredits}</p>	
+							{{/if}}
+						</div>	
+					</div>		
+				{{/if}}
+			{{/if}}
+		{{/if}}
+		{{if completeReceipt.template.showCompanyInfo == 1}}
+			<div id="restaurantInfo" i21D='defaultFontSize'>
+				{{if window.posEnableCustomerInfoCentering == 1 && receipt.url == ""}}
+					<div id="centeredCompanyInfo" class='spreadEvenly'>
+				{{else}}
+					<div class="floatLeft">				
+				{{/if}}
+					{{if window.posCompanyAvailable == 1 && window.posUserAvailable == 1}}
+						{{if checkIfNotZeroEmptyOrNull(company)}}
+								<p><b>${company.displayName}</b></p>
+								<p>${company.street} ${company.streetNumber}</p>
+								<p>${company.zip} ${company.city}</p>
+								<p>${company.telephone}</p>
+								<p>BTW BE ${company.vat}</p>
+								<p>${company.url}</p>
+								<p>${user.email}</p>
+							</div>	
+						{{/if}}
+					{{/if}}
+			</div>
+		{{/if}}
+		{{if checkIfNotZeroEmptyOrNull(template.bottomLogoUrl)}}
+			{{if window.posShowBottomLogo == 1}}
+				{{if window.posEnableBottomLogoTopline == 1}}
+					<div class="borderTop" style="text-align:center;clear:both">
+				{{else}}
+					<div style="text-align:center;clear:both;">
+				{{/if}}
+						<img src="${template.bottomLogoUrl}"/>
+					</div>
+			{{/if}}
+		{{/if}}
+	</script>
+    <script id="amountDueTemplate" type="text/x-jquery-tmpl">
+    	<tr>
+    		<th i21D='defaultFontSize' class="floatLeft">Fälliger Saldo</th>
+    		<td i21D='defaultFontSize' class="floatRight"><b>${(receipt.total + (calculateTip(payments))).toFixed(2)}</b></td>
+    	</tr>
+    </script>
+    <script id="signatureTemplate" type="text/x-jquery-tmpl">
+    	<div id="signatureDiv">
+	    	<p><b>Karteninformationen</b></p>
+	    	<p class="floatLeft widthFifty">Karten-Typ:</p><p class="floatRight widthFifty alignRight">${cardHolder}</p>
+	    	<p class="floatLeft widthFifty">Kreditkartennummer:</p><p class="floatRight widthFifty alignRight">${cardNumber}</p>
+	    	<br/></br></br></br>
+	    	<p style="border-bottom:1px dotted;">Unterschrift:</p>
+	    </div>
+    </script>
+	<script type="text/javascript">      
+function dateToString(passedDate, option) {
+	//var date = new Date(time);
+	//return moment(date).format('LLL');
+	if(option == 1) {
+		//var time = 'AM';
+		if(passedDate)
+			var date = new Date(passedDate);
+		else
+			var date = new Date();	
+		var dd = date.getDate();
+		var mm = date.getMonth() + 1;
+		var hh = date.getHours();
+		var m = date.getMinutes();
+		var apm = 'AM';
+		if(date.getDate() < 9)
+			dd = '0' + date.getDate();
+		if(date.getMonth() < 9)
+			mm = '0' + (date.getMonth() + 1);
+/*		if(date.getHours() > 12) {
+			hh = hh - 12;
+			time = 'PM';
+		}*/
+		if(date.getHours() < 10)
+			hh = '0' + hh;
+		if(date.getMinutes() < 10)
+			m = '0' + m;
+		var stringTime = mm + '/' + dd + '/' + date.getFullYear() + ' ' + hh + ":" + m;// + ' ' + time;
+		return stringTime;
+	}
+	if(option == 2) {
+		var date = new Date();
+		var mm = date.getMonth() + 1;
+		var dd = date.getDate();
+		
+		if(dd < 10)
+			dd = '0' + dd;
+		if(mm < 10)
+			mm = '0' + mm;
+		var stringTime = mm + '/' + dd + '/' + date.getFullYear();
+		return stringTime;
+	}
+}
+function ReceiptItem(amount, name,price) {
+	this.amount = amount;
+	this.name = name;
+	this.price = price;
+}
+				
+function getChange(receiptTotal,payments) {
+	return getPayment(payments) - receiptTotal - calculateTip(payments);	
+}
+
+function getTotalTip(payments) {
+	var totalTip = 0;
+		
+	if(!payments) {
+		return 0;	
+	}
+		
+	for (var pIndex in payments) {
+		if(payments.hasOwnProperty(pIndex)) {
+	  		var payment = payments[pIndex];
+					
+			if(payment) 
+		  		totalTip += payment.tips;
+		}
+	}			
+	return totalTip;
+}
+		
+function getPayment(payments) {
+	window.posCredits = 0.0;
+	var totalPayment = 0;
+		
+	if(!payments) {
+		return 0;	
+	}
+		
+	for (var pIndex in payments) {
+		if(payments.hasOwnProperty(pIndex)) {
+			var payment = payments[pIndex];
+			
+			if(payment) 
+				totalPayment += payment.amount;
+			if(payment.paymentTypeTypeId == 15)
+				window.posCredits += payment.amount;
+		}
+	}		
+	//var	totalTips = payments.tips;	
+	return totalPayment;	
+}
+
+function checkIfNotZeroEmptyOrNull(passedValue) {
+	if(typeof passedValue !== "undefined") {
+		if(!passedValue)
+			return false;
+		else
+			if(passedValue === "" || passedValue.length == 0)
+				return false;
+			else
+				return true;
+	}
+}
+
+function markUpName(passedName) {
+	return passedName[0].toUpperCase() + passedName.substring(1);
+}
+
+function isDineIn(receiptType) {
+	if(receiptType.toUpperCase() == "RESTAURANT" || receiptType.toUpperCase() == "BAR")
+		return true;
+	return false;
+}
+
+function removePrice() {
+	$('#unitPriceHide').remove();
+    $('#priceHide').remove();
+}
+
+function checkProductOfAdditionHasValueZero(passedId) {
+	for(var i = 0; i < window.completeReceipt.receipt.receiptItems.length; i++) {
+		var receiptItem = window.completeReceipt.receipt.receiptItems[i];
+		if(receiptItem.price == 0) {
+			for(var j = 0; j < receiptItem.additionValues.length; j++) {
+				var additionValue = receiptItem.additionValues[j];
+				if(additionValue.oid == passedId) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+function sortJsonArrayByProperty(objArray, prop, direction){
+    if (arguments.length<2) throw new Error("sortJsonArrayByProp requires 2 arguments");
+    var direct = arguments.length>2 ? arguments[2] : 1; //Default to ascending
+	var intRegex = /^\d+$/;
+
+	console.log(objArray);
+    //if (objArray && objArray.constructor===Array){
+	if(objArray) {
+        var propPath = (prop.constructor===Array) ? prop : prop.split(".");
+		console.log(propPath);
+        objArray.sort(function(a,b){
+            for (var p in propPath){
+				console.log(p);
+                if (a[propPath[p]] && b[propPath[p]]){
+                    a = a[propPath[p]];
+                    b = b[propPath[p]];
+                }
+            }
+			
+			if(!(intRegex.test(a) && intRegex.test(b))) {
+				// convert numeric strings to integers
+				a = a.match(/^\d+$/) ? +a : a;
+				b = b.match(/^\d+$/) ? +b : b;
+			}
+			return ( (a < b) ? -1*direct : ((a > b) ? 1*direct : 0) );
+        });
+    }
+}
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
+var sort_by;
+
+(function() {
+    // utility functions
+    var default_cmp = function(a, b) {
+            if (a == b) return 0;
+            return a < b ? -1 : 1;
+        },
+        getCmpFunc = function(primer, reverse) {
+            var dfc = default_cmp, // closer in scope
+                cmp = default_cmp;
+            if (primer) {
+                cmp = function(a, b) {
+                    return dfc(primer(a), primer(b));
+                };
+            }
+            if (reverse) {
+                return function(a, b) {
+                    return -1 * cmp(a, b);
+                };
+            }
+            return cmp;
+        };
+
+    // actual implementation
+    sort_by = function() {
+        var fields = [],
+            n_fields = arguments.length,
+            field, name, reverse, cmp;
+
+        // preprocess sorting options
+        for (var i = 0; i < n_fields; i++) {
+            field = arguments[i];
+            if (typeof field === 'string') {
+                name = field;
+                cmp = default_cmp;
+            }
+            else {
+                name = field.name;
+                cmp = getCmpFunc(field.primer, field.reverse);
+            }
+            fields.push({
+                name: name,
+                cmp: cmp
+            });
+        }
+
+        // final comparison function
+        return function(A, B) {
+            var a, b, name, result;
+            for (var i = 0; i < n_fields; i++) {
+                result = 0;
+                field = fields[i];
+                name = field.name;
+
+                result = field.cmp(A[name], B[name]);
+                if (result !== 0) break;
+            }
+            return result;
+        }
+    }
+}());
+
+function checkLine() {
+	if(window.posEnableSortOnCourseThenOnKitchenName == 1) {
+		var table = document.getElementById("receiptItemsList");
+		for (var i = 0, row; row = table.rows[i]; i++) {
+		   //iterate through rows
+		   //rows would be accessed using the "row" variable assigned in the for loop
+		   console.log(row.cells[0].innerHTML);
+		   if(row.cells[0].innerHTML == 1)
+		      row.className = "topLine";
+		}
+	}
+}
+
+function checkNotZero(value) {
+	for(var key in value){
+		if(value.hasOwnProperty(key))
+			if(value[key].tips > 0)
+				return true;
+	}
+	return false;
+}
+
+function calculateTip(totalPayments) {
+	var totalTip = 0;
+
+	for(var key in totalPayments) {
+		if(totalPayments.hasOwnProperty(key))
+			totalTip += totalPayments[key].tips;
+	}
+
+	return totalTip;
+}
+
+function deleteHeader(id) {
+	$("#" + id).remove();
+}
+
+function calculateAdditionsPrices(additions, option) {
+	var total = 0;
+
+	for(var key in additions) {
+		if(additions.hasOwnProperty(key)) {
+			// Option added for menus.
+			if(option == 2)
+				total += additions[key].price;
+			else
+				total += additions[key].price * additions[key].amount;
+		}
+	}
+
+	return total;
+}
+
+function flattenReceiptItemsHierarchy(items) {
+	if(!checkIfNotZeroEmptyOrNull(items))
+		return null;
+	else {
+		var res = new Array();
+		addReceiptItemsWithParentTo(items, 0, res);
+		// add orphaned items (shouldn't happen!)
+		if(items.length != res.length) {
+			for(var item in items)
+				if(items.hasOwnProperty(item))
+					if(!res.indexOf(items[item]) > 1)
+						res[res.length] = items[item];
+		}
+		return res;
+	}
+}
+
+function addPriceToMenu(items, passedItem) {
+	for(var item in items)
+		if(items.hasOwnProperty(item))
+			if((items[item].priceTypeId == 11 || items[item].priceTypeId == 12) && items[item].parentRiReceiptId == 0 && items[item].riReceiptId == passedItem.parentRiReceiptId) {
+				items[item].price += passedItem.price;
+				break;
+			}
+}
+ 
+function addReceiptItemsWithParentTo(items, parentRiReceiptId, res) {
+	for(var item in items) {
+		if(items.hasOwnProperty(item)) {
+			if(items[item].parentRiReceiptId == parentRiReceiptId) {
+				var counter = 1;
+				var encountered = 0;
+				if(res.length != 0 && items[item].parentRiReceiptId != 0 && items[item].priceTypeId != 11 && items[item].priceTypeId != 12) {
+					while(res.length - counter >= 0 && encountered == 0) {
+						console.log(items[item].name);
+						var foundRoot = 0;
+						var branchParent = -1;
+						while(res.length - counter >= 0 && foundRoot == 0) {
+							if(parentRiReceiptId == res[res.length - counter].riReceiptId) {
+								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+								branchParent = res[res.length - counter].parentRiReceiptId;
+								counter++;
+							}
+							while(branchParent != 0 && res[res.length - counter].riReceiptId == branchParent) {
+								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+								branchParent = res[res.length - counter].parentRiReceiptId;
+								counter++;
+							}
+							if(branchParent == 0)
+								foundRoot = 1;
+							counter++;
+						}
+/*						while(res.length - counter >= 0 && encountered == 0) {
+							if(res[res.length - counter].riReceiptId == parentRiReceiptId && encountered == 0 && res[res.length - counter].parentRiReceiptId != 0)
+								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+							if((res[res.length - counter].priceTypeId == 11 || res[res.length - counter].priceTypeId == 12) && res[res.length - counter].parentRiReceiptId == 0) {
+								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+								encountered++;
+							}
+							counter++;
+						}*/
+/*						if(res[res.length - counter].priceTypeId != 11 && res[res.length - counter].priceTypeId != 12)
+							counter++;
+						else {
+							res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+							encountered = 1;
+							while(res.length - ( counter + secCounter) >= 0)
+								if(res[res.length - (counter + secCounter)].priceTypeId )
+						}*/
+					}
+				}
+				res[res.length] = items[item];
+				if(items[item].riReceiptId != 0) {
+					addReceiptItemsWithParentTo(items, items[item].riReceiptId, res);			
+				}
+			}
+		}
+	}
+}
+
+// Need to be globally accessible for sorting
+var itemArray;
+var combinedMenuArray;
+
+function combineMenusAndItems(receiptItems) {
+	var receiptItemsToArray = new Array();
+	var combinedArray = new Array();
+
+	if(!checkIfNotZeroEmptyOrNull(receiptItems))
+		return receiptItemsToArray;
+
+	// Store all receipt items in an array
+	for(var receiptItem in receiptItems)
+		if(receiptItems.hasOwnProperty(receiptItem))
+			receiptItemsToArray.push(receiptItems[receiptItem]);
+
+	var menuItemArray = new Array();
+	itemArray = new Array();
+
+	// Go over the different receipt items and divide menus from regular items
+	for(var i = 0; i < receiptItemsToArray.length; i++) {
+		console.log((receiptItemsToArray[i].name));
+		if(checkIfMenu(receiptItemsToArray[i]) || checkMenuItem(receiptItemsToArray[i]))
+			menuItemArray.push(receiptItemsToArray[i]);
+		else
+			itemArray.push(receiptItemsToArray[i]);
+	}
+
+	// Combine regular items
+	itemArray = combineItems(itemArray);
+
+	// Split up the menu's
+	var menuArray = new Array();
+	var counter = -1;
+
+	for(var i = 0; i < menuItemArray.length; i++) {
+		if(checkIfMenu(menuItemArray[i]) && menuItemArray[i].parentRiReceiptId == 0) {
+			counter++;
+			menuArray[counter] = new Array();
+			menuArray[counter].push(menuItemArray[i]);
+		}
+		else
+			menuArray[counter].push(menuItemArray[i]);
+	}
+
+	// Now the tough job, combining menu's
+	var storedMenu = new Array();
+	var storedMenuDetails = new Array();
+	combinedMenuArray = new Array();
+	var counter = 0;
+
+	for(var j = 0; j < menuArray.length; j++) {
+		if(j == 0) {
+			storedMenu[0] = new Array();
+			storedMenu[0].push(menuArray[0]);
+			combinedMenuArray[0] = new Array();
+			combinedMenuArray[0].push(menuArray[0]);
+			storedMenuDetails[0] = new Array();
+			storedMenuDetails[0].push(menuArray[0][0].name);
+			storedMenuDetails[0].push(menuArray[0].length);
+			storedMenuDetails[0].push(menuArray[0][0].price);
+			storedMenuDetails[0].push(getBranchNames(menuArray[0]));
+			counter++;
+		}
+		else {
+			var index = menuDetailsPresent(menuArray[j], storedMenuDetails);
+			if(index != -1) {
+				var flag = 0;
+				for(var i = 0; i < index.length; i++) {
+					if(checkIfMenuIsSame(menuArray[j], storedMenu[index[i]])) {
+						for(var h = 0; h < menuArray[index[i]].length; h++)
+							combinedMenuArray[index[i]][0][h].amount += menuArray[j][h].amount;
+						flag++;
+					}
+				}
+				if(flag == 0) {
+					storedMenu[counter] = new Array();
+					storedMenu[counter].push(menuArray[j]);
+					combinedMenuArray[counter] = new Array();
+					combinedMenuArray[counter].push(menuArray[j]);
+					storedMenuDetails[counter] = new Array();
+					storedMenuDetails[counter].push(menuArray[j][0].name);
+					storedMenuDetails[counter].push(menuArray[j].length);
+					storedMenuDetails[counter].push(menuArray[j][0].price);
+					storedMenuDetails[counter].push(getBranchNames(menuArray[j]));
+					counter++;
+				}
+			}
+			else {
+				storedMenu[counter] = new Array();
+				storedMenu[counter].push(menuArray[j]);
+				combinedMenuArray[counter] = new Array();
+				combinedMenuArray[counter].push(menuArray[j]);
+				storedMenuDetails[counter] = new Array();
+				storedMenuDetails[counter].push(menuArray[j][0].name);
+				storedMenuDetails[counter].push(menuArray[j].length);
+				storedMenuDetails[counter].push(menuArray[j][0].price);
+				storedMenuDetails[counter].push(getBranchNames(menuArray[j]));
+				counter++;
+			}
+		}
+	}
+
+	for(var j = 0; j < itemArray.length; j++)
+		combinedArray.push(itemArray[j]);
+	for(var j = 0; j < combinedMenuArray.length; j++)
+		for(h = 0; h < combinedMenuArray[j][0].length; h++)
+			combinedArray.push(combinedMenuArray[j][0][h]);
+
+	// We made it!
+	return combinedArray;
+}
+
+function checkIfMenu(item) {
+	if(item.priceTypeId == 11 || item.priceTypeId == 12)
+		return true;
+	return false;
+}
+
+function checkMenuItem(item) {
+	if(item.priceTypeId != 11 && item.priceTypeId != 12 && item.parentRiReceiptId != 0)
+		return true;
+	return false;
+}
+
+function getBranchNames(menu) {
+	var branchNames = new Array();
+
+	for(var i = 0; i < menu.length; i++)
+		if((menu[i].priceTypeId == 11 || menu[i].priceTypeId == 12) && menu[i].parentRiReceiptId != 0)
+			branchNames.push(menu[i].name);
+
+	return branchNames.sort();
+}
+
+function menuDetailsPresent(menu, storedMenuDetails) {
+	var name = menu[0].name;
+	var length = menu.length;
+	var price = menu[0].price;
+	var branchNames = getBranchNames(menu);
+	var index = new Array();
+	
+	for(var i = 0; i < storedMenuDetails.length; i++) {
+		if(storedMenuDetails[i][0] === name && storedMenuDetails[i][1] == length && storedMenuDetails[i][2] == price && storedMenuDetails[i][3].length == branchNames.length) {
+			for(var j = 0; j < branchNames.length; j++) {
+				if(!branchNames[j] === storedMenuDetails[i][j])
+					break;
+			}
+			index.push(i);
+		}
+	}
+
+	return index.length > 0 ? index : -1;
+}
+
+function checkIfMenuIsSame(menu, storedMenu) {
+	if(menu.length == storedMenu[0].length) {
+		for(var i = 0; i < menu.length; i++) {
+			if(!isSameProduct(menu[i], storedMenu[0][i]))
+				return false;
+		}
+	}
+	else {
+		return false;
+	}
+	return true;
+}
+
+function combineItems(receiptItems) {
+	var receiptItemsToArray = new Array();
+
+	// Store all receipt items in an array
+	for(var receiptItem in receiptItems)
+		if(receiptItems.hasOwnProperty(receiptItem))
+			receiptItemsToArray.push(receiptItems[receiptItem]);
+
+	var combinedArray = new Array();
+	var checkedIds = new Array();
+
+	// Go over the different receipt items
+	for(var i = 0; i < receiptItemsToArray.length; i++) {
+		// Store first item
+		if(i == 0) {
+			combinedArray.push(receiptItemsToArray[i]);
+			checkedIds.push(receiptItemsToArray[i].pOid);
+		}
+		else if(receiptItemsToArray[i].priceTypeId == 11 || receiptItemsToArray[i].priceTypeId == 12 || receiptItemsToArray[i].parentRiReceiptId != 0) {
+			combinedArray.push(receiptItemsToArray[i]);			
+		}
+		else {
+			// Check if pOid has already been added to combinedArray
+			var foundIndex = checkedIds.allIndexOf(receiptItemsToArray[i].pOid);
+			if(foundIndex < 0) {
+				// The pOid has not been added yet
+				combinedArray.push(receiptItemsToArray[i]);
+				checkedIds.push(receiptItemsToArray[i].pOid);				
+			}
+			else if(foundIndex.length > 1) {
+				var flag = 0;
+				// Check each index to check if the product has the same details as the one stored
+				for(var index = 0; index < foundIndex.length; index++) {
+					// Check if the product has the same details as the one stored
+					if(isSameProduct(combinedArray[foundIndex[index]], receiptItemsToArray[i])) {
+						combinedArray[foundIndex[index]].amount += receiptItemsToArray[i].amount;
+						for(var addition in combinedArray[foundIndex[index]].additionValues)
+							if(combinedArray[foundIndex[index]].additionValues.hasOwnProperty(addition))
+								combinedArray[foundIndex[index]].additionValues[addition].amount += receiptItemsToArray[i].amount;
+						flag++;
+					}				
+				}
+				if(flag < 1) {
+					combinedArray.push(receiptItemsToArray[i]);
+					checkedIds.push(receiptItemsToArray[i].pOid);
+				}
+				else if(flag > 1) {
+					console.log("Something went wrong here. This is not possible.");
+				}
+
+			}
+			else {
+				// Check if the product has the same details as the one stored
+				if(isSameProduct(combinedArray[foundIndex], receiptItemsToArray[i])) {
+					combinedArray[foundIndex].amount += receiptItemsToArray[i].amount;
+					for(var addition in combinedArray[foundIndex].additionValues)
+						if(combinedArray[foundIndex].additionValues.hasOwnProperty(addition))
+							combinedArray[foundIndex].additionValues[addition].amount += receiptItemsToArray[i].amount;
+				}
+				else {
+					combinedArray.push(receiptItemsToArray[i]);
+					checkedIds.push(receiptItemsToArray[i].pOid);				
+				}
+			}
+		}
+	}
+
+	var correctArray = new Array();
+	
+	for(var key in combinedArray)
+		if(combinedArray.hasOwnProperty(key))
+			if(combinedArray[key].amount != 0)
+				correctArray.push(combinedArray[key]);
+	return correctArray;
+}
+
+function isSameProduct(storedReceiptItem, newReceiptItem) {
+	if(storedReceiptItem.name === newReceiptItem.name) {
+		// Check if unit price is the same
+		if(storedReceiptItem.price == newReceiptItem.price) {
+			// Check if the additions are the same
+			if(storedReceiptItem.additionValues.length == newReceiptItem.additionValues.length)
+				if(storedReceiptItem.additionValues.length != 0)
+					if(areSameAdditions(storedReceiptItem.additionValues, newReceiptItem.additionValues))
+						return true;
+					else
+						return false;
+				else
+					return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	else {
+		return false;
+	}
+}
+
+function areSameAdditions(storedAdditions, newAdditions) {
+	var storedAdditionsToArray = new Array();
+	var newAdditionsToArray = new Array();
+
+	// Store all additions in an array
+	for(var addition in storedAdditions)
+		if(storedAdditions.hasOwnProperty(addition))
+			storedAdditionsToArray.push(storedAdditions[addition]);
+
+	for(var addition in newAdditions)
+		if(newAdditions.hasOwnProperty(addition))
+			newAdditionsToArray.push(newAdditions[addition]);
+
+	storedAdditionsToArray.sort(compareAdditions);
+	newAdditionsToArray.sort(compareAdditions);
+
+	if(storedAdditionsToArray.length == newAdditionsToArray.length) {
+		var flag = 0;
+		for(var i = 0; i < storedAdditionsToArray.length; i++) {
+			if(storedAdditionsToArray[i].additionId == newAdditionsToArray[i].additionId
+				&& storedAdditionsToArray[i].name == newAdditionsToArray[i].name
+				&& storedAdditionsToArray[i].price == newAdditionsToArray[i].price
+				&& storedAdditionsToArray[i].oid == newAdditionsToArray[i].oid
+				&& storedAdditionsToArray[i].priceWithoutVAT == newAdditionsToArray[i].priceWithoutVAT)
+				flag++;
+			else
+				return false;
+		}
+		if(flag > 0)
+			return true;
+		else
+			return false;
+	}
+	else
+		return false;
+}
+
+function compareAdditions(a,b) {
+  if (a.oid < b.oid)
+     return -1;
+  if (a.oid > b.oid)
+    return 1;
+  return 0;
+}
+
+function addReceiptItemsAmountToAdditions(receiptItems) {
+	for(var key in receiptItems) {
+		if(receiptItems.hasOwnProperty(key)) {
+			for(var key2 in receiptItems[key].additionValues)
+				if(receiptItems[key].additionValues.hasOwnProperty(key2))
+					receiptItems[key].additionValues[key2].amount = receiptItems[key].amount;
+		}
+	}
+}
+
+function productIsOffert(productName) {
+	if(productName.indexOf('*') > -1)
+		return true;
+	return false;
+}
+
+function sortNumber(a,b) {
+    return a - b;
+}
+
+function checkPaymentOptionalInfoPresent(payments) {
+	var creditCardPayments = new Array();
+	for(var key in payments)
+		if(payments.hasOwnProperty(key))
+			if(checkIfNotZeroEmptyOrNull(payments[key].optionalInfo))
+				creditCardPayments.push(payments[key]);
+	if(creditCardPayments.length != 0)
+		return creditCardPayments;
+	else
+		return null;
+}
+
+function calculateDiscount(receipts) {
+	var discount = 0;
+
+	checkIfNotZeroEmptyOrNull(receipts.actionReceiptItems)
+		for(var key in receipts.actionReceiptItems)
+			if(receipts.actionReceiptItems.hasOwnProperty(key))
+				if(isDiscount(receipts.actionReceiptItems[key]))
+					discount += receipts.actionReceiptItems[key].price * receipts.actionReceiptItems[key].amount;
+
+	checkIfNotZeroEmptyOrNull(receipts.receiptItems)
+		for(var key in receipts.receiptItems)
+			if(receipts.receiptItems.hasOwnProperty(key))
+				if(isDiscount(receipts.receiptItems[key]))
+					discount += receipts.receiptItems[key].price * receipts.receiptItems[key].amount;
+
+	return discount;
+}
+
+function calculateServiceCharge(receipts) {
+	var serviceCharge = 0;
+
+	checkIfNotZeroEmptyOrNull(receipts.actionReceiptItems)
+		for(var key in receipts.actionReceiptItems)
+			if(receipts.actionReceiptItems.hasOwnProperty(key))
+				if(isServiceCharge(receipts.actionReceiptItems[key]))
+					serviceCharge += receipts.actionReceiptItems[key].price * receipts.actionReceiptItems[key].amount;
+
+	checkIfNotZeroEmptyOrNull(receipts.receiptItems)
+		for(var key in receipts.receiptItems)
+			if(receipts.receiptItems.hasOwnProperty(key))
+				if(isServiceCharge(receipts.receiptItems[key]))
+					serviceCharge += receipts.receiptItems[key].price * receipts.receiptItems[key].amount;
+
+	return serviceCharge;
+}
+
+function calculateSubtotal(total) {
+	return total - calculateDiscount(completeReceipt.receipt) - calculateServiceCharge(completeReceipt.receipt);
+}
+
+function isServiceCharge(product) {
+	var serviceChargeIds = [60, 61, 70, 71, 72, 73, 74, 75, 76, 77];
+	if(serviceChargeIds.indexOf(product.priceTypeId) > -1)
+		return true;
+	return false;
+}
+
+function isDiscount(product) {
+	var discountIds = [51, 52, 53, 54, 55, 56];
+	if(discountIds.indexOf(product.priceTypeId) > -1)
+		return true;
+	return false;
+}
+
+function calculateSubtotal(total) {
+	return total - calculateDiscount(completeReceipt.receipt) - calculateServiceCharge(completeReceipt.receipt);
+}
+
+function isServiceCharge(product) {
+	var serviceChargeIds = [60, 61, 70, 71, 72, 73, 74, 75, 76, 77];
+	if(serviceChargeIds.indexOf(product.priceTypeId) > -1)
+		return true;
+	return false;
+}
+
+function isDiscount(product) {
+	var discountIds = [51, 52, 53, 54, 55, 56];
+	if(discountIds.indexOf(product.priceTypeId) > -1)
+		return true;
+	return false;
+}
+	
+/*http://ec2.posios.com:8080/posimages/demo_10/images/users/*/
+function search(completeReceipt) {
+	console.log('testje:' + completeReceipt.company.displayName);
+	
+	// Make sure completeReceipt is globally accessible
+	window.completeReceipt = completeReceipt;
+	// When set to 1, an underline will be added to the title.
+	window.posTitleWithUnderline = 0;
+	// When set to 1, a line will be drawn underneath the receipt info.
+	window.posEnableInfoSubline = 1;
+	// When set to 1, the prices will be shown.
+	window.posShowPrice = 1;
+	// When set to 1, additions of value zero will be printed.
+	window.posShowZeroValuedAdditions = 0;
+	// When set to 1, the prices of the products with a value of zero will be printed.
+	window.posShowZeroValuedPricesProducts = 1;
+	// When set to 1, additions will be printed.
+	window.posShowAdditions = 1;
+	// When set to 1, a line will be drawn underneath the body of the receipt.
+	window.posEnableBodySubline = 1;
+	// When set to 1, a line will be drawn underneath the change.
+	window.posEnableChangeSubline = 1;
+	// When set to 1, a line will be drawn underneath the tip.
+	window.posEnableTipSubline = 1;
+	// When set to 1, a line will be drawn underneath the VAT.
+	window.posEnableVATSubline = 1;
+	// When set to 1, a line will be drawn underneath the thank you text.
+	window.posEnableThankYouSubline = 1;
+	// When set to 1, a line will be drawn underneath the promotion text.
+	window.posEnablePromotionSubline = 1;
+	// When set to 1, a thin line will be drawn around the promotion text. 2 will draw a medium one, 3 a thick one. Default: no frame.
+	window.posThicknessOfFramePromotion = 2;
+	// When set to 1, the bottom logo will be printed provided the URL is correct.
+	window.posShowBottomLogo = 1;
+	// When set to 1, a line will be drawn underneath the bottom logo.
+	window.posEnableBottomLogoTopline = 1;
+	// When set to 1, the customer info will be shown at the bottom of the receipt.
+	window.posShowCustomerInfo = 1;
+	// When set to 1, a line will be drawn underneath the customer info.
+	window.posEnableCustomerSubline = 1;
+	// When set to 1, the customer information will be centered. *** When enabling this option, reset the width of the div with ID centeredCompanyInfo so that the div will actually be in the center ***.
+	window.posEnableCustomerInfoCentering = 0;
+	// Set this value to order by. Supported values are 'receiptItems.name', 'receiptItems.pId' (PLU), 'receiptItems.modificationDate'. When set to "", no ordering will happen.
+	window.posOrderBy = "";
+	// When set to 1, the items will be ordered in ascending order. -1 Will do the opposite.
+	window.posOrderDirection = -1;
+	// When set to 1, the payments will be shown.
+	window.posShowPayments = 1;
+	// When set to 1, a custom sort function is called. This cannot be used in conjuction with window.posOrderBy.
+	window.posEnableSortOnCourseThenOnKitchenName = 0;
+	// When set to 1, a subline will be drawn underneath total amount due.
+	window.posEnableAmountDueSubline = 1;
+	// When set to 1, the payment header "Payment" and "Amount" will be shown.
+	window.posShowHeadersPaymentTypes = 1;
+	// When set to 1, a line will be drawn between the courses.
+	 window.posEnableCourseLines = 0;
+	// When set to 1, offerts will be shown even though products with price zero are not shown.
+	window.posShowOfferts = 1;
+	// When set to 1, the receipt items will be combined. The app does not recognise the same items when the additions have been entered in a different order. This function will combine them.
+	window.posEnableCombineItems = 1;
+	// When set to 0, the headers of the receipt items will not be shown (#, Name, Price).
+	window.posShowReceiptItemsHeaders = 0;
+	// When set to 1, the titles of the menus/choices will be printed.
+	window.posShowBranches = 0;
+	// When set to 1, only the menu name will be displayed without the branches and products.
+	window.posShowMenuOnly = 0;
+	// When set to 1, discounts will not be combined and instead listed per VAT percentage.
+	window.posSplitDiscounts = 1;
+	//When set to 1, the unit price will be shown.
+	window.posShowUnitPrice = 0;
+	// When set to 1, multiple debug lines will be pinted to see where the error occurs when princing the receipt.
+	window.posEnableDebug = 0;
+	// These are values which test if objects are present. Do not touch.
+	window.posCustomerAvailable = 0;
+	window.posCompanyAvailable = 0;
+	window.posReceiptAvailable = 0;
+	window.posTemplateAvailable = 0;
+	window.posUserAvailable = 0;
+	window.posTableAvailable = 0;
+	window.posVatAvailable = 0;
+	window.posBarItemsAvailable = 0;
+	window.posKitchenItemsAvailable = 0;
+	window.posPaymentsAvailable = 0;
+	window.posProductCategoriesAvailable = 0;
+	window.posAdditionValuesAvailable = 0;
+	window.posCount = 0;
+
+	/*
+	* Hiermee kan je een element verbergen.
+	*
+	* style="visibility:hidden"
+	*/
+	
+	if(window.posEnableBodySubline == 1) {
+		var table = document.getElementById("receipt");
+		table.className = "borderBottom";
+	}
+	
+	if(window.posEnableInfoSubline == 1) {
+		var table = document.getElementById("receiptItemsList");
+		table.className = "borderTop";
+	}
+	
+	if(window.posEnableChangeSubline == 1) {
+		var table = document.getElementById("change");
+		table.className = "borderBottom";
+	}	
+	
+	if(window.posEnableVATSubline == 1) {
+		var table = document.getElementById("vat");
+		table.className = "borderBottom";
+	}
+	
+	if(window.posEnableTipSubline == 1 && checkNotZero(completeReceipt.payments)) {
+		var table = document.getElementById("totalTip");
+		table.className = "borderBottom";
+	}
+
+	if(window.posEnableAmountDueSubline == 1) {
+		var table = document.getElementById("amountDue");
+		table.className = table.className + " borderBottom";
+	}
+
+	if(window.posCustomerAvailable == 1) {
+		if (window.posShowCustomerInfo == 1 && window.posEnableCustomerSubline == 1) {
+			var table = document.getElementById("takeAwayInfo");
+			table.className = "borderBottom";
+		}
+	}
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Printing will start.</p>");
+
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.customer) && (checkIfNotZeroEmptyOrNull(completeReceipt.customer.firstname) || checkIfNotZeroEmptyOrNull(completeReceipt.customer.lastname)))
+		window.posCustomerAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.company))
+		window.posCompanyAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt))
+		window.posReceiptAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.template))
+		window.posTemplateAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.user))
+		window.posUserAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.table))
+		window.posTableAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.vat))
+		window.posVatAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.barItems))
+		window.posBarItemsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.kitchenItems))
+		window.posKitchenItemsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.payments))
+		window.posPaymentsAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.productCategories))
+		window.posProductCategoriesAvailable = 1;
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.additionValues))
+		window.posAdditionValuesAvailable = 1;
+
+	$( "#headerTemplate" ).tmpl(completeReceipt).appendTo("#header");
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Header printed.</p>");
+
+	$( "#promotionTemplate" ).tmpl(completeReceipt).appendTo("#promotion");
+	
+	if(completeReceipt.template.showCompanyInfo==1){
+		$( "#footerTemplate" ).tmpl(completeReceipt).appendTo("#footer");
+	}
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Company info has been printed.</p>");
+	
+	//$( "#receiptItemsTemplate" ).tmpl( receiptItemsArray ).appendTo( "#receiptItemsList" );
+	addReceiptItemsAmountToAdditions(completeReceipt.receipt.receiptItems);
+	var discountItems = new Array();
+	var gratuityItems = new Array();
+	if(window.posEnableCombineItems == 1) {
+		if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems) || checkIfNotZeroEmptyOrNull(completeReceipt.receipt.receiptItems)) {
+			var items = new Array();
+			for(var key in completeReceipt.receipt.receiptItems) {
+				if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
+					if(!isDiscount(completeReceipt.receipt.receiptItems[key]) && !isServiceCharge(completeReceipt.receipt.receiptItems[key]))
+						items.push(completeReceipt.receipt.receiptItems[key]);
+					else if(isDiscount(completeReceipt.receipt.receiptItems[key]))
+						discountItems.push(completeReceipt.receipt.receiptItems[key]);
+					else if(isServiceCharge(completeReceipt.receipt.receiptItems[key]))
+						gratuityItems.push(completeReceipt.receipt.receiptItems[key]);
+			}
+			for(var key in completeReceipt.receipt.actionReceiptItems) {
+				if(completeReceipt.receipt.actionReceiptItems.hasOwnProperty(key))
+					if(!isDiscount(completeReceipt.receipt.actionReceiptItems[key]) && !isServiceCharge(completeReceipt.receipt.actionReceiptItems[key]))
+						items.push(completeReceipt.receipt.actionReceiptItems[key]);
+			}
+			//completeReceipt.receipt.receiptItems = combineItems(items);
+			completeReceipt.receipt.receiptItems = combineMenusAndItems(flattenReceiptItemsHierarchy(items));
+		}
+		if(window.posShowMenuOnly == 1) {
+			var indexToDelete = new Array();
+			for(var key in completeReceipt.receipt.receiptItems)
+				if(completeReceipt.receipt.receiptItems.hasOwnProperty(key)) {
+					if(completeReceipt.receipt.receiptItems[key].parentRiReceiptId != 0)
+						indexToDelete.push(key);
+				}
+			for(var i = indexToDelete.length - 1; i >= 0; i--)
+				completeReceipt.receipt.receiptItems.splice(indexToDelete[i], 1);
+		}
+	}
+
+	if (window.posEnableSortOnCourseThenOnKitchenName == 1) {
+		var count = itemArray.length;
+
+		for(var i = 0; i < itemArray.length; i++) {
+			for (var key in completeReceipt.productCategories) {
+				if(completeReceipt.productCategories.hasOwnProperty(key))
+					for(var key2 in completeReceipt.productCategories[key].products)
+						if(completeReceipt.productCategories[key].products.hasOwnProperty(key2))
+							for(var j = 0; j < completeReceipt.productCategories[key].products[key2].displayNames.length; j++) {
+								if(completeReceipt.productCategories[key].products[key2].displayNames[j] == itemArray[i].name)
+										itemArray[i].order = completeReceipt.productCategories[key].printOrder;
+							}
+			}
+		}
+
+		cmp = function(x, y) {
+	    	return x > y ? 1 : x < y ? -1 : 0; 
+		};
+
+		//var sortedArray = productArray.sort(dynamicSort("order"));
+		var sorted2 = itemArray.sort(function(a, b){
+	    //note the minus before -cmp, for descending order
+	    	return cmp ( 
+	        	[cmp(a.order, b.order), cmp(a.name, b.name)], 
+	        	[cmp(b.order, a.order), cmp(b.name, a.name)]
+	    	);
+		});
+
+		for(var key in sorted2) {
+			if(sorted2.hasOwnProperty(key)) {
+				if(key != 0) {
+					if(sorted2[key].order > sorted2[key-1].order)
+						sorted2[key].line = 1;
+				}
+			}
+		}
+
+		for(var j = 0; j < combinedMenuArray.length; j++)
+			for(h = 0; h < combinedMenuArray[j][0].length; h++)
+				sorted2.push(combinedMenuArray[j][0][h]);
+	}
+	else if(window.posOrderBy != "") {
+		sortJsonArrayByProperty(itemArray, window.posOrderBy, window.posOrderDirection);
+		var itemsArray = new Array();
+		if(checkIfNotZeroEmptyOrNull(itemsArray)) {
+			for(var j = 0; j < itemArray.length; j++)
+				itemsArray.push(itemArray[j]);
+			for(var j = 0; j < combinedMenuArray.length; j++)
+				for(h = 0; h < combinedMenuArray[j][0].length; h++)
+					itemsArray.push(combinedMenuArray[j][0][h]);
+		}
+	}
+
+	if(window.posEnableSortOnCourseThenOnKitchenName == 1)
+		completeReceipt.receipt.receiptItems = sorted2;
+	if(window.posEnableSortOnCourseThenOnKitchenName == 0 && window.posOrderBy != "")
+		window.completeReceipt.receipt.receiptItems = completeReceipt.receipt.receiptItems;
+	$( "#receiptItemsTemplate" ).tmpl( completeReceipt.receipt.receiptItems ).appendTo( "#receiptItemsList" );
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Receipt items have been printed.</p>");
+
+	var discount = calculateDiscount(completeReceipt.receipt);
+	var service = calculateServiceCharge(completeReceipt.receipt);
+	if(discount != 0) {
+		if(window.posSplitDiscounts == 0)	
+			$("#discountsTemplate").tmpl().appendTo("#discounts");
+		else {
+			var discountsArray = [];
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems))
+				for(var key in completeReceipt.receipt.actionReceiptItems)
+					if(completeReceipt.receipt.actionReceiptItems.hasOwnProperty(key))
+						if(isDiscount(completeReceipt.receipt.actionReceiptItems[key]))
+							discountsArray.push(completeReceipt.receipt.actionReceiptItems[key]);
+			if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.receiptItems))
+				for(var key in completeReceipt.receipt.receiptItems)
+					if(completeReceipt.receipt.receiptItems.hasOwnProperty(key))
+						if(isDiscount(completeReceipt.receipt.receiptItems[key]))
+							discountsArray.push(completeReceipt.receipt.receiptItems[key]);
+			$("#discountsTemplate").tmpl(discountsArray).appendTo("#discounts");
+		}
+	}
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Discounts have been printed.</p>");
+
+	if(completeReceipt.template.showTotalPrice==1) {
+		if(discount != 0 || service != 0)
+			$( "#subtotalsTemplate" ).tmpl( completeReceipt.receipt ).appendTo( "#subtotals" );
+		else
+			$("#subtotals").removeClass("border-bottom");
+		$( "#receiptTotals" ).tmpl( completeReceipt.receipt ).appendTo( "#totals" );
+	}
+	//$( "#receiptTotalTemplate" ).tmpl( completeReceipt.receipt ).prependTo( "#totals" );
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Receipt totals have been printed.</p>");
+
+	//Zorgt voor dat vat gelezen wordt
+	var vatArray = [];
+				
+	for(var key in completeReceipt.vat) {
+		if(completeReceipt.vat[key] != 0)
+			vatArray.push({vat:key,price:completeReceipt.vat[key]});
+		//document.write( index + " : " + items[index] + "<br />");
+	}
+
+	vatArray.sort();
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>VAT has been printed.</p>");
+	
+	completeReceipt.vat = vatArray;
+			
+	if(completeReceipt.template.showVat==1){
+		$("#vat").show();
+		$( "#vatTemplate" ).tmpl( vatArray ).appendTo( "#vat" );
+	}else{
+		$("#vat").hide();
+	}
+		
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>VAT2 has been printed.</p>");
+
+	if(checkIfNotZeroEmptyOrNull(completeReceipt.receipt.actionReceiptItems) || checkIfNotZeroEmptyOrNull(completeReceipt.receipt.receiptItems)) {
+		$("#gratuityTemplate").tmpl(completeReceipt.receipt.actionReceiptItems).appendTo("#gratuity");
+		$("#gratuityTemplate").tmpl(completeReceipt.receipt.receiptItems).appendTo("#gratuity");
+	}
+	
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Gratuity has been printed.</p>");
+
+	if(typeof completeReceipt.payments !== "undefined") {
+			if(completeReceipt.payments.length > 0) {
+				$( "#paymentTypeTemplate" ).tmpl( completeReceipt.payments ).appendTo( "#paymentsTable" );
+				if(window.posShowHeadersPaymentTypes == 0)
+					deleteHeader("paymentHeader");
+				//$( "#tablePaymentTypes" ).tmpl( ).prependTo( "#paymentsTable" );
+			}
+		
+		if (completeReceipt.payments.length == 0) {	
+			//$( "#paymentTypeTemplate" ).tmpl( completeReceipt.payments ).appendTo( "#amountDue" );
+			$( "#paymentsTable" ).remove();
+		}
+		if (completeReceipt.payments && completeReceipt.payments.length > 0)	
+		$( "#totalAmountTemplate" ).tmpl( completeReceipt ).appendTo( "#totalAmount" );
+	}
+
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Payments have been printed.</p>");
+	
+	if(getTotalTip(completeReceipt.payments) > 0 && window.posShowPrice == 1) {
+		$( "#totalTipTemplate" ).tmpl( completeReceipt ).appendTo( "#totalTip" );
+	}
+
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Tip has been printed.</p>");
+
+	if (completeReceipt.payments && completeReceipt.payments.length > 0)		
+		$( "#changeTemplate" ).tmpl( completeReceipt ).appendTo( "#change" );
+
+	if(window.posEnableDebug == 1)
+		$('#errors').append("<p>Change has been printed.</p>");
+	
+	if(completeReceipt.receipt.url && completeReceipt.receipt.url !== undefined && completeReceipt.receipt.url !== null && completeReceipt.receipt.url !== ""){
+		$('#restaurantInfo').qrcode({width: 150,height: 150,text: completeReceipt.receipt.url});
+	}
+	
+	if(document.getElementsByTagName('canvas')[0]) {
+		var canvas = document.getElementsByTagName('canvas')[0];
+		canvas.className = "floatRight";
+		canvas.id = "qrCode";
+		var theDiv = document.getElementById("restaurantInfo");
+		theDiv.appendChild(canvas);
+	}
+
+	if(completeReceipt.payments.length != 0 && calculateTip(completeReceipt.payments) > 0)
+		$("#amountDueTemplate").tmpl(completeReceipt).appendTo("#amountDue");
+
+	if(completeReceipt.payments.length != 0) {
+		var payments = checkPaymentOptionalInfoPresent(completeReceipt.payments);
+		if(payments != null)
+			for(var i = 0; i < payments.length; i++) {
+				var paymentInformation = new Object();
+				var cardInformation = payments[i].optionalInfo.split(";");
+				paymentInformation.cardHolder = cardInformation[0];
+				paymentInformation.cardNumber = cardInformation[1].substring(0, cardInformation[1].length - 4).replace(/\d/g,'X') + cardInformation[1].substring(cardInformation[1].length - 4);
+				$("#signatureTemplate").tmpl(paymentInformation).appendTo("#signature");
+			}
+	}
+			
+	jQuery("[i21D='defaultFontSize']").each(function(i,e){
+	 //console.log($(e));
+	 $(e).css({"font-family":completeReceipt.template.fontName});
+	 $(e).css({"font-size":completeReceipt.template.fontSize});
+	});
+   
+	jQuery("[i21B='bigFontSize']").each(function(i,e){
+	 //console.log($(e));
+	 $(e).css({"font-family":completeReceipt.template.bigFontName});
+	 $(e).css({"font-size":completeReceipt.template.bigFontSize});
+	}); 
+	
+	jQuery("[i21S='smallFontSize']").each(function(i,e){
+	 //console.log($(e));
+	 $(e).css({"font-family":completeReceipt.template.smallFontName});
+	 $(e).css({"font-size":completeReceipt.template.smallFontSize});
+	});  
+	if(window.posEnableSortOnCourseThenOnKitchenName == 1 && window.posEnableCourseLines == 1)
+    	checkLine();
+    if(window.posShowUnitPrice == 0) {
+    	$("#unitPriceHide").remove();
+    	$(".unitPrice").remove();
+    	$(".price").css("width", "40%");
+    }
+	if(window.posShowPrice == 0) {
+		removePrice();     
+		$(".name").css("width", "100%");
+	}
+	if(window.posShowReceiptItemsHeaders == 0)
+		$('#receiptItemsList tr:nth-child(1)').remove();
+}		
+</script>
+</head>
+<body style="background:#fff">
+	<div id="errors"></div>
+	<div id="header"></div>
+	<div id="receipt" i21D='defaultFontSize'>
+        <table id="receiptItemsList">
+            <tr>
+            	<th style="display:none;"></th>
+                <th id="amountItems" align="left">#</th>
+                <th id="productItem" align="left">Name</th>
+                <th id="unitPriceHide" align="right">Einh.</th>
+                <th id="priceHide" align="right">Preis</th>
+            </tr>
+        </table>
+	</div>
+	<table id="subtotals">
+	</table>
+    <table id="gratuity" i21D='defaultFontSize'>
+    </table>
+  	<table id="discounts">
+  	</table>
+  	<table id="totals">
+  	</table>
+ 	<table id="amountDue" class="widthHundred">
+  	</table>   
+    <table id="netPrice">
+    </table>   
+    <table id="paymentsTable">
+		<tr i21D='defaultFontSize' id="paymentHeader"><th align="left">Bezahlung</th><th align="right">Betrag</th></tr>  
+  	</table>
+  	<table id="totalAmount">
+  		<tr><th></th><th></th></tr>
+  	</table>
+  	<table id="change">  
+    </table>
+  	<table id="totalTip">
+  	</table>       
+    <table id="vat" i21D='smallFontSize'>
+        <tr>
+        	<th id="vatPercent"></th>
+            <th class="alignRight">Netto</th>
+            <th class="alignRight">MWSt</th>
+            <th class="floatRight">Summe</th>
+       </tr>
+    </table>
+    <div id="promotion">
+    </div>
+  	<div id="signature" i21D='defaultFontSize'>
+  	</div>  
+    <div id="footer">
+    </div>
+</body>
+</html>
