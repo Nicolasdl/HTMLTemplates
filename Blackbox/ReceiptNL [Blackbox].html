@@ -555,7 +555,7 @@
 	</script> 
 	<script id="totalAmountTemplate" type="text/x-jquery-tmpl">
 		{{if window.posPaymentsAvailable == 1 && window.posReceiptAvailable == 1}}
-			{{if checkIfNotZeroEmptyOrNull(payments) && window.posShowPayments == 1}}
+			{{if checkIfNotZeroEmptyOrNull(payments) && getPayment(payments) && window.posShowPayments == 1}}
 				<tr>
 					{{if payments && window.isNoPayment == 0}}
 						<td class="totalAmountPaid" i21D='defaultFontSize'><b>Betaald</b</td>
@@ -1152,7 +1152,7 @@ function combineMenusAndItems(receiptItems) {
 				var flag = 0;
 				for(var i = 0; i < index.length; i++) {
 					if(checkIfMenuIsSame(menuArray[j], storedMenu[index[i]])) {
-						for(var h = 0; h < menuArray[index[i]].length; h++)
+						for(var h = 0; h < menuArray[j].length; h++)
 							combinedMenuArray[index[i]][0][h].amount += menuArray[j][h].amount;
 						flag++;
 					}
@@ -1459,7 +1459,7 @@ function calculateSubtotal(total) {
 }
 
 function isNoPayment(payment) {
-	if(payment.paymentTypeTypeId == 7)
+	if(payment.paymentTypeTypeId == 7 || payment.paymentTypeTypeId == 0)
 		return true;
 	return false;
 }

@@ -426,8 +426,12 @@
 						<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
 					{{/if}}
 					{{if window.posShowPrice == 1}}
-						<td class="unitPrice" i21S='smallFontSize' style="font-style:italic;">${(priceWithoutVAT).toFixed(2)}</td>
-						<td class="price" i21S='smallFontSize' style="font-style:italic;">${(amount*priceWithoutVAT).toFixed(2)}</td>
+						{{if window.posHideZeroValuedAdditionPrice == 0 || (window.posHideZeroValuedAdditionPrice == 1 && priceWithoutVAT != 0.0)}}
+							<td class="unitPrice" i21S='smallFontSize' style="font-style:italic;">${(priceWithoutVAT).toFixed(2)}</td>
+							<td class="price" i21S='smallFontSize' style="font-style:italic;">${(amount*priceWithoutVAT).toFixed(2)}</td>
+						{{else}}
+							<td class="unitPrice" i21S='smallFontSize' style="font-style:italic;"></td><td class="price" i21S='smallFontSize' style="font-style:italic;"></td>
+						{{/if}}
 					{{else}}
 						<td></td><td></td>
 					{{/if}}
@@ -436,7 +440,7 @@
 				{{/if}}
 			{{else}}
 				{{if info == ""}}	
-					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}:</td>
+					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
 				{{else}}
 					<td class="name" i21S='smallFontSize' style="font-style:italic;" id="firstRow">* ${name}</td>
 				{{/if}}					
@@ -1016,14 +1020,18 @@ function addReceiptItemsWithParentTo(items, parentRiReceiptId, res) {
 						var branchParent = -1;
 						while(res.length - counter >= 0 && foundRoot == 0) {
 							if(parentRiReceiptId == res[res.length - counter].riReceiptId) {
-								console.log(res[res.length - counter]);
-								res[res.length - counter].price += (items[item].price + calculateAdditionsPrices(items[item].additionValues, 2))/(100+items[item].vat)*100;
+								if(window.posShowAdditions == 1)
+									res[res.length - counter].price += (items[item].price)/(100+items[item].vat)*100;
+								else
+									res[res.length - counter].price += (items[item].price + calculateAdditionsPrices(items[item].additionValues, 2))/(100+items[item].vat)*100;
 								branchParent = res[res.length - counter].parentRiReceiptId;
 								counter++;
 							}
 							while(branchParent != 0 && res[res.length - counter].riReceiptId == branchParent) {
-								console.log(res[res.length - counter]);
-								res[res.length - counter].price += (items[item].price + calculateAdditionsPrices(items[item].additionValues, 2))/(100+items[item].vat)*100;
+								if(window.posShowAdditions == 1)
+									res[res.length - counter].price += (items[item].price)/(100+items[item].vat)*100;
+								else
+									res[res.length - counter].price += (items[item].price + calculateAdditionsPrices(items[item].additionValues, 2))/(100+items[item].vat)*100;
 								branchParent = res[res.length - counter].parentRiReceiptId;
 								counter++;
 							}
@@ -1508,6 +1516,8 @@ function search(completeReceipt) {
 	window.posShowZeroValuedPricesProducts = 1;
 	// When set to 1, additions will be printed.
 	window.posShowAdditions = 1;
+	// When set to 1, the additions with a price 0 will only show the name and hide the price of the modifier.
+	window.posHideZeroValuedAdditionPrice = 1;
 	// When set to 1, a line will be drawn underneath the body of the receipt.
 	window.posEnableBodySubline = 1;
 	// When set to 1, a line will be drawn underneath the change.
@@ -1814,7 +1824,7 @@ function search(completeReceipt) {
 	var vatArray = [];
 				
 	// Get rid of 0% tax
-	if(checkIfNotZeroEmptyOrNull(completeReceipt.vat[0]))
+	if(!checkIfNotZeroEmptyOrNull(completeReceipt.vat[0]))
 		delete completeReceipt.vat[0];
 				
 	for(var key in completeReceipt.vat) {

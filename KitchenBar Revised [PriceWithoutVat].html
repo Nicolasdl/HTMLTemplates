@@ -429,12 +429,6 @@
 			return serviceCharge;
 		}
 
-		function calculatePrice(total, tax) {
-			if(completeReceipt.company.vatInclusive == false)
-				return (total / (100 + tax) * 100);
-			return total;
-		}
-
 		function calculateSubtotalAndTax(receiptItems) {
 			window.posSubtotal = 0.0;
 			window.posTax = 0.0;
@@ -516,14 +510,14 @@
 							{{else}}
 								{{if window.posShowAdditions == 1}}
 									{{if window.posShowUnitPrice == 1}}
-										<td class="alignRight">${calculatePrice(price, vat).toFixed(window.posRoundToDecimals)}</td>
+										<td class="alignRight">${priceWithoutVat.toFixed(window.posRoundToDecimals)}</td>
 									{{/if}}
-									<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(window.posRoundToDecimals)}</td>
+									<td class="alignRight">${(amount * priceWithoutVat).toFixed(window.posRoundToDecimals)}</td>
 								{{else}}
 									{{if window.posShowUnitPrice == 1}}
-										<td class="alignRight">${((calculatePrice(price, vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+										<td class="alignRight">${((priceWithoutVat + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 									{{/if}}									
-									<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+									<td class="alignRight">${(((amount * priceWithoutVat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 								{{/if}}
 							{{/if}}
 						{{else}}
@@ -554,14 +548,14 @@
 						{{else}}
 							{{if window.posShowAdditions == 1}}
 								{{if window.posShowUnitPrice == 1}}
-									<td class="alignRight">${calculatePrice(price, vat).toFixed(window.posRoundToDecimals)}</td>
+									<td class="alignRight">${priceWithoutVat.toFixed(window.posRoundToDecimals)}</td>
 								{{/if}}
-								<td class="alignRight">${calculatePrice(amount * price, vat).toFixed(window.posRoundToDecimals)}</td>
+								<td class="alignRight">${(amount * priceWithoutVat).toFixed(window.posRoundToDecimals)}</td>
 							{{else}}
 								{{if window.posShowUnitPrice == 1}}
-									<td class="alignRight">${((calculatePrice(price, vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+									<td class="alignRight">${((priceWithoutVat + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 								{{/if}}
-								<td class="alignRight">${((calculatePrice((amount * price), vat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
+								<td class="alignRight">${(((amount * priceWithoutVat) + calculateAdditionsPrices(additionValues, 1))).toFixed(window.posRoundToDecimals)}</td>
 							{{/if}}
 						{{/if}}
 					{{else}}

@@ -488,7 +488,7 @@
 	<script id="receiptTotals" type="text/x-jquery-tmpl">
 		<tr>		
 			<th class="alignLeft" i21D='defaultFontSize'>Total</th>
-			<td i21D='defaultFontSize' class="floatRight"><b>€ ${total.toFixed(2)}</b></td>		
+			<td i21D='defaultFontSize' class="floatRight"><b>$ ${total.toFixed(2)}</b></td>		
 		</tr>
 	</script> 
 	<script id="vatTemplate" type="text/x-jquery-tmpl">
@@ -1016,12 +1016,18 @@ function addReceiptItemsWithParentTo(items, parentRiReceiptId, res) {
 						var branchParent = -1;
 						while(res.length - counter >= 0 && foundRoot == 0) {
 							if(parentRiReceiptId == res[res.length - counter].riReceiptId) {
-								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+								if(window.posShowAdditions == 1)
+									res[res.length - counter].price += items[item].price;
+								else
+									res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
 								branchParent = res[res.length - counter].parentRiReceiptId;
 								counter++;
 							}
 							while(branchParent != 0 && res[res.length - counter].riReceiptId == branchParent) {
-								res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
+								if(window.posShowAdditions == 1)
+									res[res.length - counter].price += items[item].price;
+								else
+									res[res.length - counter].price += items[item].price + calculateAdditionsPrices(items[item].additionValues, 2);
 								branchParent = res[res.length - counter].parentRiReceiptId;
 								counter++;
 							}
